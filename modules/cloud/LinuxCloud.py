@@ -82,6 +82,58 @@ class LinuxCloud(BaseCloud):
                                   && cd {shlex.quote(parent)} \
                                   && {config.install_cmd})',in_stream=False)
 
+        # Fix git remote if install_cmd specifies a different repository
+        # This handles cases where Docker images have pre-installed OneTrainer from upstream
+        if 'git clone' in config.install_cmd and 'github.com' in config.install_cmd:
+            # Extract repo URL and branch from install_cmd
+            import re
+            match = re.search(r'git clone.*?(?:-b\s+(\S+))?\s+(https://github\.com/[^\s]+)', config.install_cmd)
+            if match:
+                desired_branch = match.group(1)
+                desired_repo = match.group(2).rstrip('/')
+
+                # Check current remote
+                result = self.connection.run(
+                    f"cd {shlex.quote(config.onetrainer_dir)} && git remote get-url origin",
+                    warn=True, in_stream=False, hide=True
+                )
+
+                if result.exited == 0:
+                    current_repo = result.stdout.strip().rstrip('/')
+                    # Normalize URLs (remove .git suffix if present)
+                    current_repo = current_repo.rstrip('.git')
+                    desired_repo = desired_repo.rstrip('.git')
+
+                    if current_repo != desired_repo:
+                        print(f"[OneTrainer Cloud] Detected repository mismatch:")
+                        print(f"  Current: {current_repo}")
+                        print(f"  Desired: {desired_repo}")
+                        print(f"[OneTrainer Cloud] Updating git remote to match install_cmd...")
+
+                        self.connection.run(
+                            f"cd {shlex.quote(config.onetrainer_dir)} && "
+                            f"git remote set-url origin {shlex.quote(desired_repo)}",
+                            in_stream=False
+                        )
+
+                    # Check and fix branch if specified
+                    if desired_branch:
+                        result = self.connection.run(
+                            f"cd {shlex.quote(config.onetrainer_dir)} && git branch --show-current",
+                            warn=True, in_stream=False, hide=True
+                        )
+                        if result.exited == 0:
+                            current_branch = result.stdout.strip()
+                            if current_branch != desired_branch:
+                                print(f"[OneTrainer Cloud] Switching from branch '{current_branch}' to '{desired_branch}'...")
+                                self.connection.run(
+                                    f"cd {shlex.quote(config.onetrainer_dir)} && "
+                                    f"git fetch origin && "
+                                    f"git checkout {shlex.quote(desired_branch)} && "
+                                    f"git reset --hard origin/{shlex.quote(desired_branch)}",
+                                    in_stream=False
+                                )
+
         result=self.connection.run(f"test -d {shlex.quote(config.onetrainer_dir)}/venv",warn=True,in_stream=False)
 
         #many docker images, including the default ones on RunPod and vast.ai, only set up $PATH correctly
