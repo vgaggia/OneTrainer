@@ -14,7 +14,7 @@ debug*.py
 /training_concepts
 /training_samples
 /training_user_settings
-/external
+/external/models
 /update.var
 config.json
 secrets.json
@@ -36,4 +36,9 @@ pixi.toml
 /src
 train.bat
 debug_report.log
+CLAUDE.md
+.claude/settings.local.json
+# Test/reference files
+pr818*.py
+pr818*.patch
 config_diff.txt

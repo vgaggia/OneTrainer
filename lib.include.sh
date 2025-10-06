@@ -362,6 +362,8 @@ function install_requirements_in_active_env {
     # be upgraded to the same versions as a fresh reinstall of requirements.txt.
     print "Installing requirements in active environment..."
     run_pip_in_active_env install --upgrade --upgrade-strategy eager pip setuptools
+    # Set version for local mgds installation (parquet support)
+    export SETUPTOOLS_SCM_PRETEND_VERSION_FOR_MGDS="0.1.0+parquet"
     run_pip_in_active_env install --upgrade --upgrade-strategy eager -r requirements-global.txt -r "$(get_platform_requirements_path)"
     export OT_MUST_INSTALL_REQUIREMENTS="false"
 
