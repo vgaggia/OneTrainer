@@ -11,6 +11,8 @@ extend-exclude = [
     "src",
     # Do not lint the universal Python 2/3 version checker.
     "scripts/util/version_check.py",
+    # Vendored upstream Krea 2 transformer (ai-toolkit / krea oss); kept verbatim.
+    "modules/model/krea2/mmdit.py",
 ]
 line-length = 120
 

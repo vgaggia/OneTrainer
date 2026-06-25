@@ -387,6 +387,17 @@ def enable_checkpointing_for_z_image_transformer(
     ])
 
 
+def enable_checkpointing_for_krea2_transformer(
+        model: nn.Module,
+        config: TrainConfig,
+) -> LayerOffloadConductor:
+    # SingleStreamBlock.forward(self, x, vec, freqs, mask): only `x` flows block-to-block,
+    # so it is the lone offload-tracked activation; vec/freqs/mask are shared across blocks.
+    return enable_checkpointing(model, config, config.compile, [
+        (model.blocks, ["x"]),
+    ])
+
+
 def enable_checkpointing_for_sana_transformer(
         model: nn.Module,
         config: TrainConfig,
