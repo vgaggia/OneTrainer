@@ -35,14 +35,6 @@ set PYTHON="%VENV_DIR%\Scripts\python.exe" -X utf8
 if defined PROFILE (set PYTHON=%PYTHON% -m scalene --off --cpu --gpu --profile-all --no-browser)
 echo Using Python %PYTHON%
 
-REM Disable HF_HUB_DISABLE_XET, buggy; default disables Xet (set to 0 to enable) - https://github.com/Nerogar/OneTrainer/issues/949
-if not defined HF_HUB_DISABLE_XET (
-    set "HF_HUB_DISABLE_XET=1"
-)
-echo HF_HUB_DISABLE_XET=%HF_HUB_DISABLE_XET%
-echo.
-echo NOTE: Xet disabled, to enable it set as 0 before launch
-
 REM Disable mimalloc's 1 GB arena pre-reservation. PyTorch's bundled mimalloc 2.2.4 defaults
 REM to reserving + eager-committing 1 GB arenas at a time, which on Windows inflates the
 REM process's commit charge ~2x actual usage and triggers commit-limit OOM / c10.dll AV

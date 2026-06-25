@@ -41,6 +41,8 @@ class ModelType(Enum):
 
     KREA_2 = 'KREA_2'
 
+    ERNIE = 'ERNIE'
+
     def __str__(self):
         return self.value
 
@@ -112,6 +114,9 @@ class ModelType(Enum):
     def is_krea_2(self):
         return self == ModelType.KREA_2
 
+    def is_ernie(self):
+        return self == ModelType.ERNIE
+
     def has_mask_input(self) -> bool:
         return self == ModelType.STABLE_DIFFUSION_15_INPAINTING \
             or self == ModelType.STABLE_DIFFUSION_20_INPAINTING \
@@ -161,7 +166,8 @@ class ModelType(Enum):
             or self.is_hunyuan_video() \
             or self.is_hi_dream() \
             or self.is_z_image() \
-            or self.is_krea_2()
+            or self.is_krea_2() \
+            or self.is_ernie()
 
     def is_video_model(self) -> bool:
         return self.is_hunyuan_video() #incase we add more video models in the future
@@ -171,6 +177,7 @@ class PeftType(Enum):
     LORA = 'LORA'
     LOHA = 'LOHA'
     OFT_2 = 'OFT_2'
+    LOKR = 'LOKR'
 
     def __str__(self):
         return self.value

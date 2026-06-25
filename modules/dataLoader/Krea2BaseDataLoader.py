@@ -15,7 +15,6 @@ from modules.modelSetup.BaseModelSetup import BaseModelSetup
 from modules.util import factory
 from modules.util.config.TrainConfig import TrainConfig
 from modules.util.enum.ModelType import ModelType
-from modules.util.thread_safety import apply_thread_safe_forward
 from modules.util.TrainProgress import TrainProgress
 
 from mgds.pipelineModules.DecodeTokens import DecodeTokens
@@ -56,8 +55,6 @@ class Krea2BaseDataLoader(
         modules.append(tokenize_prompt)
 
         if not config.train_text_encoder_or_embedding():
-            if config.dataloader_threads > 1:
-                apply_thread_safe_forward(model.text_encoder)  # workaround for transformers#42673
             modules.append(encode_prompt)
 
         if config.latent_caching and not config.train_text_encoder_or_embedding():
