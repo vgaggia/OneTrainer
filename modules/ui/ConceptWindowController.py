@@ -6,6 +6,10 @@ import threading
 import time
 import traceback
 
+from modules.dataLoader.pipelineModules.DownloadHuggingfaceDatasets import (
+    download_hf_archive_dataset,
+    is_hf_archive_path,
+)
 from modules.util import concept_stats, huggingface_util, path_util
 from modules.util.config.ConceptConfig import ConceptConfig
 from modules.util.config.TrainConfig import TrainConfig
@@ -47,6 +51,11 @@ class ConceptWindowController:
     def get_concept_path(path: str) -> str | None:
         if os.path.isdir(path):
             return path
+        if is_hf_archive_path(path):
+            try:
+                return download_hf_archive_dataset(path, local_files_only=True)
+            except Exception:
+                return None
         try:
             #don't download, only check if available locally:
             return huggingface_hub.snapshot_download(repo_id=path, repo_type="dataset", local_files_only=True)
@@ -60,7 +69,10 @@ class ConceptWindowController:
                 offline_mode=self.train_config.offline_mode,
                 cache_dir=self.train_config.huggingface_cache_dir,
             )
-            huggingface_hub.snapshot_download(repo_id=self.concept.path, repo_type="dataset")
+            if is_hf_archive_path(self.concept.path):
+                download_hf_archive_dataset(self.concept.path)
+            else:
+                huggingface_hub.snapshot_download(repo_id=self.concept.path, repo_type="dataset")
         except Exception:
             traceback.print_exc()
 
