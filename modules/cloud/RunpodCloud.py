@@ -1,3 +1,4 @@
+import json
 import secrets as pysecrets
 import time
 
@@ -6,6 +7,26 @@ from modules.util.config.TrainConfig import TrainConfig
 from modules.util.enum.CloudAction import CloudAction
 
 import runpod
+from runpod.api.graphql import run_graphql_query
+
+
+ONETRAINER_TEMPLATE_ID="1a33vbssq9"
+
+
+def get_runpod_template_image_name(template_id: str):
+    query=f'''
+    query {{
+      podTemplate(id: {json.dumps(template_id)}) {{
+        imageName
+      }}
+    }}
+    '''
+    response=run_graphql_query(query)
+    template=response.get("data",{}).get("podTemplate")
+    image_name=template.get("imageName") if template is not None else None
+    if not image_name:
+        raise ValueError(f"RunPod template {template_id} did not return an image name")
+    return image_name
 
 
 class RunpodCloud(LinuxCloud):
@@ -66,10 +87,11 @@ class RunpodCloud(LinuxCloud):
     def _create(self):
         config=self.config.cloud
         secrets=self.config.secrets.cloud
+        image_name=get_runpod_template_image_name(ONETRAINER_TEMPLATE_ID)
         pod=runpod.create_pod(
             name=config.name,
-            image_name="",
-            template_id="1a33vbssq9",
+            image_name=image_name,
+            template_id=ONETRAINER_TEMPLATE_ID,
             gpu_type_id=config.gpu_type,
             cloud_type=config.sub_type,
             support_public_ip=True,
