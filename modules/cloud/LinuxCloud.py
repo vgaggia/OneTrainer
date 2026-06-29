@@ -92,6 +92,18 @@ class LinuxCloud(BaseCloud):
                                   && cd {shlex.quote(parent)} \
                                   && {config.install_cmd})',in_stream=False)
 
+        git_repo, git_branch = self.__parse_git_clone_install_cmd(config.install_cmd)
+        if git_repo and git_branch:
+            self.connection.run(
+                f'if test -d {shlex.quote(config.onetrainer_dir)}/.git; then \
+                    cd {shlex.quote(config.onetrainer_dir)} \
+                    && git remote set-url origin {shlex.quote(git_repo)} \
+                    && git fetch origin {shlex.quote(git_branch)} \
+                    && git checkout -B {shlex.quote(git_branch)} origin/{shlex.quote(git_branch)}; \
+                  fi',
+                in_stream=False,
+            )
+
         result=self.connection.run(f"test -d {shlex.quote(config.onetrainer_dir)}/venv",warn=True,in_stream=False)
 
         #many docker images, including the default ones on RunPod and vast.ai, only set up $PATH correctly
@@ -109,6 +121,38 @@ class LinuxCloud(BaseCloud):
                 self.connection.run(cmd_env + "&& export PIP_EXISTS_ACTION=w && ./update.sh", in_stream=False)
         else:
             self.connection.run(cmd_env + "&& ./install.sh", in_stream=False)
+
+    @staticmethod
+    def __parse_git_clone_install_cmd(install_cmd: str) -> tuple[str | None, str | None]:
+        try:
+            parts = shlex.split(install_cmd)
+        except ValueError:
+            return None, None
+
+        if len(parts) < 3 or parts[0:2] != ["git", "clone"]:
+            return None, None
+
+        branch = None
+        repo = None
+        index = 2
+        while index < len(parts):
+            part = parts[index]
+            if part in {"--branch", "-b"} and index + 1 < len(parts):
+                branch = parts[index + 1]
+                index += 2
+                continue
+            if part.startswith("--branch="):
+                branch = part.split("=", 1)[1]
+                index += 1
+                continue
+            if part.startswith("-"):
+                index += 1
+                continue
+
+            repo = part
+            break
+
+        return repo, branch
 
     def _make_tensorboard_tunnel(self):
         self.tensorboard_tunnel_stop=threading.Event()
