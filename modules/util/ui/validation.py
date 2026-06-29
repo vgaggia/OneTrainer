@@ -24,6 +24,10 @@ ERROR_BORDER_COLOR = "#dc3545"
 TRAILING_SLASH_RE = re.compile(r"[\\/]$")
 ENDS_WITH_EXT = re.compile(r"\.[A-Za-z0-9]+$")
 HUGGINGFACE_REPO_RE = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
+HUGGINGFACE_ARCHIVE_RE = re.compile(
+    r"^hf-archive:[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/.+\.(?:zip|tar|tar\.gz|tgz)$",
+    re.IGNORECASE,
+)
 
 _INVALID_CHARS = {chr(c) for c in range(32)}
 _IS_WINDOWS = sys.platform == "win32"
@@ -57,6 +61,13 @@ def _is_huggingface_repo_or_file(value: str) -> bool:
         return False
 
     return bool(HUGGINGFACE_REPO_RE.match(trimmed))
+
+
+def _is_huggingface_archive(value: str) -> bool:
+    trimmed = value.strip()
+    if " " in trimmed or "\t" in trimmed or ".." in trimmed:
+        return False
+    return bool(HUGGINGFACE_ARCHIVE_RE.match(trimmed))
 
 
 def _has_invalid_chars(value: str) -> bool:
@@ -102,6 +113,9 @@ def validate_path(
         return None
 
     if io_type == PathIOType.INPUT and _is_huggingface_repo_or_file(trimmed):
+        return None
+
+    if io_type == PathIOType.INPUT and _is_huggingface_archive(trimmed):
         return None
 
     if io_type == PathIOType.INPUT:
