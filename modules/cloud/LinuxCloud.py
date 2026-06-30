@@ -179,8 +179,25 @@ class LinuxCloud(BaseCloud):
             self.connection=None
 
     def can_reattach(self):
-        result=self.connection.run(f"test -f {self.pid_file}",warn=True,in_stream=False)
-        return result.exited == 0
+        pid_file = shlex.quote(self.pid_file)
+        result=self.connection.run(f"test -f {pid_file}",warn=True,in_stream=False)
+        if result.exited != 0:
+            return False
+
+        result=self.connection.run(
+            f'pid="$(cat {pid_file} 2>/dev/null || true)" \
+              && test -n "$pid" \
+              && kill -0 "$pid" 2>/dev/null \
+              && grep -aq "train_remote" "/proc/$pid/cmdline"',
+            warn=True,
+            hide=True,
+            in_stream=False,
+        )
+        if result.exited == 0:
+            return True
+
+        self.connection.run(f"rm -f {pid_file}", warn=True, hide=True, in_stream=False)
+        return False
 
     def _get_action_cmd(self,action : CloudAction):
         if action != CloudAction.NONE:
