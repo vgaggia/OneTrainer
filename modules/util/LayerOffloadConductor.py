@@ -979,6 +979,11 @@ class LayerOffloadConductor:
         need device-to-host copies after their master exists."""
         if not self.__h2d_only_enabled:
             return False
+        # quantized-weight training mutates int8 weights outside autograd
+        # (requires_grad stays False), so those layers must use the copy-back path
+        for module in self.__layers[layer_index].modules():
+            if getattr(module, "qwt_updater", None) is not None:
+                return False
         if layer_index in self.__layer_master_map:
             return True
         return all(not t.requires_grad for t in self.__get_layer_offload_tensors(layer_index))
