@@ -139,3 +139,11 @@ graph, dropping per-step scale refresh to every N steps.
 Recommendation: try a real run with `14_ft_qwt_int8_sr`-style config and judge
 samples. This changes WHAT trains, not just how fast: results should differ
 qualitatively from the norm/bias-only FT you have been running.
+
+## Session 3 addendum: attention backend A/B (upstream #1227 exposed the knob)
+
+Run 15 = run 10 with `attention_mechanism: CUDNN` instead of SDP. Result on the
+RTX 5090: **1.125 s/it vs 1.75 (1.56x), identical loss to 4 decimals.** cuDNN's
+SDPA kernels are simply much faster than the default backend for Krea 2's GQA
+attention on Blackwell. Baked into the PERF preset. Combined frozen-FT stack:
+2.635 (original) -> 1.125 s/it = 2.34x, before TREAD.

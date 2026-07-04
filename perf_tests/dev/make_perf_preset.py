@@ -22,5 +22,8 @@ c["tread_end_layer"] = -3
 # stale-format fix is already applied to the source preset, but be explicit:
 c["output_model_format"] = "ORIGINAL_TRANSFORMER"
 
+# cuDNN SDPA backend: 1.56x over torch SDPA on RTX 5090, identical loss (runs 10 vs 15)
+c["attention_mechanism"] = "CUDNN"
+
 json.dump(c, open(DST, "w", encoding="utf-8"), indent=4)
 print("wrote", DST)
