@@ -11,7 +11,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 PT = REPO / "perf_tests"
-PRESET = REPO / "training_presets" / "krea2 FT RTX 5090 Long.json"
+PRESET = REPO / "training_configs" / "krea2 FT RTX 5090 Long.json"
 DATASET = "G:\\Datasets\\Smallgia"
 EPOCHS = 6  # ~42 imgs, bs2 -> 21 iters/epoch -> ~126 iterations per run
 
@@ -204,6 +204,12 @@ def main():
         "quantized_weight_training": True,
         "gradient_accumulation_steps": 1,
         "compile": False,
+    })
+
+    # 15: attention backend A/B vs run 10 (identical except cuDNN SDPA backend)
+    variant("15_ft_int_w8a8_cudnn", **{
+        "transformer.weight_dtype": "INT_W8A8",
+        "attention_mechanism": "CUDNN",
     })
 
     # 04/05: fused back-pass A/B. Fused BP only reduces VRAM at accum=1

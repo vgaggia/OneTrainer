@@ -3,8 +3,8 @@ Applies only the validated improvements; never touches the original preset."""
 
 import json
 
-SRC = "training_presets/krea2 FT RTX 5090 Long.json"
-DST = "training_presets/krea2 FT RTX 5090 Long PERF.json"
+SRC = "training_configs/krea2 FT RTX 5090 Long.json"
+DST = "training_configs/krea2 FT RTX 5090 Long PERF.json"
 
 c = json.load(open(SRC, encoding="utf-8"))
 
