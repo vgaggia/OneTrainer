@@ -382,6 +382,12 @@ class TrainConfig(BaseConfig):
     force_circular_padding: bool
     compile: bool
 
+    # TREAD token routing
+    tread_enabled: bool
+    tread_selection_ratio: float
+    tread_start_layer: int
+    tread_end_layer: int
+
     # data settings
     concept_file_name: str
     concepts: list[ConceptConfig]
@@ -990,6 +996,12 @@ class TrainConfig(BaseConfig):
         data.append(("layer_offload_fraction", 0.0, float, False))
         data.append(("force_circular_padding", False, bool, False))
         data.append(("compile", False, bool, False))
+
+        # TREAD token routing (training-only, currently Krea 2 only)
+        data.append(("tread_enabled", False, bool, False))
+        data.append(("tread_selection_ratio", 0.5, float, False))
+        data.append(("tread_start_layer", 2, int, False))
+        data.append(("tread_end_layer", -3, int, False))
 
         # data settings
         data.append(("concept_file_name", "training_concepts/concepts.json", str, False))

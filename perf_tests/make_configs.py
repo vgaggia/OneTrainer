@@ -159,6 +159,19 @@ def main():
     variant("02_lora_int_w8a8", **lora, **{"transformer.weight_dtype": "INT_W8A8"})
     variant("03_lora_fp8_w8a8", **lora, **{"transformer.weight_dtype": "FLOAT_W8A8"})
 
+    # 06/07: same dtypes as 02/03; run AFTER the per-channel weight-scale code change
+    variant("06_lora_int_w8a8_pc", **lora, **{"transformer.weight_dtype": "INT_W8A8"})
+    variant("07_lora_fp8_w8a8_pc", **lora, **{"transformer.weight_dtype": "FLOAT_W8A8"})
+
+    # 08: TREAD token routing on the W8A8 winner (drop 50% of image tokens, blocks 2..-3)
+    variant("08_lora_int_w8a8_tread", **lora, **{
+        "transformer.weight_dtype": "INT_W8A8",
+        "tread_enabled": True,
+        "tread_selection_ratio": 0.5,
+        "tread_start_layer": 2,
+        "tread_end_layer": -3,
+    })
+
     # 04/05: fused back-pass A/B. Fused BP only reduces VRAM at accum=1
     # (GenericTrainer warns otherwise), so both runs use accum=1.
     variant("04_ft_accum1_control", **{"gradient_accumulation_steps": 1})

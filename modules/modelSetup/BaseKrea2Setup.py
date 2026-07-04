@@ -53,6 +53,15 @@ class BaseKrea2Setup(
             model.text_encoder_offload_conductor = \
                 enable_checkpointing_for_qwen3vl_encoder_layers(model.text_encoder, config)
 
+        if config.tread_enabled:
+            from modules.util.TreadRouter import TreadRouter
+            model.transformer.set_tread_router(
+                TreadRouter(seed=42, device=self.train_device),
+                selection_ratio=config.tread_selection_ratio,
+                start_layer=config.tread_start_layer,
+                end_layer=config.tread_end_layer,
+            )
+
         model.autocast_context, model.train_dtype = create_autocast_context(self.train_device, config.train_dtype, [
             config.weight_dtypes().transformer,
             config.weight_dtypes().text_encoder,

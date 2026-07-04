@@ -1,4 +1,6 @@
 
+import os
+
 from modules.module.quantized.mixin.QuantizedLinearMixin import QuantizedLinearMixin
 from modules.module.quantized.mixin.QuantizedModuleMixin import QuantizedModuleMixin
 from modules.util.mm_8bit import mm_8bit as mm_8bit
@@ -13,12 +15,19 @@ from modules.util.quantization_util import (
 import torch
 from torch import Tensor, nn
 
+# Weight scales are per-output-channel (axiswise, DeepSeek-style fine-grained scaling)
+# by default. Set OT_W8A8_TENSORWISE=1 to restore the old single-scale-per-tensor
+# behavior. The scale buffer always has shape (out_features, 1); tensorwise mode just
+# fills it with one repeated value, so all compute paths below are shared.
+_TENSORWISE_WEIGHTS = os.environ.get("OT_W8A8_TENSORWISE", "0") == "1"
+
 
 @torch.no_grad()
 def int8_forward_tokenwise(x: Tensor, weight: Tensor, weight_scale: Tensor, bias: Tensor | None, compute_dtype: torch.dtype) -> Tensor:
     x_8, x_scale = quantize_int8_axiswise(x, dim=-1)
     res = torch._int_mm(x_8, weight.T)
-    res_scaled = res.float().mul_(weight_scale * x_scale).to(compute_dtype)
+    # x_scale: (m, 1); weight_scale: (out, 1) applied per output column.
+    res_scaled = res.float().mul_(x_scale).mul_(weight_scale.view(1, -1)).to(compute_dtype)
     if bias is not None:
         res_scaled.add_(bias)
     return res_scaled
@@ -27,24 +36,31 @@ def int8_forward_tokenwise(x: Tensor, weight: Tensor, weight_scale: Tensor, bias
 def fp8_forward_tokenwise(x: Tensor, weight: Tensor, weight_scale: Tensor, bias: Tensor | None, compute_dtype: torch.dtype) -> Tensor:
     x_8, x_scale = quantize_fp8_axiswise(x, dim=-1)
     one = torch.tensor(1.0, device=x.device)
-    res = torch._scaled_mm(x_8, weight.T, scale_a=one, scale_b=weight_scale.float(), out_dtype=torch.float)
-    res_scaled = res.mul_(x_scale).to(compute_dtype) #much faster than scaled by _scaled_mm
+    res = torch._scaled_mm(x_8, weight.T, scale_a=one, scale_b=one, out_dtype=torch.float)
+    #scaling in the epilogue is much faster than scaled by _scaled_mm:
+    res_scaled = res.mul_(x_scale).mul_(weight_scale.view(1, -1)).to(compute_dtype)
     if bias is not None:
         res_scaled.add_(bias)
     return res_scaled
 
 @torch.no_grad()
 def int8_backward_axiswise(output: Tensor, weight: Tensor, weight_scale: Tensor) -> Tensor:
+    out_dtype = output.dtype
+    # fold the per-output-channel weight scale into the grad before quantization;
+    # it multiplies the contraction dim of (dY @ W_q), so it cannot be applied post-GEMM
+    output = output.float().mul(weight_scale.view(1, -1))
     output_8, output_scale = quantize_int8_axiswise(output, dim=-1)
     #almost always, grad outputs are already contiguous and this is a no-op. But there are some grad outputs from SDXL that are non-contiguous:
     mm_res = mm_8bit(output_8.contiguous(), weight)
-    return mm_res.float().mul_(weight_scale * output_scale).to(output.dtype)
+    return mm_res.float().mul_(output_scale).to(out_dtype)
 
 @torch.no_grad()
 def fp8_backward_axiswise(output: Tensor, weight: Tensor, weight_scale: Tensor) -> Tensor:
+    out_dtype = output.dtype
+    output = output.float().mul(weight_scale.view(1, -1))
     output_8, output_scale = quantize_fp8_axiswise(output, dim=-1)
     mm_res = mm_8bit(output_8.contiguous(), weight)
-    return mm_res.float().mul_(weight_scale * output_scale).to(output.dtype)
+    return mm_res.float().mul_(output_scale).to(out_dtype)
 
 
 class LinearInt8Function(torch.autograd.Function):
@@ -88,7 +104,7 @@ class LinearW8A8(
 
         self.__is_quantized = False
         self.compute_dtype = None
-        self.register_buffer("scale", torch.tensor(1.0, dtype=torch.float32))
+        self.register_buffer("scale", torch.ones(self.out_features, 1, dtype=torch.float32))
 
     def original_weight_shape(self) -> tuple[int, ...]:
         return self.weight.shape
@@ -107,9 +123,15 @@ class LinearW8A8(
         if device is not None:
             weight = weight.to(device=device)
         if self._dtype == torch.int8:
-            weight, scale = quantize_int8_tensorwise(weight)
+            if _TENSORWISE_WEIGHTS:
+                weight, scale = quantize_int8_tensorwise(weight)
+            else:
+                weight, scale = quantize_int8_axiswise(weight, dim=1)
         else:
-            weight, scale = quantize_fp8_tensorwise(weight)
+            if _TENSORWISE_WEIGHTS:
+                weight, scale = quantize_fp8_tensorwise(weight)
+            else:
+                weight, scale = quantize_fp8_axiswise(weight, dim=1)
 
         if device is not None:
             weight = weight.to(device=orig_device)
