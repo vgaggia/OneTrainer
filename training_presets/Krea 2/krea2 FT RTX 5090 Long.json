@@ -22,7 +22,7 @@
     "fused_gradient_reduce": true,
     "async_gradient_reduce": true,
     "async_gradient_reduce_buffer": 100,
-    "base_model_name": "F:\\Krea\\2026-06-30_18-24-58-save-5924-4-0.safetensors",
+    "base_model_name": "krea/Krea-2-Raw",
     "output_dtype": "BFLOAT_16",
     "output_model_format": "ORIGINAL_TRANSFORMER",
     "output_model_destination": "F:/Krea2 Model/Krea25090.safetensors",
@@ -114,7 +114,7 @@
     },
     "transformer": {
         "__version": 0,
-        "model_name": "",
+        "model_name": "F:\\Krea\\2026-06-30_18-24-58-save-5924-4-0.safetensors",
         "include": true,
         "train": true,
         "stop_training_after": 0,
