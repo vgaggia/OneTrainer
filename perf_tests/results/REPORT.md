@@ -106,9 +106,36 @@ frozen (see discovery), Krea2 FT grads are tiny (norms/tables/biases), so
 there is nothing worth offloading. Only pays for true-bf16 full FTs, which
 don't fit on 32GB regardless. Documented instead of built.
 
-### Remaining true R&D (future)
+## Session 3: true quantized-weight training (SHIPPED, experimental)
 
-Actual quantized-weight training (gradients into int8/fp8 weights + stochastic
-rounding updates, or bf16 masters in pinned RAM with fused back-pass). This is
-what "real" W8A8 full FT means; today's shipped version accelerates the
-existing frozen-weight FT semantics.
+`quantized_weight_training: true` makes the 12.9B int8 Linear weights actually
+train, for the first time on this hardware. Design: no master weights; the
+weight gradient is computed in int8 inside autograd backward (dY and X
+quantized per-column so scales factor out of the token contraction; wgrad
+rel-err 1.25% vs bf16 reference), then a fused per-layer factored Adafactor
+step updates the dequantized weight and re-quantizes with STOCHASTIC ROUNDING
+(int8 per-channel ULP ~0.8% of channel max, ~2x coarser than bf16's 0.39%,
+same principle as OneTrainer's bf16-SR training). Optimizer state: one fp32
+row+col vector per matrix (~50KB/layer).
+
+Constraints (enforced): FINE_TUNE, INT_W8A8, gradient_accumulation_steps=1
+(update fused into backward; effective batch drops accordingly), compile=off.
+Constant-lr scheduler assumed (v1 reads lr from config).
+
+Validation:
+- unit: toy 512x512 fit converges 0.331 -> 0.0013 in 600 SR steps; sub-ULP
+  drift confirmed at lr 2e-5.
+- run 14 (126 iterations, bs2, 264 layers training): stable, no NaN, VRAM
+  peak ~31.9GB (tight), 6.97 s/it median. Smooth loss declined 0.123 -> 0.118
+  while every frozen-weight run stayed flat at ~0.124: the weights are learning.
+
+Speed reality: 6.97 s/it vs 1.75 frozen. Costs: no compile, wgrad GEMMs, and
+above all the eager fp32 dequant->update->SR->requant pass over 12.9B weights
+per step plus allocator pressure at the VRAM ceiling. Future optimizations
+(likely 2-3x): a fused Triton update kernel (single pass, bf16 transients,
+chunked rows), compile compatibility by moving the update out of the traced
+graph, dropping per-step scale refresh to every N steps.
+
+Recommendation: try a real run with `14_ft_qwt_int8_sr`-style config and judge
+samples. This changes WHAT trains, not just how fast: results should differ
+qualitatively from the norm/bias-only FT you have been running.
