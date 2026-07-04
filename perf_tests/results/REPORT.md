@@ -59,11 +59,56 @@ Lower ratio = smaller distortion, smaller speedup.
 - No torch.compile graph breaks or recompiles in any run log, including W8A8's
   autograd.Function paths.
 
-## Not done this session (designs ready, see perf_tests/dev/ + session notes)
+## Session 2: the "not done" items, now done
 
-- H2D-only offloading for frozen weights (musubi `LoRAStreamOffloader` mapped:
-  flat pinned CPU master per block, reference swap, ring slots; requires
-  gradient checkpointing; frozen weights only).
-- FP8-compressed activation offload (opt-in).
-- W8A8 full fine-tune (stretch; master/compute split).
-- Offloaded gradient accumulation (new idea).
+### Key discovery first
+
+`LinearFp8.forward` (and all quantized Linears) DETACH their weights: quantized
+Linear weights never receive gradients, even with training_method FINE_TUNE.
+A quantized-weights "full fine-tune" trains only norms, per-block modulation
+tables, and the few biases. This is why FLOAT_8 FT fits in 32GB and why it was
+faster than LoRA. Consequence: W8A8 compute could be enabled for FT by fixing
+the actual blockers (trainable biases on quantized layers; blanket
+requires_grad_ on int8 params is illegal).
+
+### New measured results
+
+| run | s/it | vs | loss |
+|---|---|---|---|
+| 10 FT INT_W8A8 | 1.75 | 1.51x vs FT baseline 2.635 | 0.1299 (baseline 0.1295) |
+| 11 LoRA INT_W8A8, offload 0.5, copy-back control | 2.04 | - | 0.13053 |
+| 12 same, H2D-only masters | 1.95 | 4.4% faster than 11; only 1.5% over no-offload (1.92) | 0.13053 |
+| 13 same + fp8 activation compression | 1.94 | activation PCIe/pinned cache halved | 0.13053 |
+
+### Code shipped (session 2)
+
+1. **W8A8 for fine-tuning**: generalized W8A8 backward (bias gradients, partial
+   needs_input_grad); per-parameter requires_grad handling that keeps quantized /
+   integer params frozen. FT+INT_W8A8 = 1.51x with a matched loss curve.
+2. **H2D-only offload**: first eviction of a frozen layer builds a pinned CPU
+   master; every later eviction repoints tensor.data (zero D2H). Auto-detected
+   per layer; trainable layers keep copy-back. `OT_DISABLE_H2D_ONLY=1` reverts.
+3. **FP8 activation-offload compression** (`activation_offload_compression`,
+   opt-in): per-tensor-scaled e4m3 for the PCIe trip. Debugging this exposed a
+   subtle cross-stream use-after-free (caching allocator reuses freed storage on
+   the origin stream while another stream still reads it); fixed with
+   record_stream guards, same pattern the stock code uses.
+4. **Preset fixes**: stale `output_model_format: SAFETENSORS` corrected in all
+   Krea2 FT presets (crashed the saver at end of training).
+5. **New preset**: `krea2 FT RTX 5090 Long PERF.json` = LONG + INT_W8A8 +
+   TREAD at conservative 0.25. Expected step time vs LONG: ~1.5x from int8
+   alone, more from TREAD. Set `tread_enabled: false` if long-run samples degrade.
+
+### Consciously not built: offloaded gradient accumulation
+
+The idea assumed large persistent grad buffers in FT. With quantized weights
+frozen (see discovery), Krea2 FT grads are tiny (norms/tables/biases), so
+there is nothing worth offloading. Only pays for true-bf16 full FTs, which
+don't fit on 32GB regardless. Documented instead of built.
+
+### Remaining true R&D (future)
+
+Actual quantized-weight training (gradients into int8/fp8 weights + stochastic
+rounding updates, or bf16 masters in pinned RAM with fused back-pass). This is
+what "real" W8A8 full FT means; today's shipped version accelerates the
+existing frozen-weight FT semantics.

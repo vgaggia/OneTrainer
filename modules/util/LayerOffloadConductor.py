@@ -759,11 +759,18 @@ class LayerOffloadConductor:
             # decompress fp8-offloaded activations back to their original dtype (on the train stream)
             if self.__compress_activations and call_index in self.__compress_meta_map:
                 meta = self.__compress_meta_map.pop(call_index)
-                tensors = get_tensor_data(activations, tensor_indices)
-                restored = list(tensors)
-                for i, scale, orig_dtype in meta:
-                    restored[i] = (restored[i].float() * scale).to(orig_dtype)
-                replace_tensors_(activations, restored, tensor_indices)
+
+                def _decompress(t: torch.Tensor, idx: int):
+                    if idx in meta:
+                        scale, orig_dtype = meta[idx]
+                        compressed = t.data
+                        t.data = compressed.float().mul_(scale).to(orig_dtype)
+                        if self.__async_transfer and compressed.is_cuda:
+                            # mirrored hazard: the fp8 tensor was allocated on the transfer
+                            # stream and is read here on the train stream
+                            compressed.record_stream(torch.cuda.current_stream())
+
+                self.__walk_structure_tensors(activations, tensor_indices, _decompress)
 
             # schedule previous activations to the train device
             if call_index - 1 in self.__activations_map:
@@ -943,6 +950,23 @@ class LayerOffloadConductor:
 
             self.__layer_device_map[layer_index] = device
 
+    @classmethod
+    def __walk_structure_tensors(cls, data, include_indices, fn, _counter=None):
+        """Visit live tensor objects in an activations structure (same traversal
+        order as get_tensor_data) and call fn(tensor, running_index)."""
+        if _counter is None:
+            _counter = [0]
+        if isinstance(data, torch.Tensor) and include_indices is None:
+            fn(data, _counter[0])
+            _counter[0] += 1
+        elif isinstance(data, list | tuple):
+            for i, elem in enumerate(data):
+                if include_indices is None or i in include_indices:
+                    cls.__walk_structure_tensors(elem, None, fn, _counter)
+        elif isinstance(data, dict) and include_indices is None:
+            for elem in data.values():
+                cls.__walk_structure_tensors(elem, None, fn, _counter)
+
     def __get_layer_offload_tensors(self, layer_index: int) -> list[torch.Tensor]:
         tensors = []
         for module in self.__layers[layer_index].modules():
@@ -998,17 +1022,24 @@ class LayerOffloadConductor:
                 event.wait(self.__activations_transfer_stream)
 
             # compress large half-precision activations to fp8 for the PCIe trip
+            # (in-place .data swap on the live tensor objects, mirroring tensors_to_device_)
             if self.__compress_activations and device_equals(device, self.__temp_device):
-                tensors = get_tensor_data(activations, tensor_indices)
-                compressed = list(tensors)
-                meta = []
-                for i, t in enumerate(tensors):
+                meta = {}
+
+                def _compress(t: torch.Tensor, idx: int):
                     if t.dtype in (torch.bfloat16, torch.float16) and t.numel() >= 65536:
-                        scale = (t.detach().abs().amax().float() / 448.0).clamp(min=1e-12)
-                        compressed[i] = t.detach().float().div(scale).clamp_(-448.0, 448.0).to(torch.float8_e4m3fn)
-                        meta.append((i, scale, t.dtype))
+                        original = t.data
+                        scale = (original.abs().amax().float() / 448.0).clamp(min=1e-12)
+                        meta[idx] = (scale, t.dtype)
+                        t.data = original.float().div_(scale).clamp_(-448.0, 448.0).to(torch.float8_e4m3fn)
+                        if self.__async_transfer and original.is_cuda:
+                            # the original storage was allocated on the train stream but is read
+                            # here on the transfer stream; without this, the caching allocator can
+                            # hand its memory back to the train stream while the read is in flight
+                            original.record_stream(self.__activations_transfer_stream)
+
+                self.__walk_structure_tensors(activations, tensor_indices, _compress)
                 if meta:
-                    replace_tensors_(activations, compressed, tensor_indices)
                     self.__compress_meta_map[call_index] = meta
 
             tensors = get_tensor_data(activations, tensor_indices)
