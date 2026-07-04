@@ -21,16 +21,18 @@ def run(dtype, name):
     dev = torch.device("cuda")
     m, k, n = 4608, 6144, 16384
 
-    ref = torch.nn.Linear(k, n, bias=False, dtype=torch.bfloat16, device=dev)
+    ref = torch.nn.Linear(k, n, bias=True, dtype=torch.bfloat16, device=dev)
     # inject channel-scale outliers like real transformer weights
     with torch.no_grad():
         ref.weight[: n // 64] *= 50.0
 
-    q = LinearW8A8(dtype, k, n, bias=False).to(dev)
+    q = LinearW8A8(dtype, k, n, bias=True).to(torch.bfloat16).to(dev)
     with torch.no_grad():
         q.weight.copy_(ref.weight)
+        q.bias.copy_(ref.bias)
     q.compute_dtype = torch.bfloat16
     q.quantize(device=dev)
+    q.bias.requires_grad_(True)  # FT mode: quantized weight frozen, bias trains
 
     x = torch.randn(m, k, dtype=torch.bfloat16, device=dev, requires_grad=True)
     x2 = x.detach().clone().requires_grad_(True)
@@ -43,6 +45,8 @@ def run(dtype, name):
     y_ref.backward(g)
     y_q.backward(g)
     bwd = rel_err(x2.grad.float(), x.grad.float())
+    bias_err = rel_err(q.bias.grad.float(), ref.bias.grad.float())
+    assert bias_err < 1e-2, f"bias grad wrong: {bias_err}"
 
     # micro-benchmark forward
     for _ in range(10):

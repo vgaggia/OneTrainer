@@ -181,6 +181,22 @@ def main():
         "tread_end_layer": -3,
     })
 
+    # 10: the user's daily driver with int8 compute (quantized weights frozen,
+    # same trainable set as FLOAT_8 FT: norms/modulation/biases)
+    variant("10_ft_int_w8a8", **{"transformer.weight_dtype": "INT_W8A8"})
+
+    # 11/12: H2D-only offload A/B: same config, kill-switch env decides.
+    # gradient_checkpointing CPU_OFFLOADED activates the conductor's offload paths.
+    offload = {
+        "gradient_checkpointing": "CPU_OFFLOADED",
+        "layer_offload_fraction": 0.5,
+        "transformer.weight_dtype": "INT_W8A8",
+    }
+    variant("11_lora_offload_dtoh", **lora, **offload)   # run with OT_DISABLE_H2D_ONLY=1
+    variant("12_lora_offload_h2d", **lora, **offload)    # run with new default
+    variant("13_lora_offload_h2d_fp8act", **lora, **offload,
+            **{"activation_offload_compression": True})
+
     # 04/05: fused back-pass A/B. Fused BP only reduces VRAM at accum=1
     # (GenericTrainer warns otherwise), so both runs use accum=1.
     variant("04_ft_accum1_control", **{"gradient_accumulation_steps": 1})

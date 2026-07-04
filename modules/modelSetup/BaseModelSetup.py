@@ -229,7 +229,17 @@ class BaseModelSetup(
         if model is not None:
             train_model_part = config.train and \
                                not self.__stop_model_part_training_elapsed(unique_name, config, train_progress)
-            model.requires_grad_(train_model_part)
+            # Per-parameter instead of model.requires_grad_(train_model_part):
+            # quantized weights must stay frozen (their forward detaches them anyway,
+            # and int8 weights cannot legally have requires_grad=True), while all
+            # regular floating-point parameters follow the train flag.
+            from modules.util.quantization_util import is_quantized_parameter
+            for module in model.modules():
+                for param_name, param in module.named_parameters(recurse=False):
+                    if is_quantized_parameter(module, param_name) or not param.is_floating_point():
+                        param.requires_grad_(False)
+                    else:
+                        param.requires_grad_(train_model_part)
 
             #even if frozen parameters are not passed to the optimizer, required_grad has to be False.
             #otherwise, gradients accumulate in param.grad and waste vram

@@ -67,29 +67,39 @@ class LinearInt8Function(torch.autograd.Function):
     @staticmethod
     def forward(ctx, x: Tensor, weight: Tensor, weight_scale: Tensor, bias: Tensor | None, compute_dtype: torch.dtype) -> Tensor:
         ctx.save_for_backward(weight, weight_scale)
+        ctx.bias_dtype = None if bias is None else bias.dtype
         return int8_forward_tokenwise(x, weight, weight_scale, bias, compute_dtype)
 
     @staticmethod
     def backward(ctx, output: Tensor):
-        if ctx.needs_input_grad != (True, False, False, False, False):
-            raise NotImplementedError("Int A8W8 cannot be used for full finetuning")
+        if ctx.needs_input_grad[1] or ctx.needs_input_grad[2]:
+            raise NotImplementedError(
+                "Int W8A8 weights are frozen and cannot receive gradients. "
+                "Use a non-quantized weight dtype to train the quantized layers themselves.")
 
         weight, weight_scale = ctx.saved_tensors
-        return int8_backward_axiswise(output, weight, weight_scale), None, None, None, None
+        grad_x = int8_backward_axiswise(output, weight, weight_scale) if ctx.needs_input_grad[0] else None
+        grad_bias = output.float().sum(dim=0).to(ctx.bias_dtype) if ctx.needs_input_grad[3] else None
+        return grad_x, None, None, grad_bias, None
 
 class LinearFp8Function(torch.autograd.Function):
     @staticmethod
     def forward(ctx, x: Tensor, weight: Tensor, weight_scale: Tensor, bias: Tensor | None, compute_dtype: torch.dtype) -> Tensor:
         ctx.save_for_backward(weight, weight_scale)
+        ctx.bias_dtype = None if bias is None else bias.dtype
         return fp8_forward_tokenwise(x, weight, weight_scale, bias, compute_dtype)
 
     @staticmethod
     def backward(ctx, output: Tensor):
-        if ctx.needs_input_grad != (True, False, False, False, False):
-            raise NotImplementedError("Float A8W8 cannot be used for full finetuning")
+        if ctx.needs_input_grad[1] or ctx.needs_input_grad[2]:
+            raise NotImplementedError(
+                "Float W8A8 weights are frozen and cannot receive gradients. "
+                "Use a non-quantized weight dtype to train the quantized layers themselves.")
 
         weight, weight_scale = ctx.saved_tensors
-        return fp8_backward_axiswise(output, weight, weight_scale), None, None, None, None
+        grad_x = fp8_backward_axiswise(output, weight, weight_scale) if ctx.needs_input_grad[0] else None
+        grad_bias = output.float().sum(dim=0).to(ctx.bias_dtype) if ctx.needs_input_grad[3] else None
+        return grad_x, None, None, grad_bias, None
 
 class LinearW8A8(
     nn.Linear,

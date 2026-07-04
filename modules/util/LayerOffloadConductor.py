@@ -1,9 +1,10 @@
 import math
+import os
 import random
 from typing import Any
 
 from modules.util.config.TrainConfig import TrainConfig
-from modules.util.quantization_util import get_offload_tensor_bytes, offload_quantized
+from modules.util.quantization_util import get_offload_tensor_bytes, get_offload_tensors, offload_quantized
 from modules.util.torch_util import (
     create_stream_context,
     device_equals,
@@ -612,6 +613,23 @@ class LayerOffloadConductor:
 
         self.__deferred_layers = []
 
+        # H2D-only offloading for frozen layers: once a layer whose offloadable
+        # tensors are all frozen is evicted for the first time, its weights are
+        # copied into a persistent pinned CPU "master" (the last D2H it ever does).
+        # Every later eviction just repoints tensor.data to the master and frees
+        # the GPU ring slot - device-to-host traffic drops to zero for such layers,
+        # roughly halving PCIe pressure for LoRA / quantized training.
+        # Layers with trainable offloadable tensors keep the copy-back path.
+        self.__layer_master_map: dict[int, list[torch.Tensor]] = {}
+        self.__h2d_only_enabled = os.environ.get("OT_DISABLE_H2D_ONLY", "0") != "1"
+
+        # opt-in fp8 compression of offloaded activations: halves activation PCIe
+        # traffic and pinned cache at the cost of small quantization error in the
+        # recomputed forward (per-tensor absmax scaling, e4m3)
+        self.__compress_activations = self.__offload_activations \
+            and getattr(config, "activation_offload_compression", False)
+        self.__compress_meta_map: dict[int, list[tuple[int, torch.Tensor, torch.dtype]]] = {}
+
         self.__config = config
 
     def offload_activated(self) -> bool:
@@ -738,6 +756,15 @@ class LayerOffloadConductor:
                     activations, self.__train_device, call_index, wait_train_stream=False)
                 self.__wait_activations_transfer(call_index)
 
+            # decompress fp8-offloaded activations back to their original dtype (on the train stream)
+            if self.__compress_activations and call_index in self.__compress_meta_map:
+                meta = self.__compress_meta_map.pop(call_index)
+                tensors = get_tensor_data(activations, tensor_indices)
+                restored = list(tensors)
+                for i, scale, orig_dtype in meta:
+                    restored[i] = (restored[i].float() * scale).to(orig_dtype)
+                replace_tensors_(activations, restored, tensor_indices)
+
             # schedule previous activations to the train device
             if call_index - 1 in self.__activations_map:
                 self.__schedule_activations_to_device(
@@ -808,6 +835,7 @@ class LayerOffloadConductor:
         self.__activations_map.clear()
         self.__call_index_layer_index_map.clear()
         self.__activations_transfer_event_map.clear()
+        self.__compress_meta_map.clear()
         self.__temp_device_activations_allocator.deallocate()
 
     def __wait_all_layer_train(self):
@@ -884,8 +912,25 @@ class LayerOffloadConductor:
         with create_stream_context(self.__layer_transfer_stream):
             self.__wait_layer_train(layer_index)
             layer = self.__layers[layer_index]
-            for module in layer.modules():
-                offload_quantized(module, device, non_blocking=self.__async_transfer, allocator=allocator_fn)
+
+            if device_equals(device, self.__temp_device) and self.__layer_is_static(layer_index):
+                # H2D-only path: repoint to the pinned CPU master instead of copying back
+                offload_tensors = self.__get_layer_offload_tensors(layer_index)
+                masters = self.__layer_master_map.get(layer_index)
+                if masters is None:
+                    masters = []
+                    for tensor in offload_tensors:
+                        master = torch.empty(
+                            tensor.shape, dtype=tensor.dtype, device=self.__temp_device,
+                            pin_memory=self.__async_transfer)
+                        master.copy_(tensor.data, non_blocking=self.__async_transfer)
+                        masters.append(master)
+                    self.__layer_master_map[layer_index] = masters
+                for tensor, master in zip(offload_tensors, masters, strict=True):
+                    tensor.data = master
+            else:
+                for module in layer.modules():
+                    offload_quantized(module, device, non_blocking=self.__async_transfer, allocator=allocator_fn)
 
             layer_deallocator.deallocate_layer(layer_index, deallocate_forward=is_forward)
 
@@ -897,6 +942,22 @@ class LayerOffloadConductor:
                 log(f"schedule layer {layer_index} to {str(device)}")
 
             self.__layer_device_map[layer_index] = device
+
+    def __get_layer_offload_tensors(self, layer_index: int) -> list[torch.Tensor]:
+        tensors = []
+        for module in self.__layers[layer_index].modules():
+            tensors += get_offload_tensors(module)
+        return tensors
+
+    def __layer_is_static(self, layer_index: int) -> bool:
+        """A layer is static when none of its offloadable tensors can change during
+        training (frozen base weights in LoRA / quantized runs). Static layers never
+        need device-to-host copies after their master exists."""
+        if not self.__h2d_only_enabled:
+            return False
+        if layer_index in self.__layer_master_map:
+            return True
+        return all(not t.requires_grad for t in self.__get_layer_offload_tensors(layer_index))
 
     def __schedule_deferred_layers_to_temp(
             self,
@@ -935,6 +996,20 @@ class LayerOffloadConductor:
 
             if event is not None:
                 event.wait(self.__activations_transfer_stream)
+
+            # compress large half-precision activations to fp8 for the PCIe trip
+            if self.__compress_activations and device_equals(device, self.__temp_device):
+                tensors = get_tensor_data(activations, tensor_indices)
+                compressed = list(tensors)
+                meta = []
+                for i, t in enumerate(tensors):
+                    if t.dtype in (torch.bfloat16, torch.float16) and t.numel() >= 65536:
+                        scale = (t.detach().abs().amax().float() / 448.0).clamp(min=1e-12)
+                        compressed[i] = t.detach().float().div(scale).clamp_(-448.0, 448.0).to(torch.float8_e4m3fn)
+                        meta.append((i, scale, t.dtype))
+                if meta:
+                    replace_tensors_(activations, compressed, tensor_indices)
+                    self.__compress_meta_map[call_index] = meta
 
             tensors = get_tensor_data(activations, tensor_indices)
             if activations_allocator is not None:

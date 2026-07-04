@@ -379,6 +379,7 @@ class TrainConfig(BaseConfig):
     enable_async_offloading: bool
     enable_activation_offloading: bool
     layer_offload_fraction: float
+    activation_offload_compression: bool
     force_circular_padding: bool
     compile: bool
 
@@ -994,6 +995,7 @@ class TrainConfig(BaseConfig):
         data.append(("enable_async_offloading", True, bool, False))
         data.append(("enable_activation_offloading", True, bool, False))
         data.append(("layer_offload_fraction", 0.0, float, False))
+        data.append(("activation_offload_compression", False, bool, False))
         data.append(("force_circular_padding", False, bool, False))
         data.append(("compile", False, bool, False))
 
