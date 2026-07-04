@@ -197,6 +197,15 @@ def main():
     variant("13_lora_offload_h2d_fp8act", **lora, **offload,
             **{"activation_offload_compression": True})
 
+    # 14: TRUE quantized-weight training: 12.9B int8 weights receive fused SR updates.
+    # accum=1 and compile=off are hard requirements of the feature (v1).
+    variant("14_ft_qwt_int8_sr", **{
+        "transformer.weight_dtype": "INT_W8A8",
+        "quantized_weight_training": True,
+        "gradient_accumulation_steps": 1,
+        "compile": False,
+    })
+
     # 04/05: fused back-pass A/B. Fused BP only reduces VRAM at accum=1
     # (GenericTrainer warns otherwise), so both runs use accum=1.
     variant("04_ft_accum1_control", **{"gradient_accumulation_steps": 1})

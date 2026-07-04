@@ -44,6 +44,16 @@ def fp8_forward_tokenwise(x: Tensor, weight: Tensor, weight_scale: Tensor, bias:
     return res_scaled
 
 @torch.no_grad()
+def int8_weight_grad(output: Tensor, x: Tensor) -> Tensor:
+    """grad_W = dY^T @ X in int8. dY and X are quantized per-COLUMN (dim=0) so both
+    scales are constant along the token contraction and factor out post-GEMM."""
+    dy_8, dy_scale = quantize_int8_axiswise(output, dim=0)   # scales (1, n)
+    x_8, x_scale = quantize_int8_axiswise(x, dim=0)          # scales (1, k)
+    res = mm_8bit(dy_8.t().contiguous(), x_8)                # (n, k) int32
+    return res.float().mul_(dy_scale.t()).mul_(x_scale)      # fp32 (n, k)
+
+
+@torch.no_grad()
 def int8_backward_axiswise(output: Tensor, weight: Tensor, weight_scale: Tensor) -> Tensor:
     out_dtype = output.dtype
     # fold the per-output-channel weight scale into the grad before quantization;
@@ -65,8 +75,12 @@ def fp8_backward_axiswise(output: Tensor, weight: Tensor, weight_scale: Tensor) 
 
 class LinearInt8Function(torch.autograd.Function):
     @staticmethod
-    def forward(ctx, x: Tensor, weight: Tensor, weight_scale: Tensor, bias: Tensor | None, compute_dtype: torch.dtype) -> Tensor:
-        ctx.save_for_backward(weight, weight_scale)
+    def forward(ctx, x: Tensor, weight: Tensor, weight_scale: Tensor, bias: Tensor | None, compute_dtype: torch.dtype, updater=None) -> Tensor:
+        if updater is not None:
+            ctx.save_for_backward(weight, weight_scale, x)
+        else:
+            ctx.save_for_backward(weight, weight_scale)
+        ctx.updater = updater
         ctx.bias_dtype = None if bias is None else bias.dtype
         return int8_forward_tokenwise(x, weight, weight_scale, bias, compute_dtype)
 
@@ -77,10 +91,17 @@ class LinearInt8Function(torch.autograd.Function):
                 "Int W8A8 weights are frozen and cannot receive gradients. "
                 "Use a non-quantized weight dtype to train the quantized layers themselves.")
 
-        weight, weight_scale = ctx.saved_tensors
-        grad_x = int8_backward_axiswise(output, weight, weight_scale) if ctx.needs_input_grad[0] else None
+        if ctx.updater is not None:
+            weight, weight_scale, x = ctx.saved_tensors
+            # grad_x BEFORE the weight update: the update must use the same weights
+            # that produced the forward, and grad_x must match the forward weights too
+            grad_x = int8_backward_axiswise(output, weight, weight_scale) if ctx.needs_input_grad[0] else None
+            ctx.updater.step(int8_weight_grad(output, x))
+        else:
+            weight, weight_scale = ctx.saved_tensors
+            grad_x = int8_backward_axiswise(output, weight, weight_scale) if ctx.needs_input_grad[0] else None
         grad_bias = output.float().sum(dim=0).to(ctx.bias_dtype) if ctx.needs_input_grad[3] else None
-        return grad_x, None, None, grad_bias, None
+        return grad_x, None, None, grad_bias, None, None
 
 class LinearFp8Function(torch.autograd.Function):
     @staticmethod
@@ -114,6 +135,7 @@ class LinearW8A8(
 
         self.__is_quantized = False
         self.compute_dtype = None
+        self.qwt_updater = None  # set by enable_quantized_weight_training for true int8 training
         self.register_buffer("scale", torch.ones(self.out_features, 1, dtype=torch.float32))
 
     def original_weight_shape(self) -> tuple[int, ...]:
@@ -163,7 +185,8 @@ class LinearW8A8(
 
         if x.shape[0] > 16 and aligned:
             if self._dtype == torch.int8:
-                y = LinearInt8Function.apply(x, self.weight, self.scale, self.bias, self.compute_dtype)
+                updater = self.qwt_updater if (self.training and torch.is_grad_enabled()) else None
+                y = LinearInt8Function.apply(x, self.weight, self.scale, self.bias, self.compute_dtype, updater)
             else:
                 y = LinearFp8Function.apply(x, self.weight, self.scale, self.bias, self.compute_dtype)
         else:

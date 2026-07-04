@@ -65,6 +65,10 @@ class Krea2FineTuneSetup(
         self.__setup_requires_grad(model, config)
         init_model_parameters(model, params, self.train_device)
 
+        if config.quantized_weight_training:
+            from modules.util.quantized_weight_training import enable_quantized_weight_training
+            enable_quantized_weight_training(model.transformer, config)
+
     def setup_train_device(
             self,
             model: Krea2Model,
