@@ -4,6 +4,7 @@ import traceback
 from modules.model.Krea2Model import Krea2Model
 from modules.modelLoader.mixin.HFModelLoaderMixin import HFModelLoaderMixin
 from modules.util.config.TrainConfig import QuantizationConfig
+from modules.util.convert_util import convert, reverse_conversion
 from modules.util.enum.ModelType import ModelType
 from modules.util.ModelNames import ModelNames
 from modules.util.ModelWeightDtypes import ModelWeightDtypes
@@ -13,10 +14,11 @@ import torch
 from diffusers import (
     AutoencoderKLQwenImage,
     FlowMatchEulerDiscreteScheduler,
-    GGUFQuantizationConfig,
     Krea2Transformer2DModel,
 )
 from transformers import Qwen2Tokenizer, Qwen3VLModel
+
+from safetensors.torch import load_file
 
 
 class Krea2ModelLoader(
@@ -87,14 +89,20 @@ class Krea2ModelLoader(
             )
 
         if transformer_model_name:
-            transformer = Krea2Transformer2DModel.from_single_file(
-                transformer_model_name,
-                config=base_model_name,
-                subfolder="transformer",
-                #avoid loading the transformer in float32:
-                torch_dtype = torch.bfloat16 if weight_dtypes.transformer.torch_dtype() is None else weight_dtypes.transformer.torch_dtype(),
-                quantization_config=GGUFQuantizationConfig(compute_dtype=torch.bfloat16) if weight_dtypes.transformer.is_gguf() else None,
-            )
+            # diffusers' Krea2Transformer2DModel has no single-file support yet, so load the
+            # original-namespace (raw.safetensors-style) checkpoint manually: build on meta,
+            # reverse the diffusers->original rename, and assign in the intended float dtype.
+            if weight_dtypes.transformer.is_gguf():
+                raise NotImplementedError("GGUF loading of the Krea 2 transformer is not supported yet.")
+            transformer_config = Krea2Transformer2DModel.load_config(base_model_name, subfolder="transformer")
+            with torch.device("meta"):
+                transformer = Krea2Transformer2DModel.from_config(transformer_config)
+            #avoid loading the transformer in float32:
+            float_dtype = torch.bfloat16 if weight_dtypes.transformer.torch_dtype() is None else weight_dtypes.transformer.torch_dtype()
+            state_dict = convert(load_file(transformer_model_name), reverse_conversion(model.checkpoint_diffusers_to_original()))
+            state_dict = {k: (v.to(float_dtype) if v.is_floating_point() else v) for k, v in state_dict.items()}
+            transformer.load_state_dict(state_dict, strict=True, assign=True)
+            del state_dict
             transformer = self._convert_diffusers_sub_module_to_dtype(
                 transformer, weight_dtypes.transformer, weight_dtypes.train_dtype, quantization,
             )
