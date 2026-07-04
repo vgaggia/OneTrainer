@@ -133,7 +133,8 @@ def variant(name, **overrides):
         parts = dotted.split(".")
         for p in parts[:-1]:
             node = node[p]
-        assert parts[-1] in node, f"unknown config key: {dotted}"
+        if parts[-1] not in node:
+            print(f"note: adding new config key {dotted}")
         node[parts[-1]] = value
     save(PT / "configs" / f"{name}.json", cfg)
 
@@ -166,6 +167,14 @@ def main():
     # 08: TREAD token routing on the W8A8 winner (drop 50% of image tokens, blocks 2..-3)
     variant("08_lora_int_w8a8_tread", **lora, **{
         "transformer.weight_dtype": "INT_W8A8",
+        "tread_enabled": True,
+        "tread_selection_ratio": 0.5,
+        "tread_start_layer": 2,
+        "tread_end_layer": -3,
+    })
+
+    # 09: TREAD on the user's real workflow: full fine-tune, unchanged accum/lr
+    variant("09_ft_tread", **{
         "tread_enabled": True,
         "tread_selection_ratio": 0.5,
         "tread_start_layer": 2,
