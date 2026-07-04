@@ -51,6 +51,9 @@ if errorlevel 1 (
 )
 
 :launch
+REM reduce VRAM fragmentation on long bucketed runs (creeping usage -> cublas
+REM INTERNAL_ERROR / OOM); torch warns and ignores this if unsupported
+if not defined PYTORCH_CUDA_ALLOC_CONF (set PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True)
 echo Starting UI...
 %PYTHON% scripts\train_ui_qt.py
 if errorlevel 1 (
