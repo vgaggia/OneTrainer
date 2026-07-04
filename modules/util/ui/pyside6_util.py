@@ -20,11 +20,11 @@ def create_application() -> QApplication:
     signal.signal(signal.SIGINT, signal.SIG_DFL)
 
     app = QApplication(sys.argv)
-    app.styleHints().setColorScheme(Qt.ColorScheme.Light)
+    app.styleHints().setColorScheme(Qt.ColorScheme.Dark)
 
     palette = app.palette()
-    palette.setColor(QPalette.ColorRole.Base, QColor("white"))
-    palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Base, QColor("#e0e0e0"))
+    palette.setColor(QPalette.ColorRole.Base, QColor("#1e1e1e"))
+    palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Base, QColor("#2a2a2a"))
     app.setPalette(palette)
 
     app.setStyleSheet("""
@@ -36,7 +36,7 @@ def create_application() -> QApplication:
             height: 16px;
         }
         QProgressBar {
-            background-color: #c8c8c8;
+            background-color: #3a3a3a;
         }
         QToolButton {
             padding-top: 0px;
