@@ -61,4 +61,189 @@ Note: Enable Debug mode to see the full list of layer names
 caching:  93%|#########2| 39/42 [00:03<00:00, 14.23it/s][A
 caching:  98%|#########7| 41/42 [00:03<00:00, 14.26it/s][Acaching: 100%|##########| 42/42 [00:03<00:00, 12.83it/s]
 
+step:   0%|          | 0/21 [00:00<?, ?it/s][AG:\Auto\OneTrainer\venv\Lib\site-packages\torch\_inductor\compile_fx.py:320: UserWarning: TensorFloat32 tensor cores for float32 matrix multiplication available but not enabled. Consider setting `torch.set_float32_matmul_precision('high')` for better performance.
+  warnings.warn(
+
+step:   5%|4         | 1/21 [00:39<13:19, 39.97s/it][A
+step:  10%|9         | 2/21 [00:42<05:36, 17.70s/it][A
+step:  14%|#4        | 3/21 [00:44<03:16, 10.89s/it][A
+step:  14%|#4        | 3/21 [00:48<03:16, 10.89s/it, loss=0.117, smooth loss=0.117][A
+step:  19%|#9        | 4/21 [00:48<02:16,  8.02s/it, loss=0.117, smooth loss=0.117][A
+step:  24%|##3       | 5/21 [00:50<01:33,  5.86s/it, loss=0.117, smooth loss=0.117][A
+step:  29%|##8       | 6/21 [01:35<04:45, 19.01s/it, loss=0.117, smooth loss=0.117][A
+step:  33%|###3      | 7/21 [01:37<03:08, 13.47s/it, loss=0.117, smooth loss=0.117][A
+step:  33%|###3      | 7/21 [01:40<03:08, 13.47s/it, loss=0.124, smooth loss=0.121][A
+step:  38%|###8      | 8/21 [01:40<02:13, 10.27s/it, loss=0.124, smooth loss=0.121][A
+step:  43%|####2     | 9/21 [01:42<01:32,  7.68s/it, loss=0.124, smooth loss=0.121][A
+step:  48%|####7     | 10/21 [01:45<01:08,  6.19s/it, loss=0.124, smooth loss=0.121][A
+step:  52%|#####2    | 11/21 [01:48<00:51,  5.14s/it, loss=0.124, smooth loss=0.121][A
+step:  52%|#####2    | 11/21 [01:51<00:51,  5.14s/it, loss=0.126, smooth loss=0.122][A
+step:  57%|#####7    | 12/21 [01:51<00:41,  4.66s/it, loss=0.126, smooth loss=0.122][A
+step:  62%|######1   | 13/21 [01:53<00:30,  3.86s/it, loss=0.126, smooth loss=0.122][A
+step:  67%|######6   | 14/21 [01:56<00:24,  3.57s/it, loss=0.126, smooth loss=0.122][A
+step:  71%|#######1  | 15/21 [01:59<00:19,  3.33s/it, loss=0.126, smooth loss=0.122][A
+step:  71%|#######1  | 15/21 [02:02<00:19,  3.33s/it, loss=0.13, smooth loss=0.124] [A
+step:  76%|#######6  | 16/21 [02:02<00:17,  3.40s/it, loss=0.13, smooth loss=0.124][A
+step:  81%|########  | 17/21 [02:04<00:11,  2.99s/it, loss=0.13, smooth loss=0.124][A
+step:  86%|########5 | 18/21 [02:07<00:08,  2.95s/it, loss=0.13, smooth loss=0.124][A
+step:  90%|######### | 19/21 [02:10<00:05,  2.90s/it, loss=0.13, smooth loss=0.124][A
+step:  90%|######### | 19/21 [02:14<00:05,  2.90s/it, loss=0.116, smooth loss=0.123][A
+step:  95%|#########5| 20/21 [02:14<00:03,  3.09s/it, loss=0.116, smooth loss=0.123][A
+step: 100%|##########| 21/21 [02:34<00:00,  8.19s/it, loss=0.116, smooth loss=0.123][Astep: 100%|##########| 21/21 [02:34<00:00,  7.34s/it, loss=0.116, smooth loss=0.123]
+epoch:  17%|#6        | 1/6 [02:47<13:58, 167.68s/it]
 step:   0%|          | 0/21 [00:00<?, ?it/s][A
+step:   5%|4         | 1/21 [00:01<00:39,  2.00s/it][A
+step:  10%|9         | 2/21 [00:04<00:44,  2.36s/it][A
+step:  10%|9         | 2/21 [00:07<00:44,  2.36s/it, loss=0.136, smooth loss=0.125][A
+step:  14%|#4        | 3/21 [00:07<00:49,  2.77s/it, loss=0.136, smooth loss=0.125][A
+step:  19%|#9        | 4/21 [00:09<00:41,  2.43s/it, loss=0.136, smooth loss=0.125][A
+step:  24%|##3       | 5/21 [00:12<00:40,  2.52s/it, loss=0.136, smooth loss=0.125][A
+step:  29%|##8       | 6/21 [00:15<00:38,  2.55s/it, loss=0.136, smooth loss=0.125][A
+step:  29%|##8       | 6/21 [00:18<00:38,  2.55s/it, loss=0.12, smooth loss=0.124] [A
+step:  33%|###3      | 7/21 [00:18<00:39,  2.79s/it, loss=0.12, smooth loss=0.124][A
+step:  38%|###8      | 8/21 [00:20<00:32,  2.51s/it, loss=0.12, smooth loss=0.124][A
+step:  43%|####2     | 9/21 [00:22<00:30,  2.57s/it, loss=0.12, smooth loss=0.124][A
+step:  48%|####7     | 10/21 [00:25<00:28,  2.60s/it, loss=0.12, smooth loss=0.124][A
+step:  48%|####7     | 10/21 [00:28<00:28,  2.60s/it, loss=0.117, smooth loss=0.123][A
+step:  52%|#####2    | 11/21 [00:28<00:28,  2.83s/it, loss=0.117, smooth loss=0.123][A
+step:  57%|#####7    | 12/21 [00:30<00:22,  2.55s/it, loss=0.117, smooth loss=0.123][A
+step:  62%|######1   | 13/21 [00:33<00:20,  2.58s/it, loss=0.117, smooth loss=0.123][A
+step:  67%|######6   | 14/21 [00:36<00:18,  2.61s/it, loss=0.117, smooth loss=0.123][A
+step:  67%|######6   | 14/21 [00:39<00:18,  2.61s/it, loss=0.127, smooth loss=0.124][A
+step:  71%|#######1  | 15/21 [00:39<00:17,  2.83s/it, loss=0.127, smooth loss=0.124][A
+step:  76%|#######6  | 16/21 [00:41<00:12,  2.55s/it, loss=0.127, smooth loss=0.124][A
+step:  81%|########  | 17/21 [00:44<00:10,  2.60s/it, loss=0.127, smooth loss=0.124][A
+step:  86%|########5 | 18/21 [00:46<00:07,  2.62s/it, loss=0.127, smooth loss=0.124][A
+step:  86%|########5 | 18/21 [00:50<00:07,  2.62s/it, loss=0.117, smooth loss=0.123][A
+step:  90%|######### | 19/21 [00:50<00:05,  2.83s/it, loss=0.117, smooth loss=0.123][A
+step:  95%|#########5| 20/21 [00:52<00:02,  2.55s/it, loss=0.117, smooth loss=0.123][A
+step: 100%|##########| 21/21 [00:54<00:00,  2.60s/it, loss=0.117, smooth loss=0.123][Astep: 100%|##########| 21/21 [00:54<00:00,  2.61s/it, loss=0.117, smooth loss=0.123]
+epoch:  33%|###3      | 2/6 [03:42<06:46, 101.52s/it]
+step:   0%|          | 0/21 [00:00<?, ?it/s][A
+step:   5%|4         | 1/21 [00:02<00:40,  2.02s/it][A
+step:   5%|4         | 1/21 [00:05<00:40,  2.02s/it, loss=0.135, smooth loss=0.124][A
+step:  10%|9         | 2/21 [00:05<00:53,  2.79s/it, loss=0.135, smooth loss=0.124][A
+step:  14%|#4        | 3/21 [00:07<00:42,  2.39s/it, loss=0.135, smooth loss=0.124][A
+step:  19%|#9        | 4/21 [00:09<00:42,  2.52s/it, loss=0.135, smooth loss=0.124][A
+step:  24%|##3       | 5/21 [00:12<00:40,  2.56s/it, loss=0.135, smooth loss=0.124][A
+step:  24%|##3       | 5/21 [00:15<00:40,  2.56s/it, loss=0.12, smooth loss=0.124] [A
+step:  29%|##8       | 6/21 [00:15<00:42,  2.80s/it, loss=0.12, smooth loss=0.124][A
+step:  33%|###3      | 7/21 [00:17<00:35,  2.51s/it, loss=0.12, smooth loss=0.124][A
+step:  38%|###8      | 8/21 [00:20<00:33,  2.58s/it, loss=0.12, smooth loss=0.124][A
+step:  43%|####2     | 9/21 [00:23<00:31,  2.60s/it, loss=0.12, smooth loss=0.124][A
+step:  43%|####2     | 9/21 [00:26<00:31,  2.60s/it, loss=0.128, smooth loss=0.124][A
+step:  48%|####7     | 10/21 [00:26<00:30,  2.81s/it, loss=0.128, smooth loss=0.124][A
+step:  52%|#####2    | 11/21 [00:28<00:25,  2.53s/it, loss=0.128, smooth loss=0.124][A
+step:  57%|#####7    | 12/21 [00:31<00:23,  2.59s/it, loss=0.128, smooth loss=0.124][A
+step:  62%|######1   | 13/21 [00:33<00:20,  2.61s/it, loss=0.128, smooth loss=0.124][A
+step:  62%|######1   | 13/21 [00:37<00:20,  2.61s/it, loss=0.125, smooth loss=0.124][A
+step:  67%|######6   | 14/21 [00:37<00:19,  2.83s/it, loss=0.125, smooth loss=0.124][A
+step:  71%|#######1  | 15/21 [00:38<00:15,  2.56s/it, loss=0.125, smooth loss=0.124][A
+step:  76%|#######6  | 16/21 [00:41<00:12,  2.60s/it, loss=0.125, smooth loss=0.124][A
+step:  81%|########  | 17/21 [00:44<00:10,  2.60s/it, loss=0.125, smooth loss=0.124][A
+step:  81%|########  | 17/21 [00:47<00:10,  2.60s/it, loss=0.117, smooth loss=0.124][A
+step:  86%|########5 | 18/21 [00:47<00:08,  2.82s/it, loss=0.117, smooth loss=0.124][A
+step:  90%|######### | 19/21 [00:49<00:05,  2.55s/it, loss=0.117, smooth loss=0.124][A
+step:  95%|#########5| 20/21 [00:52<00:02,  2.60s/it, loss=0.117, smooth loss=0.124][A
+step: 100%|##########| 21/21 [00:54<00:00,  2.60s/it, loss=0.117, smooth loss=0.124][Astep: 100%|##########| 21/21 [00:54<00:00,  2.61s/it, loss=0.117, smooth loss=0.124]
+epoch:  50%|#####     | 3/6 [04:38<04:01, 80.64s/it] 
+step:   0%|          | 0/21 [00:00<?, ?it/s][A
+step:   0%|          | 0/21 [00:02<?, ?it/s, loss=0.123, smooth loss=0.124][A
+step:   5%|4         | 1/21 [00:02<00:54,  2.70s/it, loss=0.123, smooth loss=0.124][A
+step:  10%|9         | 2/21 [00:04<00:42,  2.24s/it, loss=0.123, smooth loss=0.124][A
+step:  14%|#4        | 3/21 [00:07<00:44,  2.47s/it, loss=0.123, smooth loss=0.124][A
+step:  19%|#9        | 4/21 [00:09<00:43,  2.53s/it, loss=0.123, smooth loss=0.124][A
+step:  19%|#9        | 4/21 [00:13<00:43,  2.53s/it, loss=0.134, smooth loss=0.124][A
+step:  24%|##3       | 5/21 [00:13<00:45,  2.82s/it, loss=0.134, smooth loss=0.124][A
+step:  29%|##8       | 6/21 [00:15<00:37,  2.52s/it, loss=0.134, smooth loss=0.124][A
+step:  33%|###3      | 7/21 [00:17<00:36,  2.58s/it, loss=0.134, smooth loss=0.124][A
+step:  38%|###8      | 8/21 [00:20<00:33,  2.59s/it, loss=0.134, smooth loss=0.124][A
+step:  38%|###8      | 8/21 [00:23<00:33,  2.59s/it, loss=0.113, smooth loss=0.124][A
+step:  43%|####2     | 9/21 [00:23<00:33,  2.83s/it, loss=0.113, smooth loss=0.124][A
+step:  48%|####7     | 10/21 [00:26<00:28,  2.60s/it, loss=0.113, smooth loss=0.124][A
+step:  52%|#####2    | 11/21 [00:29<00:27,  2.76s/it, loss=0.113, smooth loss=0.124][A
+step:  57%|#####7    | 12/21 [00:32<00:25,  2.80s/it, loss=0.113, smooth loss=0.124][A
+step:  57%|#####7    | 12/21 [00:35<00:25,  2.80s/it, loss=0.128, smooth loss=0.124][A
+step:  62%|######1   | 13/21 [00:35<00:24,  3.08s/it, loss=0.128, smooth loss=0.124][A
+step:  67%|######6   | 14/21 [00:38<00:20,  2.89s/it, loss=0.128, smooth loss=0.124][A
+step:  71%|#######1  | 15/21 [00:40<00:17,  2.84s/it, loss=0.128, smooth loss=0.124][A
+step:  76%|#######6  | 16/21 [00:43<00:13,  2.78s/it, loss=0.128, smooth loss=0.124][A
+step:  76%|#######6  | 16/21 [00:46<00:13,  2.78s/it, loss=0.12, smooth loss=0.124] [A
+step:  81%|########  | 17/21 [00:46<00:11,  2.95s/it, loss=0.12, smooth loss=0.124][A
+step:  86%|########5 | 18/21 [00:48<00:07,  2.63s/it, loss=0.12, smooth loss=0.124][A
+step:  90%|######### | 19/21 [00:51<00:05,  2.66s/it, loss=0.12, smooth loss=0.124][A
+step:  95%|#########5| 20/21 [00:54<00:02,  2.64s/it, loss=0.12, smooth loss=0.124][A
+step:  95%|#########5| 20/21 [00:57<00:02,  2.64s/it, loss=0.124, smooth loss=0.124][A
+step: 100%|##########| 21/21 [00:57<00:00,  2.84s/it, loss=0.124, smooth loss=0.124][Astep: 100%|##########| 21/21 [00:57<00:00,  2.74s/it, loss=0.124, smooth loss=0.124]
+epoch:  67%|######6   | 4/6 [05:37<02:23, 71.84s/it]
+step:   0%|          | 0/21 [00:00<?, ?it/s][A
+step:   5%|4         | 1/21 [00:01<00:38,  1.92s/it][A
+step:  10%|9         | 2/21 [00:04<00:45,  2.39s/it][A
+step:  14%|#4        | 3/21 [00:07<00:44,  2.49s/it][A
+step:  14%|#4        | 3/21 [00:10<00:44,  2.49s/it, loss=0.118, smooth loss=0.123][A
+step:  19%|#9        | 4/21 [00:10<00:47,  2.81s/it, loss=0.118, smooth loss=0.123][A
+step:  24%|##3       | 5/21 [00:12<00:39,  2.49s/it, loss=0.118, smooth loss=0.123][A
+step:  29%|##8       | 6/21 [00:15<00:38,  2.56s/it, loss=0.118, smooth loss=0.123][A
+step:  33%|###3      | 7/21 [00:17<00:36,  2.59s/it, loss=0.118, smooth loss=0.123][A
+step:  33%|###3      | 7/21 [00:21<00:36,  2.59s/it, loss=0.126, smooth loss=0.124][A
+step:  38%|###8      | 8/21 [00:21<00:36,  2.82s/it, loss=0.126, smooth loss=0.124][A
+step:  43%|####2     | 9/21 [00:23<00:30,  2.53s/it, loss=0.126, smooth loss=0.124][A
+step:  48%|####7     | 10/21 [00:25<00:28,  2.59s/it, loss=0.126, smooth loss=0.124][A
+step:  52%|#####2    | 11/21 [00:28<00:25,  2.59s/it, loss=0.126, smooth loss=0.124][A
+step:  52%|#####2    | 11/21 [00:31<00:25,  2.59s/it, loss=0.114, smooth loss=0.123][A
+step:  57%|#####7    | 12/21 [00:31<00:25,  2.81s/it, loss=0.114, smooth loss=0.123][A
+step:  62%|######1   | 13/21 [00:33<00:20,  2.54s/it, loss=0.114, smooth loss=0.123][A
+step:  67%|######6   | 14/21 [00:36<00:18,  2.59s/it, loss=0.114, smooth loss=0.123][A
+step:  71%|#######1  | 15/21 [00:38<00:15,  2.60s/it, loss=0.114, smooth loss=0.123][A
+step:  71%|#######1  | 15/21 [00:42<00:15,  2.60s/it, loss=0.112, smooth loss=0.123][A
+step:  76%|#######6  | 16/21 [00:42<00:14,  2.82s/it, loss=0.112, smooth loss=0.123][A
+step:  81%|########  | 17/21 [00:44<00:10,  2.57s/it, loss=0.112, smooth loss=0.123][A
+step:  86%|########5 | 18/21 [00:47<00:08,  2.73s/it, loss=0.112, smooth loss=0.123][A
+step:  90%|######### | 19/21 [00:50<00:05,  2.82s/it, loss=0.112, smooth loss=0.123][A
+step:  90%|######### | 19/21 [00:53<00:05,  2.82s/it, loss=0.126, smooth loss=0.123][A
+step:  95%|#########5| 20/21 [00:53<00:03,  3.06s/it, loss=0.126, smooth loss=0.123][A
+step: 100%|##########| 21/21 [00:56<00:00,  2.78s/it, loss=0.126, smooth loss=0.123][Astep: 100%|##########| 21/21 [00:56<00:00,  2.67s/it, loss=0.126, smooth loss=0.123]
+epoch:  83%|########3 | 5/6 [06:33<01:06, 66.27s/it]
+step:   0%|          | 0/21 [00:00<?, ?it/s][A
+step:   5%|4         | 1/21 [00:02<00:44,  2.24s/it][A
+step:  10%|9         | 2/21 [00:05<00:49,  2.60s/it][A
+step:  10%|9         | 2/21 [00:08<00:49,  2.60s/it, loss=0.114, smooth loss=0.123][A
+step:  14%|#4        | 3/21 [00:08<00:54,  3.05s/it, loss=0.114, smooth loss=0.123][A
+step:  19%|#9        | 4/21 [00:10<00:45,  2.66s/it, loss=0.114, smooth loss=0.123][A
+step:  24%|##3       | 5/21 [00:13<00:45,  2.83s/it, loss=0.114, smooth loss=0.123][A
+step:  29%|##8       | 6/21 [00:16<00:43,  2.88s/it, loss=0.114, smooth loss=0.123][A
+step:  29%|##8       | 6/21 [00:20<00:43,  2.88s/it, loss=0.155, smooth loss=0.124][A
+step:  33%|###3      | 7/21 [00:20<00:43,  3.11s/it, loss=0.155, smooth loss=0.124][A
+step:  38%|###8      | 8/21 [00:22<00:36,  2.79s/it, loss=0.155, smooth loss=0.124][A
+step:  43%|####2     | 9/21 [00:25<00:33,  2.82s/it, loss=0.155, smooth loss=0.124][A
+step:  48%|####7     | 10/21 [00:28<00:31,  2.82s/it, loss=0.155, smooth loss=0.124][A
+step:  48%|####7     | 10/21 [00:31<00:31,  2.82s/it, loss=0.141, smooth loss=0.124][A
+step:  52%|#####2    | 11/21 [00:31<00:30,  3.05s/it, loss=0.141, smooth loss=0.124][A
+step:  57%|#####7    | 12/21 [00:33<00:24,  2.75s/it, loss=0.141, smooth loss=0.124][A
+step:  62%|######1   | 13/21 [00:36<00:22,  2.80s/it, loss=0.141, smooth loss=0.124][A
+step:  67%|######6   | 14/21 [00:39<00:19,  2.81s/it, loss=0.141, smooth loss=0.124][A
+step:  67%|######6   | 14/21 [00:43<00:19,  2.81s/it, loss=0.132, smooth loss=0.125][A
+step:  71%|#######1  | 15/21 [00:43<00:18,  3.04s/it, loss=0.132, smooth loss=0.125][A
+step:  76%|#######6  | 16/21 [00:45<00:13,  2.74s/it, loss=0.132, smooth loss=0.125][A
+step:  81%|########  | 17/21 [00:48<00:11,  2.79s/it, loss=0.132, smooth loss=0.125][A
+step:  86%|########5 | 18/21 [00:50<00:08,  2.78s/it, loss=0.132, smooth loss=0.125][A
+step:  86%|########5 | 18/21 [00:54<00:08,  2.78s/it, loss=0.112, smooth loss=0.124][A
+step:  90%|######### | 19/21 [00:54<00:05,  2.98s/it, loss=0.112, smooth loss=0.124][A
+step:  95%|#########5| 20/21 [00:56<00:02,  2.70s/it, loss=0.112, smooth loss=0.124][A
+step: 100%|##########| 21/21 [00:59<00:00,  2.77s/it, loss=0.112, smooth loss=0.124][Astep: 100%|##########| 21/21 [00:59<00:00,  2.82s/it, loss=0.112, smooth loss=0.124]
+epoch: 100%|##########| 6/6 [07:33<00:00, 64.27s/it]epoch: 100%|##########| 6/6 [07:33<00:00, 75.64s/it]
+Creating Backup G:\Auto\OneTrainer\perf_tests\workspace\00_ft_baseline\backup\2026-07-04_14-52-33-backup-126-6-0
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|##########| 1/1 [00:01<00:00,  1.93s/it]Writing model shards: 100%|##########| 1/1 [00:01<00:00,  1.93s/it]
+Saving G:\Auto\OneTrainer\perf_tests\out\00_ft_baseline.safetensors
+Traceback (most recent call last):
+  File "G:\Auto\OneTrainer\scripts\train.py", line 62, in <module>
+    main()
+  File "G:\Auto\OneTrainer\scripts\train.py", line 58, in main
+    trainer.end()
+  File "G:\Auto\OneTrainer\modules\trainer\GenericTrainer.py", line 869, in end
+    self.model_saver.save(
+  File "G:\Auto\OneTrainer\modules\modelSaver\GenericFineTuneModelSaver.py", line 37, in save
+    base_model_saver.save(model, output_model_format, output_model_destination, dtype)
+  File "G:\Auto\OneTrainer\modules\modelSaver\krea2\Krea2ModelSaver.py", line 74, in save
+    raise NotImplementedError(f"Unsupported output format: {output_model_format}")
+NotImplementedError: Unsupported output format: LEGACY_SAFETENSORS

@@ -95,6 +95,9 @@ def base_config():
     # diffusers repo as base + transformer-only single-file override.
     cfg["transformer"]["model_name"] = cfg["base_model_name"]
     cfg["base_model_name"] = "krea/Krea-2-Raw"
+    # preset carries stale "SAFETENSORS", which Krea2ModelSaver rejects for FT
+    if cfg.get("output_model_format") == "SAFETENSORS" and cfg.get("training_method") == "FINE_TUNE":
+        cfg["output_model_format"] = "ORIGINAL_TRANSFORMER"
     cfg["concepts"] = make_concept()
     cfg["concept_file_name"] = str(PT / "concepts" / "smallgia.json")
     cfg["epochs"] = EPOCHS
@@ -149,10 +152,18 @@ def main():
         "lora_rank": 16,
         "lora_alpha": 1.0,
         "lora_weight_dtype": "FLOAT_32",
+        # preset's stale SAFETENSORS maps to LEGACY_LORA, which Krea2 rejects
+        "output_model_format": "COMFY_LORA",
     }
     variant("01_lora_f8_storage", **lora, **{"transformer.weight_dtype": "FLOAT_8"})
     variant("02_lora_int_w8a8", **lora, **{"transformer.weight_dtype": "INT_W8A8"})
     variant("03_lora_fp8_w8a8", **lora, **{"transformer.weight_dtype": "FLOAT_W8A8"})
+
+    # 04/05: fused back-pass A/B. Fused BP only reduces VRAM at accum=1
+    # (GenericTrainer warns otherwise), so both runs use accum=1.
+    variant("04_ft_accum1_control", **{"gradient_accumulation_steps": 1})
+    variant("05_ft_accum1_fused_bp",
+            **{"gradient_accumulation_steps": 1, "optimizer.fused_back_pass": True})
 
 
 if __name__ == "__main__":

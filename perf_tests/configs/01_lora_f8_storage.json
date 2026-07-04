@@ -24,7 +24,7 @@
     "async_gradient_reduce_buffer": 100,
     "base_model_name": "krea/Krea-2-Raw",
     "output_dtype": "BFLOAT_16",
-    "output_model_format": "SAFETENSORS",
+    "output_model_format": "COMFY_LORA",
     "output_model_destination": "G:\\Auto\\OneTrainer\\perf_tests\\out\\01_lora_f8_storage.safetensors",
     "gradient_checkpointing": "ON",
     "enable_async_offloading": true,

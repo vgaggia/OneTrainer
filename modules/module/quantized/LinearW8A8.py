@@ -124,7 +124,12 @@ class LinearW8A8(
         assert self.__is_quantized
         x = x_orig.reshape(-1, x_orig.shape[-1])
 
-        if x.shape[0] > 16:
+        # torch._int_mm requires K/N to be multiples of 8, torch._scaled_mm multiples of 16.
+        # Some models (e.g. Krea 2) contain tiny Linear layers (in_features=12) that violate
+        # this; route them through the dequantize fallback below.
+        aligned = x.shape[1] % 16 == 0 and self.weight.shape[0] % 16 == 0
+
+        if x.shape[0] > 16 and aligned:
             if self._dtype == torch.int8:
                 y = LinearInt8Function.apply(x, self.weight, self.scale, self.bias, self.compute_dtype)
             else:
