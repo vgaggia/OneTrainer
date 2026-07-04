@@ -95,8 +95,9 @@ class CtkTrainUIView(BaseTrainUIView, ctk.CTk):
 
         self.after(100, lambda: self._set_icon())
 
-        # more efficient version of ctk.set_appearance_mode("System"), which retrieves the system theme on each main loop iteration
-        ctk.set_appearance_mode("Light" if AppearanceModeTracker.detect_appearance_mode() == 0 else "Dark")
+        # forced dark: system-theme detection intermittently reported Light on this
+        # machine despite Windows being in dark mode, washing out the whole UI
+        ctk.set_appearance_mode("Dark")
         ctk.set_default_color_theme("blue")
 
         self.grid_rowconfigure(0, weight=0)
