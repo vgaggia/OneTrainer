@@ -51,9 +51,6 @@ if errorlevel 1 (
 )
 
 :launch
-REM reduce VRAM fragmentation on long bucketed runs (creeping usage -> cublas
-REM INTERNAL_ERROR / OOM); torch warns and ignores this if unsupported
-if not defined PYTORCH_CUDA_ALLOC_CONF (set PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True)
 REM stable per-step cost for eager 8-bit matmuls on bucketed datasets (triton
 REM autotune re-benchmarks per bucket shape; required for quantized_weight_training)
 if not defined OT_MM8_NO_TRITON (set OT_MM8_NO_TRITON=1)
