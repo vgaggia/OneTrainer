@@ -104,7 +104,7 @@ def base_config():
     cfg["validation"] = False
     cfg["debug_mode"] = False
     cfg["dataloader_threads"] = 1
-    cfg["tensorboard"] = True
+    cfg["tensorboard"] = False  # crashed/killed runs orphan tensorboard servers on port 6006
     cfg["tensorboard_always_on"] = False
     cfg["latent_caching"] = True
     cfg["clear_cache_before_training"] = False

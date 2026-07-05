@@ -24,6 +24,7 @@ c["tread_enabled"] = False
 c["layer_offload_fraction"] = 0.2          # headroom: qwt peaked 31.9GB without sampling
 c["clear_cache_before_training"] = False   # reuse the real cache
 c["tensorboard_always_on"] = False
+c["tensorboard"] = False  # smoke tests are killed mid-run; orphaned tensorboards squat port 6006
 
 # keep their real cache, but use a separate workspace so tensorboard runs don't mix
 c["workspace_dir"] = "G:\\Auto\\OneTrainer\\perf_tests\\workspace\\16_qwt_real_smoke"
