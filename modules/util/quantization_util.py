@@ -261,12 +261,24 @@ def quantize_layers(module: nn.Module, device: torch.device, train_dtype: DataTy
     if module is None:
         return
     child_modules = list(module.modules())
+    quantized_count = 0
     for _ in multi.master_first(): #avoid cache writing conflicts
         for child_module in tqdm(child_modules, desc="Quantizing model weights", total=len(child_modules), delay=5, smoothing=0.1):
             if isinstance(child_module, (QuantizedModuleMixin, GGUFLinear)):
                 child_module.compute_dtype = train_dtype.torch_dtype()
             if isinstance(child_module, QuantizedModuleMixin):
                 child_module.quantize(device=device)
+                quantized_count += 1
+
+    from modules.util.enum.TrainingMethod import TrainingMethod
+    if (quantized_count > 0
+            and config.training_method == TrainingMethod.FINE_TUNE
+            and not getattr(config, "quantized_weight_training", False)):
+        print(
+            f"NOTE: {quantized_count} quantized Linear layers are FROZEN (quantized weights cannot "
+            "receive gradients). FINE_TUNE will train only norms, biases, embeddings and similar "
+            "non-quantized parameters. Enable quantized_weight_training (INT_W8A8) to train the "
+            "quantized weights themselves.")
 
 def get_unquantized_weight(module: nn.Linear, dtype: torch.dtype, device: torch.device) -> Tensor:
     assert isinstance(module, nn.Linear)
