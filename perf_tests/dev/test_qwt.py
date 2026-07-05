@@ -72,3 +72,25 @@ print(f"sub-ULP drift after 200 steps @ lr 2e-5: mean |dW| = {moved:.7f}")
 assert moved > 0, "weights never moved"
 
 print("all QWT unit tests passed")
+
+# 4. updater microbenchmark on the largest Krea2 layer shape (6144 -> 16384)
+import time
+
+qb = LinearW8A8(torch.int8, 6144, 16384, bias=False).to(dev)
+with torch.no_grad():
+    qb.weight.copy_(torch.randn(16384, 6144) * 0.02)
+qb.compute_dtype = torch.bfloat16
+qb.quantize(device=dev)
+upd = FusedQuantizedAdafactor(qb, lr=2e-5, clip_grad_norm=1.0)
+gb = torch.randn(16384, 6144, dtype=torch.float32, device=dev) * 1e-3
+for _ in range(5):
+    upd.step(gb.clone())
+torch.cuda.synchronize()
+t0 = time.perf_counter()
+for _ in range(20):
+    upd.step(gb.clone())
+torch.cuda.synchronize()
+dt = (time.perf_counter() - t0) / 20 * 1000
+import os
+mode = "eager" if os.environ.get("OT_QWT_EAGER") == "1" else "compiled"
+print(f"updater step ({mode}, 16384x6144): {dt:.2f} ms")

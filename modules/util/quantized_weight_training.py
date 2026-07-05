@@ -17,8 +17,49 @@ Optimizer state is factored Adafactor (one fp32 row + col vector per matrix, ~50
 layer), so the whole 12.9B-weight update machinery adds no meaningful VRAM.
 """
 
+import os
+
 import torch
 from torch import nn
+
+_EAGER = os.environ.get("OT_QWT_EAGER", "0") == "1"
+
+
+def _update_math(
+        grad: torch.Tensor,        # fp32 (n, k), consumed
+        weight: torch.Tensor,      # int8 (n, k), mutated
+        scale: torch.Tensor,       # fp32 (n, 1), mutated
+        row: torch.Tensor,         # fp32 (n,), mutated
+        col: torch.Tensor,         # fp32 (k,), mutated
+        beta2t: torch.Tensor,      # 0-dim fp32 (tensor so shapes stay static under compile)
+        clip_norm: torch.Tensor,   # 0-dim fp32
+        clip_threshold: torch.Tensor,  # 0-dim fp32
+        lr: torch.Tensor,          # 0-dim fp32
+        eps1: float,
+):
+    norm = grad.norm()
+    grad = grad * torch.clamp(clip_norm / (norm + 1e-6), max=1.0)
+
+    sq = grad * grad
+    row.mul_(beta2t).add_(sq.mean(dim=1) * (1.0 - beta2t))
+    col.mul_(beta2t).add_(sq.mean(dim=0) * (1.0 - beta2t))
+
+    r = (row / row.mean().clamp(min=eps1)).clamp(min=eps1).rsqrt()
+    c = col.clamp(min=eps1).rsqrt()
+    u = grad * r[:, None] * c[None, :]
+    rms_u = (u * u).mean().sqrt()
+    u = u / torch.clamp(rms_u / clip_threshold, min=1.0)
+
+    w = weight.float() * scale - lr * u
+    new_scale = (w.abs().amax(dim=1, keepdim=True) / 127.0).clamp(min=1e-30)
+    v = w / new_scale
+    low = v.floor()
+    q = low + (torch.rand_like(v) < (v - low))
+    weight.copy_(q.clamp_(-127.0, 127.0).to(torch.int8))
+    scale.copy_(new_scale)
+
+
+_update_math_compiled = _update_math if _EAGER else torch.compile(_update_math, dynamic=False)
 
 
 class FusedQuantizedAdafactor:
@@ -52,43 +93,28 @@ class FusedQuantizedAdafactor:
     @torch.no_grad()
     def step(self, grad: torch.Tensor):
         """grad: fp32 [out, in], consumed (may be mutated)."""
-        weight = self.module.weight
-        scale = self.module.scale
         self.step_count += 1
 
         if self.row is None:
-            self.row = torch.zeros(grad.shape[0], dtype=torch.float32, device=grad.device)
-            self.col = torch.zeros(grad.shape[1], dtype=torch.float32, device=grad.device)
+            dev = grad.device
+            self.row = torch.zeros(grad.shape[0], dtype=torch.float32, device=dev)
+            self.col = torch.zeros(grad.shape[1], dtype=torch.float32, device=dev)
+            # scalar staging tensors: passing python floats would recompile every step
+            self._beta2t = torch.zeros((), dtype=torch.float32, device=dev)
+            self._clip_norm = torch.tensor(
+                self.clip_grad_norm if self.clip_grad_norm is not None else float("inf"),
+                dtype=torch.float32, device=dev)
+            self._clip_threshold = torch.tensor(self.clip_threshold, dtype=torch.float32, device=dev)
+            self._lr = torch.tensor(self.lr, dtype=torch.float32, device=dev)
 
-        if self.clip_grad_norm is not None:
-            norm = grad.norm()
-            grad.mul_(torch.clamp(self.clip_grad_norm / (norm + 1e-6), max=1.0))
+        self._beta2t.fill_(1.0 - self.step_count ** self.decay_rate)
 
-        beta2t = 1.0 - self.step_count ** self.decay_rate
-        sq_row = grad.pow(2).mean(dim=1)  # [out]
-        sq_col = grad.pow(2).mean(dim=0)  # [in]
-        self.row.mul_(beta2t).add_(sq_row, alpha=1.0 - beta2t)
-        self.col.mul_(beta2t).add_(sq_col, alpha=1.0 - beta2t)
-
-        # u = grad / sqrt(outer(R, C) / mean(R)); computed via two broadcasts
-        r = (self.row / self.row.mean().clamp(min=self.eps1)).clamp(min=self.eps1).rsqrt()  # [out]
-        c = self.col.clamp(min=self.eps1).rsqrt()  # [in]
-        grad.mul_(r[:, None]).mul_(c[None, :])  # grad is now u
-
-        rms_u = grad.pow(2).mean().sqrt()
-        grad.div_(torch.clamp(rms_u / self.clip_threshold, min=1.0))
-
-        # dequantize, update, re-quantize with stochastic rounding, refresh scales
-        w = weight.data.float().mul_(scale)  # fp32 [out, in]
-        w.add_(grad, alpha=-self.lr)
-
-        new_scale = (w.abs().amax(dim=1, keepdim=True) / 127.0).clamp(min=1e-30)
-        w.div_(new_scale)  # w is now the real-valued quantization target in [-127, 127]
-        low = w.floor()
-        w.sub_(low)  # w is now the fractional part
-        low.add_(torch.rand_like(w) < w)  # stochastic rounding
-        weight.data.copy_(low.clamp_(-127.0, 127.0).to(torch.int8))
-        scale.copy_(new_scale)
+        _update_math_compiled(
+            grad, self.module.weight.data, self.module.scale,
+            self.row, self.col,
+            self._beta2t, self._clip_norm, self._clip_threshold, self._lr,
+            self.eps1,
+        )
 
 
 def enable_quantized_weight_training(root: nn.Module, config) -> int:
