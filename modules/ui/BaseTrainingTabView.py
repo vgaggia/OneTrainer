@@ -398,6 +398,12 @@ class BaseTrainingTabView(ABC):
         self.components.entry(frame, row, 1, ui_state, "layer_offload_fraction")
         row += 1
 
+        # activation offload compression
+        self.components.label(frame, row, 0, "Compress Offloaded Activations",
+                              tooltip="Compresses offloaded activations to fp8 for the transfer to RAM, halving activation transfer traffic and pinned memory. Introduces a small quantization error into the recomputed forward pass. Only takes effect when checkpointing is CPU_OFFLOADED with activation offloading enabled")
+        self.components.switch(frame, row, 1, ui_state, "activation_offload_compression")
+        row += 1
+
         # train dtype
         self.components.label(frame, row, 0, "Train Data Type",
                               tooltip="The mixed precision data type used for training. This can increase training speed, but reduces precision")
@@ -424,11 +430,40 @@ class BaseTrainingTabView(ABC):
         self.components.switch(frame, row, 1, ui_state, "enable_autocast_cache")
         row += 1
 
+        # quantized weight training
+        self.components.label(frame, row, 0, "Quantized Weight Training",
+                              tooltip="EXPERIMENTAL: trains the quantized transformer weights themselves using stochastic-rounding updates fused into the backward pass (normally quantized weights are frozen and only norms/biases/modulation train). Requires: Fine Tune method, INT_W8A8 weight dtype, Accumulation Steps 1, compile disabled. Slower per step, but every weight actually trains")
+        self.components.switch(frame, row, 1, ui_state, "quantized_weight_training")
+        row += 1
+
         # resolution
         self.components.label(frame, row, 0, "Resolution",
                               tooltip="The resolution used for training. Optionally specify multiple resolutions separated by a comma, or a single exact resolution in the format <width>x<height>")
         self.components.entry(frame, row, 1, ui_state, "resolution", required=True,
                               extra_validate=validate_resolution())
+        row += 1
+
+        # TREAD token routing
+        self.components.label(frame, row, 0, "TREAD Token Routing",
+                              tooltip="Training-only token routing (TREAD): a random fraction of image tokens skips the middle transformer blocks each step, cutting step time 20-40% at high resolutions. Inference is unaffected. Can impact training fidelity; validate sample quality before long runs. Currently supported for Krea 2")
+        self.components.switch(frame, row, 1, ui_state, "tread_enabled")
+        row += 1
+
+        self.components.label(frame, row, 0, "TREAD Selection Ratio",
+                              tooltip="Fraction of image tokens DROPPED during the routed blocks (0.25 = conservative, 0.5 = aggressive/faster)")
+        self.components.entry(frame, row, 1, ui_state, "tread_selection_ratio",
+                              extra_validate=check_range(lower=0.0, upper=0.9,
+                                                        message="TREAD selection ratio must be between 0 and 0.9"))
+        row += 1
+
+        self.components.label(frame, row, 0, "TREAD Start Layer",
+                              tooltip="First transformer block of the routed span. Never route the first two blocks")
+        self.components.entry(frame, row, 1, ui_state, "tread_start_layer")
+        row += 1
+
+        self.components.label(frame, row, 0, "TREAD End Layer",
+                              tooltip="Last transformer block of the routed span. Negative values count from the end (-3 keeps the final two blocks unrouted)")
+        self.components.entry(frame, row, 1, ui_state, "tread_end_layer")
         row += 1
 
         # frames
