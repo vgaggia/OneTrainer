@@ -80,6 +80,15 @@ def fp8_backward_axiswise(output: Tensor, weight: Tensor, weight_scale: Tensor) 
     return mm_res.float().mul_(output_scale).to(out_dtype)
 
 
+# Compiled variants for quantized-weight training: the model graph cannot compile in
+# that mode (fused updates run inside autograd backward), but these helpers are pure
+# tensor functions and fuse well in isolation. dynamic=True keeps one graph across
+# bucket token counts.
+_int8_forward_tokenwise_c = torch.compile(int8_forward_tokenwise, dynamic=True)
+_int8_backward_axiswise_c = torch.compile(int8_backward_axiswise, dynamic=True)
+_int8_weight_grad_c = torch.compile(int8_weight_grad, dynamic=True)
+
+
 class LinearInt8Function(torch.autograd.Function):
     @staticmethod
     def forward(ctx, x: Tensor, weight: Tensor, weight_scale: Tensor, bias: Tensor | None, compute_dtype: torch.dtype, updater=None) -> Tensor:
@@ -89,7 +98,8 @@ class LinearInt8Function(torch.autograd.Function):
             ctx.save_for_backward(weight, weight_scale)
         ctx.updater = updater
         ctx.bias_dtype = None if bias is None else bias.dtype
-        return int8_forward_tokenwise(x, weight, weight_scale, bias, compute_dtype)
+        forward_fn = _int8_forward_tokenwise_c if updater is not None else int8_forward_tokenwise
+        return forward_fn(x, weight, weight_scale, bias, compute_dtype)
 
     @staticmethod
     def backward(ctx, output: Tensor):
@@ -102,8 +112,8 @@ class LinearInt8Function(torch.autograd.Function):
             weight, weight_scale, x = ctx.saved_tensors
             # grad_x BEFORE the weight update: the update must use the same weights
             # that produced the forward, and grad_x must match the forward weights too
-            grad_x = int8_backward_axiswise(output, weight, weight_scale) if ctx.needs_input_grad[0] else None
-            ctx.updater.step(int8_weight_grad(output, x))
+            grad_x = _int8_backward_axiswise_c(output, weight, weight_scale) if ctx.needs_input_grad[0] else None
+            ctx.updater.step(_int8_weight_grad_c(output, x))
         else:
             weight, weight_scale = ctx.saved_tensors
             grad_x = int8_backward_axiswise(output, weight, weight_scale) if ctx.needs_input_grad[0] else None
