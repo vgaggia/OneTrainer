@@ -1032,9 +1032,11 @@ class LayerOffloadConductor:
                 meta = {}
 
                 def _compress(t: torch.Tensor, idx: int):
-                    if t.dtype in (torch.bfloat16, torch.float16) and t.numel() >= 65536:
+                    if t.dtype in (torch.bfloat16, torch.float16) and t.numel() >= 65536 and t.shape[-1] >= 16:
                         original = t.data
-                        scale = (original.abs().amax().float() / 448.0).clamp(min=1e-12)
+                        # per-token (last-dim) scales: several-fold lower quantization
+                        # error than one scale per tensor, for negligible metadata
+                        scale = (original.abs().amax(dim=-1, keepdim=True).float() / 448.0).clamp(min=1e-12)
                         meta[idx] = (scale, t.dtype)
                         t.data = original.float().div_(scale).clamp_(-448.0, 448.0).to(torch.float8_e4m3fn)
                         if self.__async_transfer and original.is_cuda:
