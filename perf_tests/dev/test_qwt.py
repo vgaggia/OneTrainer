@@ -15,7 +15,7 @@ dev = torch.device("cuda")
 torch.manual_seed(0)
 
 # 1. int8 weight-grad vs bf16 autograd reference
-m, k, n = 4608, 6144, 4096
+m, k, n = 4601, 6144, 4096  # deliberately non-multiple-of-8 token count
 ref = torch.nn.Linear(k, n, bias=False, dtype=torch.bfloat16, device=dev)
 x = torch.randn(m, k, dtype=torch.bfloat16, device=dev)
 g = torch.randn(m, n, dtype=torch.bfloat16, device=dev)

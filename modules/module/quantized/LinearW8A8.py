@@ -49,6 +49,13 @@ def int8_weight_grad(output: Tensor, x: Tensor) -> Tensor:
     scales are constant along the token contraction and factor out post-GEMM."""
     dy_8, dy_scale = quantize_int8_axiswise(output, dim=0)   # scales (1, n)
     x_8, x_scale = quantize_int8_axiswise(x, dim=0)          # scales (1, k)
+    # the token count becomes the GEMM contraction dim; cuBLAS int8 requires it to be
+    # a multiple of 16 (bucketed datasets produce arbitrary counts). Zero token-rows
+    # contribute nothing to dY^T @ X, so padding is exact.
+    pad = (-dy_8.shape[0]) % 16
+    if pad:
+        dy_8 = torch.nn.functional.pad(dy_8, (0, 0, 0, pad))
+        x_8 = torch.nn.functional.pad(x_8, (0, 0, 0, pad))
     res = mm_8bit(dy_8.t().contiguous(), x_8)                # (n, k) int32
     return res.float().mul_(dy_scale.t()).mul_(x_scale)      # fp32 (n, k)
 
