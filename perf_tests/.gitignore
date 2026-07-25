@@ -3,3 +3,8 @@ workspace/
 cache/
 out/
 results/
+logs2/
+workspace2/
+out2/
+configs2_cloud/
+_cloud_secrets.json
