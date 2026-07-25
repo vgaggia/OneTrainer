@@ -80,6 +80,14 @@ def report():
         print("FAIL: some run has quantized_weight_training=False (would train norms/biases only)")
         return 1
     print("ok: quantized_weight_training=True on every run")
+
+    # TREAD inflates s/it by ~1.68x and damages fine-tuning; every run must have it off or the
+    # whole matrix measures the wrong thing
+    tread_on = [p.stem for p in CONFIGS if load(p).tread_enabled]
+    if tread_on:
+        print(f"FAIL: tread_enabled=True on {tread_on} - speed numbers would be inflated and quality damaged")
+        return 1
+    print("ok: tread_enabled=False on every run")
     return 0
 
 

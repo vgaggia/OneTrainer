@@ -50,6 +50,21 @@ class BaseKrea2Setup(
         model.text_encoder_offload_conductor = enable_checkpointing_for_qwen3vl_encoder_layers(model.text_encoder, config, config.text_encoder)
 
         if config.tread_enabled:
+            # ponytail: the upstream merge replaced the Krea2 transformer, taking our
+            # set_tread_router patch with it. Not restored on purpose - TREAD is a
+            # pretraining method and actively harms fine-tuning here: with [2, -3] on 28
+            # blocks, routed-around tokens traverse only 4 blocks, and route_info is a local
+            # in forward() so their loss cannot be masked. Their error backprops into blocks
+            # 26/27 and final_layer, distilling a 4-block shortcut into pretrained weights.
+            # The measured 1.68x speedup is exactly 24/28 x 0.5 = 42.9% of compute skipped,
+            # i.e. the speedup IS the damage. Fail loudly instead of AttributeError.
+            # To re-enable: reapply set_tread_router to the merged Krea2Transformer2DModel.
+            if not hasattr(model.transformer, "set_tread_router"):
+                raise NotImplementedError(
+                    "tread_enabled=True, but TREAD support is not present on this Krea2 "
+                    "transformer (lost in the upstream merge, deliberately not restored: "
+                    "TREAD degrades fine-tuning). Set tread_enabled=False in the config."
+                )
             from modules.util.TreadRouter import TreadRouter
             model.transformer.set_tread_router(
                 TreadRouter(seed=42, device=self.train_device),

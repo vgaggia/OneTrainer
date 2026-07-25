@@ -32,7 +32,9 @@ CLOUD = {
     "volume_size": 100,
     "network_volume_id": "",   # deliberately none: 459 imgs cache in minutes
     "data_center_id": "",      # so it can land wherever there is 5090 stock
-    "min_download": 0,
+    # a 25 GB Krea2 + 8.3 GB Qwen3-VL pull is the slowest part of setup; floor the host's
+    # download speed without pinning a datacenter (which is what starved stock last time)
+    "min_download": 500,
     "remote_dir": "/workspace",
     "huggingface_cache_dir": "/workspace/huggingface_cache",
     "onetrainer_dir": "/workspace/OneTrainer",
