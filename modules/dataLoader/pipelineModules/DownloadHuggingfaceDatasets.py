@@ -4,6 +4,7 @@ import os
 import shutil
 import tarfile
 import zipfile
+from concurrent.futures import ThreadPoolExecutor
 from contextlib import suppress
 from pathlib import Path
 
@@ -41,12 +42,36 @@ def parse_hf_archive_path(path: str) -> tuple[str, str]:
 
 def _safe_extract_zip(archive_path: Path, destination: Path):
     destination = destination.resolve()
+    destination_str = str(destination)
     with zipfile.ZipFile(archive_path) as archive:
-        for info in archive.infolist():
-            target = (destination / info.filename).resolve()
-            if not str(target).startswith(str(destination) + os.sep):
+        infos = archive.infolist()
+        for info in infos:
+            # ponytail: normpath instead of Path.resolve() - resolve() hits the filesystem once
+            # per member, which is ~10 minutes of FUSE round-trips for a 150k-entry archive on a
+            # network volume. The destination is freshly created and empty, so there are no
+            # symlinks inside it for resolve() to follow that this lexical check would miss.
+            target = os.path.normpath(os.path.join(destination_str, info.filename))
+            if target != destination_str and not target.startswith(destination_str + os.sep):
                 raise RuntimeError(f"Unsafe archive member path: {info.filename}")
-        archive.extractall(destination)
+
+        # create directories up front, so the parallel workers below never race on mkdir
+        for name in sorted({os.path.dirname(info.filename) for info in infos if os.path.dirname(info.filename)}):
+            (destination / name).mkdir(parents=True, exist_ok=True)
+        names = [info.filename for info in infos if not info.is_dir()]
+
+    # ponytail: extracting onto a network filesystem is per-file latency bound, not bandwidth
+    # bound - serial extractall managed ~18 files/s on RunPod's MooseFS volume. Threads (not
+    # processes) because these archives are typically stored uncompressed, so extract() is a
+    # GIL-releasing copy, and a thread pool cannot upset an already-initialised CUDA context.
+    def extract_names(chunk: list[str]):
+        with zipfile.ZipFile(archive_path) as thread_archive:
+            for name in chunk:
+                thread_archive.extract(name, destination)
+
+    workers = min(48, ((os.cpu_count() or 8) * 4))
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        for _ in pool.map(extract_names, [names[i::workers] for i in range(workers)]):
+            pass
 
 
 def _safe_extract_tar(archive_path: Path, destination: Path):
