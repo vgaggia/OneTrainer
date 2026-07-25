@@ -156,6 +156,8 @@ class LinuxCloudTest(TestCase):
         command = cloud.connection.run.call_args_list[1].args[0]
         self.assertIn("site-packages/nvidia/*/lib", command)
         self.assertIn("export LD_LIBRARY_PATH=", command)
+        # defaulted, not forced - an explicit value in the pod's environment still wins
+        self.assertIn('export PYTORCH_CUDA_ALLOC_CONF="${PYTORCH_CUDA_ALLOC_CONF:-expandable_segments:True}"', command)
         self.assertIn("export HF_HUB_DISABLE_XET=0", command)
         self.assertIn("export HF_XET_HIGH_PERFORMANCE=1", command)
         self.assertIn("export HF_XET_RECONSTRUCT_WRITE_SEQUENTIALLY=1", command)

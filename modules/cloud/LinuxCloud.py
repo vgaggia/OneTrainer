@@ -268,6 +268,7 @@ class LinuxCloud(BaseCloud):
              && export PATH=$PATH:/usr/local/cuda/bin:/venv/main/bin \
              && export PYTHONUNBUFFERED=1 \
              && export OT_LAZY_UPDATES=true \
+             && export PYTORCH_CUDA_ALLOC_CONF="${{PYTORCH_CUDA_ALLOC_CONF:-expandable_segments:True}}" \
              && export HF_HUB_DISABLE_XET=0 \
              && export HF_XET_HIGH_PERFORMANCE=1 \
              && export HF_XET_RECONSTRUCT_WRITE_SEQUENTIALLY=1 \
