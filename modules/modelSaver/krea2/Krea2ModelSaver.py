@@ -3,8 +3,10 @@ from pathlib import Path
 
 from modules.model.Krea2Model import Krea2Model
 from modules.modelSaver.mixin.DtypeModelSaverMixin import DtypeModelSaverMixin
+from modules.module.quantized.mixin.QuantizedLinearMixin import QuantizedLinearMixin
 from modules.util.convert_util import convert
 from modules.util.enum.ModelFormat import ModelFormat
+from modules.util.quantization_util import get_unquantized_weight
 
 import torch
 
@@ -41,7 +43,25 @@ class Krea2ModelSaver(
             dtype: torch.dtype | None,
     ):
         # ORIGINAL_TRANSFORMER: krea/Krea-2-Raw's native "raw.safetensors" namespace.
-        state_dict = convert(model.transformer.state_dict(), model.checkpoint_diffusers_to_original())
+        # Materialize any quantized (INT_W8A8 / FP8 / ...) linears back to real dense weights so a
+        # training-time weight_dtype does not leak into the saved checkpoint. The quantized modules
+        # keep low-bit codes in .weight plus a per-out-channel .scale buffer; dequantize folds them.
+        # Weight *values* are swapped before name conversion (key set unchanged, so convert behaves
+        # exactly as before); the now-orphan quant .scale sidecars are dropped after conversion. A
+        # .scale is a quant sidecar iff it has a sibling .weight -- genuine norm .scale params don't.
+        dequant_dtype = dtype if dtype is not None else torch.float32
+        state_dict = model.transformer.state_dict()
+        for name, module in model.transformer.named_modules():
+            if isinstance(module, QuantizedLinearMixin) and (name + ".weight") in state_dict:
+                state_dict[name + ".weight"] = \
+                    get_unquantized_weight(module, dequant_dtype, torch.device("cpu")).to("cpu")
+
+        state_dict = convert(state_dict, model.checkpoint_diffusers_to_original())
+
+        for key in [k for k in state_dict
+                    if k.endswith(".scale") and (k[:-len(".scale")] + ".weight") in state_dict]:
+            del state_dict[key]
+
         save_state_dict = self._convert_state_dict_dtype(state_dict, dtype)
         self._convert_state_dict_to_contiguous(save_state_dict)
 
