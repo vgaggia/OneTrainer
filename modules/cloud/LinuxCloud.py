@@ -115,13 +115,45 @@ class LinuxCloud(BaseCloud):
                    && export OT_LAZY_UPDATES=true \
                    && cd {shlex.quote(config.onetrainer_dir)}"
 
+        requirements_hash = self.__remote_requirements_hash(config.onetrainer_dir)
+        requirements_changed = requirements_hash != self.__installed_requirements_hash(config.onetrainer_dir)
+
         if result.exited == 0:
-            if update:
+            if update or requirements_changed:
                 # updating can switch a dependency's git remote (e.g. a different fork/branch),
                 # which makes pip prompt interactively unless told to always wipe and re-clone.
                 self.connection.run(cmd_env + "&& export PIP_EXISTS_ACTION=w && ./update.sh", in_stream=False)
         else:
             self.connection.run(cmd_env + "&& ./install.sh", in_stream=False)
+
+        if requirements_hash:
+            self.connection.run(
+                f"echo {shlex.quote(requirements_hash)} \
+                  > {shlex.quote(config.onetrainer_dir)}/{self.__REQUIREMENTS_MARKER}",
+                warn=True, hide=True, in_stream=False,
+            )
+
+    # A pod's venv lives on its container disk, which is recreated from the docker image whenever a
+    # pod is created, while onetrainer_dir can sit on a network volume that outlives it. "the venv
+    # directory exists" therefore says nothing about whether the packages inside it match the code
+    # that was just checked out, and the mismatch surfaces much later as a bare ImportError on a
+    # billing GPU. Record the requirements at install time and re-sync whenever they differ.
+    __REQUIREMENTS_MARKER = "venv/.onetrainer-requirements-sha256"
+
+    def __remote_requirements_hash(self, onetrainer_dir: str) -> str:
+        result = self.connection.run(
+            f"cat {shlex.quote(onetrainer_dir)}/requirements*.txt | sha256sum",
+            warn=True, hide=True, in_stream=False,
+        )
+        # empty on failure, which disables the check rather than forcing a needless reinstall
+        return result.stdout.split()[0] if result.exited == 0 and result.stdout.strip() else ""
+
+    def __installed_requirements_hash(self, onetrainer_dir: str) -> str:
+        result = self.connection.run(
+            f"cat {shlex.quote(onetrainer_dir)}/{self.__REQUIREMENTS_MARKER}",
+            warn=True, hide=True, in_stream=False,
+        )
+        return result.stdout.strip() if result.exited == 0 else ""
 
     @staticmethod
     def __parse_git_clone_install_cmd(install_cmd: str) -> tuple[str | None, str | None]:

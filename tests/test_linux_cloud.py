@@ -5,6 +5,70 @@ from unittest.mock import MagicMock, Mock
 from modules.cloud.LinuxCloud import LinuxCloud
 
 
+def make_install_cloud(venv_exists=True, requirements_hash="new-hash", installed_hash="new-hash"):
+    """A LinuxCloud whose connection answers the probes _install_onetrainer makes."""
+    cloud = object.__new__(LinuxCloud)
+    cloud.config = SimpleNamespace(
+        cloud=SimpleNamespace(
+            onetrainer_dir="/workspace/One Trainer",
+            install_cmd="git clone --branch krea2-cloud https://github.com/vgaggia/OneTrainer.git",
+        ),
+    )
+
+    def run(command, **kwargs):
+        if command.startswith("test -d"):
+            return SimpleNamespace(exited=0 if venv_exists else 1, stdout="")
+        if "sha256sum" in command:
+            return SimpleNamespace(exited=0, stdout=f"{requirements_hash}  -\n")
+        if command.startswith("cat") and LinuxCloud._LinuxCloud__REQUIREMENTS_MARKER in command:
+            return SimpleNamespace(exited=0 if installed_hash else 1, stdout=installed_hash)
+        return SimpleNamespace(exited=0, stdout="")
+
+    cloud.connection = SimpleNamespace(run=Mock(side_effect=run))
+    return cloud
+
+
+def commands_of(cloud):
+    return [call.args[0] for call in cloud.connection.run.call_args_list]
+
+
+class LinuxCloudRequirementsSyncTest(TestCase):
+    def test_matching_requirements_do_not_trigger_an_update(self):
+        cloud = make_install_cloud(installed_hash="new-hash")
+
+        cloud._install_onetrainer(update=False)
+
+        self.assertNotIn(True, ["update.sh" in c for c in commands_of(cloud)])
+
+    def test_changed_requirements_force_an_update(self):
+        # the code was moved to a branch with different pins; the venv would otherwise stay stale
+        # and fail later with a bare ImportError on a billing GPU
+        cloud = make_install_cloud(requirements_hash="new-hash", installed_hash="old-hash")
+
+        cloud._install_onetrainer(update=False)
+
+        self.assertIn(True, ["update.sh" in c for c in commands_of(cloud)])
+
+    def test_a_venv_from_the_docker_image_is_synced(self):
+        # a fresh pod's container disk carries the image's venv, which has no marker at all
+        cloud = make_install_cloud(installed_hash="")
+
+        cloud._install_onetrainer(update=False)
+
+        self.assertIn(True, ["update.sh" in c for c in commands_of(cloud)])
+
+    def test_the_marker_is_recorded_after_installing(self):
+        cloud = make_install_cloud(venv_exists=False, requirements_hash="fresh-hash")
+
+        cloud._install_onetrainer(update=False)
+
+        commands = commands_of(cloud)
+        self.assertIn(True, ["install.sh" in c for c in commands])
+        marker = [c for c in commands if c.startswith("echo")][-1]
+        self.assertIn("fresh-hash", marker)
+        self.assertIn("'/workspace/One Trainer'/venv/.onetrainer-requirements-sha256", marker)
+
+
 class LinuxCloudTest(TestCase):
     def test_parse_git_clone_branch(self):
         repo, branch = LinuxCloud._LinuxCloud__parse_git_clone_install_cmd(
