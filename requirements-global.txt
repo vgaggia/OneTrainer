@@ -5,12 +5,12 @@ pillow==12.2.0
 imagesize==1.4.1 #for concept statistics
 tqdm==4.67.1
 PyYAML==6.0.2
-huggingface-hub==1.16.1
+huggingface-hub==1.22.0
 scipy==1.15.3
 matplotlib==3.10.3
 av==16.1.0
 yt-dlp  #no pinned version, frequently updated for compatibility with sites
-scenedetect==0.6.7.1
+scenedetect==0.7
 parse==1.20.2
 setuptools==81.0.0
 
@@ -32,7 +32,7 @@ pooch==1.8.2
 open-clip-torch==2.32.0
 
 # data loader
--e git+https://github.com/Nerogar/mgds.git@bae73e5#egg=mgds
+-e git+https://github.com/Nerogar/mgds.git@3a6994a#egg=mgds
 
 # optimizers
 dadaptation==3.2 # dadaptation optimizers

@@ -10,7 +10,7 @@ from modules.dataLoader.pipelineModules.DownloadHuggingfaceDatasets import (
     download_hf_archive_dataset,
     is_hf_archive_path,
 )
-from modules.util import concept_stats, path_util
+from modules.util import concept_stats, huggingface_util, path_util
 from modules.util.config.ConceptConfig import ConceptConfig
 from modules.util.config.TrainConfig import TrainConfig
 from modules.util.image_util import load_image
@@ -64,8 +64,11 @@ class ConceptWindowController:
 
     def download_dataset(self):
         try:
-            if self.train_config.secrets.huggingface_token != "":
-                huggingface_hub.login(token=self.train_config.secrets.huggingface_token)
+            huggingface_util.configure_hub(
+                self.train_config.secrets.huggingface_token,
+                offline_mode=self.train_config.offline_mode,
+                cache_dir=self.train_config.huggingface_cache_dir,
+            )
             if is_hf_archive_path(self.concept.path):
                 download_hf_archive_dataset(self.concept.path)
             else:
