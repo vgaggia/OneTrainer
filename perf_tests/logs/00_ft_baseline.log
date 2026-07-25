@@ -1,0 +1,249 @@
+Modular Diffusers is currently an experimental feature under active development. The API is subject to breaking changes in future releases.
+G:\Auto\OneTrainer\venv\Lib\site-packages\tensorboard\default.py:30: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+TensorFlow installation not found - running with reduced feature set.
+Serving TensorBoard on localhost; to expose to the network, use a proxy or pass --bind_all
+TensorBoard 2.20.0 at http://localhost:6006/ (Press CTRL+C to quit)
+G:\Auto\OneTrainer\venv\Lib\site-packages\huggingface_hub\utils\_validators.py:205: UserWarning: The `local_dir_use_symlinks` argument is deprecated and ignored in `hf_hub_download`. Downloading to a local directory does not use symlinks anymore.
+  warnings.warn(
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+Quantizing model weights:   3%|2         | 17/595 [00:05<02:50,  3.38it/s]Quantizing model weights:   4%|3         | 21/595 [00:05<02:17,  4.16it/s]Quantizing model weights:   4%|4         | 24/595 [00:05<02:05,  4.54it/s]Quantizing model weights:   4%|4         | 26/595 [00:06<02:10,  4.34it/s]Quantizing model weights:   5%|5         | 32/595 [00:06<01:40,  5.61it/s]Quantizing model weights:   6%|5         | 35/595 [00:06<01:35,  5.86it/s]Quantizing model weights:   7%|6         | 39/595 [00:06<01:22,  6.71it/s]Quantizing model weights:   7%|7         | 42/595 [00:06<01:19,  6.94it/s]Quantizing model weights:   7%|7         | 44/595 [00:07<01:26,  6.39it/s]Quantizing model weights:   9%|8         | 52/595 [00:07<01:05,  8.32it/s]Quantizing model weights:   9%|9         | 55/595 [00:08<01:04,  8.35it/s]Quantizing model weights:  10%|9         | 59/595 [00:08<00:58,  9.20it/s]Quantizing model weights:  10%|#         | 62/595 [00:08<00:57,  9.25it/s]Quantizing model weights:  11%|#         | 65/595 [00:09<01:02,  8.54it/s]Quantizing model weights:  12%|#1        | 70/595 [00:09<00:54,  9.68it/s]Quantizing model weights:  12%|#2        | 73/595 [00:09<00:54,  9.59it/s]Quantizing model weights:  13%|#2        | 77/595 [00:09<00:49, 10.49it/s]Quantizing model weights:  13%|#3        | 80/595 [00:09<00:49, 10.45it/s]Quantizing model weights:  14%|#3        | 83/595 [00:10<00:53,  9.51it/s]Quantizing model weights:  14%|#4        | 85/595 [00:10<00:54,  9.36it/s]Quantizing model weights:  15%|#4        | 87/595 [00:11<01:01,  8.24it/s]Quantizing model weights:  16%|#5        | 94/595 [00:11<00:55,  9.01it/s]Quantizing model weights:  16%|#6        | 96/595 [00:12<00:55,  8.92it/s]Quantizing model weights:  16%|#6        | 98/595 [00:12<00:59,  8.31it/s]Quantizing model weights:  17%|#6        | 101/595 [00:13<01:01,  8.08it/s]Quantizing model weights:  17%|#7        | 104/595 [00:14<01:15,  6.48it/s]Quantizing model weights:  18%|#7        | 106/595 [00:17<01:51,  4.39it/s]Quantizing model weights:  19%|#8        | 112/595 [00:17<01:36,  4.98it/s]Quantizing model weights:  19%|#9        | 114/595 [00:17<01:34,  5.11it/s]Quantizing model weights:  19%|#9        | 116/595 [00:18<01:34,  5.09it/s]Quantizing model weights:  20%|##        | 119/595 [00:18<01:31,  5.21it/s]Quantizing model weights:  21%|##        | 122/595 [00:19<01:40,  4.72it/s]Quantizing model weights:  21%|##        | 123/595 [00:20<01:55,  4.08it/s]Quantizing model weights:  21%|##        | 124/595 [00:22<02:12,  3.57it/s]Quantizing model weights:  22%|##1       | 130/595 [00:22<01:53,  4.11it/s]Quantizing model weights:  22%|##2       | 131/595 [00:22<01:51,  4.17it/s]Quantizing model weights:  22%|##2       | 132/595 [00:23<01:49,  4.23it/s]Quantizing model weights:  22%|##2       | 133/595 [00:23<01:55,  4.00it/s]Quantizing model weights:  23%|##3       | 137/595 [00:24<01:46,  4.30it/s]Quantizing model weights:  24%|##3       | 140/595 [00:25<02:00,  3.79it/s]Quantizing model weights:  24%|##3       | 141/595 [00:27<02:22,  3.18it/s]Quantizing model weights:  24%|##3       | 142/595 [00:28<02:44,  2.75it/s]Quantizing model weights:  25%|##4       | 148/595 [00:29<02:14,  3.31it/s]Quantizing model weights:  25%|##5       | 149/595 [00:29<02:11,  3.38it/s]Quantizing model weights:  25%|##5       | 150/595 [00:29<02:08,  3.46it/s]Quantizing model weights:  25%|##5       | 151/595 [00:30<02:13,  3.33it/s]Quantizing model weights:  26%|##6       | 155/595 [00:30<01:59,  3.68it/s]Quantizing model weights:  27%|##6       | 158/595 [00:31<02:08,  3.41it/s]Quantizing model weights:  27%|##6       | 159/595 [00:33<02:27,  2.95it/s]Quantizing model weights:  27%|##6       | 160/595 [00:34<02:47,  2.60it/s]Quantizing model weights:  28%|##7       | 166/595 [00:35<02:15,  3.17it/s]Quantizing model weights:  28%|##8       | 167/595 [00:35<02:12,  3.24it/s]Quantizing model weights:  28%|##8       | 168/595 [00:35<02:08,  3.32it/s]Quantizing model weights:  28%|##8       | 169/595 [00:35<02:12,  3.21it/s]Quantizing model weights:  29%|##9       | 173/595 [00:36<01:57,  3.58it/s]Quantizing model weights:  30%|##9       | 176/595 [00:37<02:06,  3.32it/s]Quantizing model weights:  30%|##9       | 177/595 [00:39<02:24,  2.88it/s]Quantizing model weights:  30%|##9       | 178/595 [00:40<02:45,  2.53it/s]Quantizing model weights:  31%|###       | 184/595 [00:41<02:12,  3.10it/s]Quantizing model weights:  31%|###1      | 185/595 [00:41<02:09,  3.17it/s]Quantizing model weights:  31%|###1      | 186/595 [00:41<02:05,  3.25it/s]Quantizing model weights:  31%|###1      | 187/595 [00:41<02:09,  3.15it/s]Quantizing model weights:  32%|###2      | 191/595 [00:42<01:55,  3.51it/s]Quantizing model weights:  33%|###2      | 194/595 [00:43<02:02,  3.27it/s]Quantizing model weights:  33%|###2      | 195/595 [00:45<02:21,  2.83it/s]Quantizing model weights:  33%|###2      | 196/595 [00:46<02:40,  2.49it/s]Quantizing model weights:  34%|###3      | 202/595 [00:46<02:07,  3.07it/s]Quantizing model weights:  34%|###4      | 203/595 [00:47<02:04,  3.14it/s]Quantizing model weights:  34%|###4      | 204/595 [00:47<02:01,  3.23it/s]Quantizing model weights:  34%|###4      | 205/595 [00:47<02:04,  3.13it/s]Quantizing model weights:  35%|###5      | 209/595 [00:48<01:50,  3.49it/s]Quantizing model weights:  36%|###5      | 212/595 [00:50<02:05,  3.05it/s]Quantizing model weights:  36%|###5      | 213/595 [00:51<02:29,  2.55it/s]Quantizing model weights:  36%|###5      | 214/595 [00:53<02:49,  2.25it/s]Quantizing model weights:  37%|###6      | 220/595 [00:53<02:16,  2.75it/s]Quantizing model weights:  37%|###7      | 221/595 [00:54<02:12,  2.81it/s]Quantizing model weights:  37%|###7      | 222/595 [00:54<02:09,  2.89it/s]Quantizing model weights:  37%|###7      | 223/595 [00:54<02:14,  2.77it/s]Quantizing model weights:  38%|###8      | 227/595 [00:55<02:00,  3.06it/s]Quantizing model weights:  39%|###8      | 230/595 [00:57<02:11,  2.77it/s]Quantizing model weights:  39%|###8      | 231/595 [00:59<02:35,  2.35it/s]Quantizing model weights:  39%|###8      | 232/595 [01:01<02:58,  2.03it/s]Quantizing model weights:  40%|####      | 238/595 [01:01<02:23,  2.50it/s]Quantizing model weights:  40%|####      | 239/595 [01:01<02:19,  2.56it/s]Quantizing model weights:  40%|####      | 240/595 [01:02<02:15,  2.62it/s]Quantizing model weights:  41%|####      | 241/595 [01:02<02:19,  2.55it/s]Quantizing model weights:  41%|####1     | 245/595 [01:03<02:03,  2.83it/s]Quantizing model weights:  42%|####1     | 248/595 [01:05<02:12,  2.62it/s]Quantizing model weights:  42%|####1     | 249/595 [01:06<02:33,  2.26it/s]Quantizing model weights:  42%|####2     | 250/595 [01:08<02:53,  1.98it/s]Quantizing model weights:  43%|####3     | 256/595 [01:09<02:18,  2.44it/s]Quantizing model weights:  43%|####3     | 257/595 [01:09<02:15,  2.50it/s]Quantizing model weights:  43%|####3     | 258/595 [01:09<02:11,  2.57it/s]Quantizing model weights:  44%|####3     | 259/595 [01:10<02:15,  2.48it/s]Quantizing model weights:  44%|####4     | 263/595 [01:10<01:59,  2.77it/s]Quantizing model weights:  45%|####4     | 266/595 [01:12<02:07,  2.58it/s]Quantizing model weights:  45%|####4     | 267/595 [01:14<02:27,  2.22it/s]Quantizing model weights:  45%|####5     | 268/595 [01:16<02:46,  1.96it/s]Quantizing model weights:  46%|####6     | 274/595 [01:16<02:09,  2.47it/s]Quantizing model weights:  46%|####6     | 275/595 [01:16<02:05,  2.55it/s]Quantizing model weights:  46%|####6     | 276/595 [01:16<02:01,  2.63it/s]Quantizing model weights:  47%|####6     | 277/595 [01:17<02:01,  2.61it/s]Quantizing model weights:  47%|####7     | 281/595 [01:17<01:44,  3.00it/s]Quantizing model weights:  48%|####7     | 284/595 [01:18<01:46,  2.92it/s]Quantizing model weights:  48%|####7     | 285/595 [01:20<01:57,  2.63it/s]Quantizing model weights:  48%|####8     | 286/595 [01:21<02:09,  2.38it/s]Quantizing model weights:  49%|####9     | 292/595 [01:21<01:41,  2.97it/s]Quantizing model weights:  49%|####9     | 293/595 [01:21<01:38,  3.06it/s]Quantizing model weights:  49%|####9     | 294/595 [01:21<01:35,  3.15it/s]Quantizing model weights:  50%|####9     | 295/595 [01:22<01:36,  3.10it/s]Quantizing model weights:  50%|#####     | 299/595 [01:22<01:24,  3.51it/s]Quantizing model weights:  51%|#####     | 302/595 [01:23<01:28,  3.32it/s]Quantizing model weights:  51%|#####     | 303/595 [01:25<01:39,  2.93it/s]Quantizing model weights:  51%|#####1    | 304/595 [01:26<01:50,  2.64it/s]Quantizing model weights:  52%|#####2    | 310/595 [01:26<01:27,  3.27it/s]Quantizing model weights:  52%|#####2    | 311/595 [01:26<01:24,  3.36it/s]Quantizing model weights:  52%|#####2    | 312/595 [01:27<01:21,  3.45it/s]Quantizing model weights:  53%|#####2    | 313/595 [01:27<01:23,  3.37it/s]Quantizing model weights:  53%|#####3    | 317/595 [01:27<01:13,  3.78it/s]Quantizing model weights:  54%|#####3    | 320/595 [01:29<01:16,  3.58it/s]Quantizing model weights:  54%|#####3    | 321/595 [01:30<01:28,  3.11it/s]Quantizing model weights:  54%|#####4    | 322/595 [01:31<01:38,  2.76it/s]Quantizing model weights:  55%|#####5    | 328/595 [01:31<01:18,  3.42it/s]Quantizing model weights:  55%|#####5    | 329/595 [01:31<01:15,  3.51it/s]Quantizing model weights:  55%|#####5    | 330/595 [01:32<01:13,  3.60it/s]Quantizing model weights:  56%|#####5    | 331/595 [01:32<01:15,  3.49it/s]Quantizing model weights:  56%|#####6    | 335/595 [01:33<01:06,  3.91it/s]Quantizing model weights:  57%|#####6    | 338/595 [01:34<01:10,  3.67it/s]Quantizing model weights:  57%|#####6    | 339/595 [01:35<01:20,  3.20it/s]Quantizing model weights:  57%|#####7    | 340/595 [01:36<01:30,  2.82it/s]Quantizing model weights:  58%|#####8    | 346/595 [01:36<01:11,  3.48it/s]Quantizing model weights:  58%|#####8    | 347/595 [01:37<01:09,  3.57it/s]Quantizing model weights:  58%|#####8    | 348/595 [01:37<01:07,  3.67it/s]Quantizing model weights:  59%|#####8    | 349/595 [01:37<01:09,  3.56it/s]Quantizing model weights:  59%|#####9    | 353/595 [01:38<01:00,  3.97it/s]Quantizing model weights:  60%|#####9    | 356/595 [01:39<01:05,  3.67it/s]Quantizing model weights:  60%|######    | 357/595 [01:40<01:17,  3.08it/s]Quantizing model weights:  60%|######    | 358/595 [01:41<01:26,  2.73it/s]Quantizing model weights:  61%|######1   | 364/595 [01:42<01:09,  3.34it/s]Quantizing model weights:  61%|######1   | 365/595 [01:42<01:07,  3.42it/s]Quantizing model weights:  62%|######1   | 366/595 [01:42<01:05,  3.50it/s]Quantizing model weights:  62%|######1   | 367/595 [01:43<01:07,  3.37it/s]Quantizing model weights:  62%|######2   | 371/595 [01:43<01:00,  3.73it/s]Quantizing model weights:  63%|######2   | 374/595 [01:45<01:04,  3.43it/s]Quantizing model weights:  63%|######3   | 375/595 [01:46<01:15,  2.92it/s]Quantizing model weights:  63%|######3   | 376/595 [01:48<01:25,  2.55it/s]Quantizing model weights:  64%|######4   | 382/595 [01:48<01:07,  3.14it/s]Quantizing model weights:  64%|######4   | 383/595 [01:48<01:06,  3.21it/s]Quantizing model weights:  65%|######4   | 384/595 [01:48<01:04,  3.30it/s]Quantizing model weights:  65%|######4   | 385/595 [01:49<01:06,  3.17it/s]Quantizing model weights:  65%|######5   | 389/595 [01:49<00:58,  3.53it/s]Quantizing model weights:  66%|######5   | 392/595 [01:51<01:01,  3.28it/s]Quantizing model weights:  66%|######6   | 393/595 [01:52<01:11,  2.82it/s]Quantizing model weights:  66%|######6   | 394/595 [01:54<01:21,  2.47it/s]Quantizing model weights:  67%|######7   | 400/595 [01:54<01:04,  3.03it/s]Quantizing model weights:  67%|######7   | 401/595 [01:54<01:02,  3.11it/s]Quantizing model weights:  68%|######7   | 402/595 [01:54<01:00,  3.19it/s]Quantizing model weights:  68%|######7   | 403/595 [01:55<01:02,  3.08it/s]Quantizing model weights:  68%|######8   | 407/595 [01:55<00:54,  3.44it/s]Quantizing model weights:  69%|######8   | 410/595 [01:57<00:58,  3.18it/s]Quantizing model weights:  69%|######9   | 411/595 [01:58<01:07,  2.71it/s]Quantizing model weights:  69%|######9   | 412/595 [02:00<01:18,  2.34it/s]Quantizing model weights:  70%|#######   | 418/595 [02:01<01:01,  2.88it/s]Quantizing model weights:  70%|#######   | 419/595 [02:01<00:59,  2.95it/s]Quantizing model weights:  71%|#######   | 420/595 [02:01<00:57,  3.03it/s]Quantizing model weights:  71%|#######   | 421/595 [02:01<00:59,  2.92it/s]Quantizing model weights:  71%|#######1  | 425/595 [02:02<00:52,  3.27it/s]Quantizing model weights:  72%|#######1  | 428/595 [02:04<00:56,  2.97it/s]Quantizing model weights:  72%|#######2  | 429/595 [02:05<01:04,  2.57it/s]Quantizing model weights:  72%|#######2  | 430/595 [02:07<01:12,  2.28it/s]Quantizing model weights:  73%|#######3  | 436/595 [02:07<00:56,  2.81it/s]Quantizing model weights:  73%|#######3  | 437/595 [02:07<00:54,  2.88it/s]Quantizing model weights:  74%|#######3  | 438/595 [02:07<00:53,  2.96it/s]Quantizing model weights:  74%|#######3  | 439/595 [02:08<00:54,  2.87it/s]Quantizing model weights:  74%|#######4  | 443/595 [02:09<00:47,  3.19it/s]Quantizing model weights:  75%|#######4  | 446/595 [02:10<00:49,  2.99it/s]Quantizing model weights:  75%|#######5  | 447/595 [02:12<00:57,  2.59it/s]Quantizing model weights:  75%|#######5  | 448/595 [02:13<01:04,  2.29it/s]Quantizing model weights:  76%|#######6  | 454/595 [02:14<00:49,  2.83it/s]Quantizing model weights:  76%|#######6  | 455/595 [02:14<00:48,  2.87it/s]Quantizing model weights:  77%|#######6  | 456/595 [02:14<00:47,  2.95it/s]Quantizing model weights:  77%|#######6  | 457/595 [02:14<00:48,  2.85it/s]Quantizing model weights:  77%|#######7  | 461/595 [02:15<00:42,  3.19it/s]Quantizing model weights:  78%|#######7  | 464/595 [02:17<00:44,  2.94it/s]Quantizing model weights:  78%|#######8  | 465/595 [02:18<00:51,  2.54it/s]Quantizing model weights:  78%|#######8  | 466/595 [02:20<00:57,  2.23it/s]Quantizing model weights:  79%|#######9  | 472/595 [02:20<00:44,  2.74it/s]Quantizing model weights:  79%|#######9  | 473/595 [02:20<00:43,  2.81it/s]Quantizing model weights:  80%|#######9  | 474/595 [02:21<00:41,  2.89it/s]Quantizing model weights:  80%|#######9  | 475/595 [02:21<00:42,  2.80it/s]Quantizing model weights:  81%|########  | 479/595 [02:22<00:36,  3.14it/s]Quantizing model weights:  81%|########1 | 482/595 [02:23<00:39,  2.90it/s]Quantizing model weights:  81%|########1 | 483/595 [02:25<00:44,  2.52it/s]Quantizing model weights:  81%|########1 | 484/595 [02:26<00:50,  2.22it/s]Quantizing model weights:  82%|########2 | 490/595 [02:27<00:38,  2.74it/s]Quantizing model weights:  83%|########2 | 491/595 [02:27<00:36,  2.81it/s]Quantizing model weights:  83%|########2 | 492/595 [02:27<00:35,  2.89it/s]Quantizing model weights:  83%|########2 | 493/595 [02:28<00:36,  2.81it/s]Quantizing model weights:  84%|########3 | 497/595 [02:28<00:31,  3.14it/s]Quantizing model weights:  84%|########4 | 500/595 [02:30<00:32,  2.91it/s]Quantizing model weights:  84%|########4 | 501/595 [02:31<00:37,  2.52it/s]Quantizing model weights:  84%|########4 | 502/595 [02:33<00:41,  2.23it/s]Quantizing model weights:  85%|########5 | 508/595 [02:33<00:31,  2.76it/s]Quantizing model weights:  86%|########5 | 509/595 [02:34<00:30,  2.83it/s]Quantizing model weights:  86%|########5 | 510/595 [02:34<00:29,  2.91it/s]Quantizing model weights:  86%|########5 | 511/595 [02:34<00:29,  2.82it/s]Quantizing model weights:  87%|########6 | 515/595 [02:35<00:25,  3.16it/s]Quantizing model weights:  87%|########7 | 518/595 [02:36<00:26,  2.93it/s]Quantizing model weights:  87%|########7 | 519/595 [02:38<00:29,  2.54it/s]Quantizing model weights:  87%|########7 | 520/595 [02:39<00:33,  2.24it/s]Quantizing model weights:  88%|########8 | 526/595 [02:40<00:24,  2.77it/s]Quantizing model weights:  89%|########8 | 527/595 [02:40<00:23,  2.84it/s]Quantizing model weights:  89%|########8 | 528/595 [02:40<00:22,  2.92it/s]Quantizing model weights:  89%|########8 | 529/595 [02:41<00:23,  2.84it/s]Quantizing model weights:  90%|########9 | 533/595 [02:41<00:19,  3.17it/s]Quantizing model weights:  90%|######### | 536/595 [02:43<00:20,  2.94it/s]Quantizing model weights:  90%|######### | 537/595 [02:44<00:22,  2.55it/s]Quantizing model weights:  90%|######### | 538/595 [02:46<00:25,  2.24it/s]Quantizing model weights:  91%|#########1| 544/595 [02:46<00:18,  2.77it/s]Quantizing model weights:  92%|#########1| 545/595 [02:47<00:17,  2.84it/s]Quantizing model weights:  92%|#########1| 546/595 [02:47<00:16,  2.92it/s]Quantizing model weights:  92%|#########1| 547/595 [02:47<00:16,  2.83it/s]Quantizing model weights:  93%|#########2| 551/595 [02:48<00:13,  3.17it/s]Quantizing model weights:  93%|#########3| 554/595 [02:49<00:13,  3.01it/s]Quantizing model weights:  93%|#########3| 555/595 [02:51<00:15,  2.63it/s]Quantizing model weights:  93%|#########3| 556/595 [02:52<00:17,  2.27it/s]Quantizing model weights:  94%|#########4| 562/595 [02:53<00:11,  2.81it/s]Quantizing model weights:  95%|#########4| 563/595 [02:53<00:11,  2.89it/s]Quantizing model weights:  95%|#########4| 564/595 [02:53<00:10,  2.97it/s]Quantizing model weights:  95%|#########4| 565/595 [02:54<00:10,  2.87it/s]Quantizing model weights:  96%|#########5| 569/595 [02:54<00:08,  3.23it/s]Quantizing model weights:  96%|#########6| 572/595 [02:57<00:08,  2.58it/s]Quantizing model weights:  96%|#########6| 573/595 [02:58<00:09,  2.30it/s]Quantizing model weights:  96%|#########6| 574/595 [03:00<00:10,  2.09it/s]Quantizing model weights:  97%|#########7| 580/595 [03:00<00:05,  2.60it/s]Quantizing model weights:  98%|#########7| 581/595 [03:00<00:05,  2.68it/s]Quantizing model weights:  98%|#########7| 582/595 [03:00<00:04,  2.76it/s]Quantizing model weights:  98%|#########7| 583/595 [03:01<00:04,  2.71it/s]Quantizing model weights:  99%|#########8| 587/595 [03:02<00:02,  3.03it/s]Quantizing model weights:  99%|#########9| 590/595 [03:03<00:01,  2.90it/s]Quantizing model weights:  99%|#########9| 591/595 [03:04<00:01,  2.55it/s]Quantizing model weights:  99%|#########9| 592/595 [03:06<00:01,  2.28it/s]Quantizing model weights: 100%|##########| 595/595 [03:06<00:00,  3.20it/s]
+Attention backends are an experimental feature and the API may be subject to change.
+Selected layers: 430
+Deselected layers: 0
+Note: Enable Debug mode to see the full list of layer names
+epoch:   0%|          | 0/6 [00:00<?, ?it/s]
+enumerating sample paths:   0%|          | 0/1 [00:00<?, ?it/s][Aenumerating sample paths: 100%|##########| 1/1 [00:00<00:00, 27.66it/s]
+
+caching:   0%|          | 0/42 [00:00<?, ?it/s][A
+caching:   2%|2         | 1/42 [00:00<00:29,  1.37it/s][A
+caching:   7%|7         | 3/42 [00:00<00:11,  3.45it/s][A
+caching:  12%|#1        | 5/42 [00:01<00:07,  4.99it/s][A
+caching:  17%|#6        | 7/42 [00:01<00:05,  6.14it/s][A
+caching:  21%|##1       | 9/42 [00:01<00:04,  7.01it/s][A
+caching:  26%|##6       | 11/42 [00:01<00:04,  7.75it/s][A
+caching:  31%|###       | 13/42 [00:01<00:03,  8.33it/s][A
+caching:  36%|###5      | 15/42 [00:01<00:03,  8.76it/s][A
+caching:  40%|####      | 17/42 [00:02<00:02,  9.17it/s][A
+caching:  45%|####5     | 19/42 [00:02<00:02,  9.51it/s][A
+caching:  50%|#####     | 21/42 [00:02<00:02,  9.88it/s][A
+caching:  55%|#####4    | 23/42 [00:02<00:01, 10.12it/s][A
+caching:  60%|#####9    | 25/42 [00:02<00:01, 10.34it/s][A
+caching:  64%|######4   | 27/42 [00:02<00:01, 10.60it/s][A
+caching:  69%|######9   | 29/42 [00:03<00:01, 10.77it/s][A
+caching:  74%|#######3  | 31/42 [00:03<00:01, 10.90it/s][A
+caching:  79%|#######8  | 33/42 [00:03<00:00, 11.02it/s][A
+caching:  83%|########3 | 35/42 [00:03<00:00, 11.06it/s][A
+caching:  88%|########8 | 37/42 [00:03<00:00, 11.24it/s][A
+caching:  93%|#########2| 39/42 [00:03<00:00, 11.33it/s][A
+caching:  98%|#########7| 41/42 [00:04<00:00, 11.34it/s][Acaching: 100%|##########| 42/42 [00:04<00:00, 10.07it/s]
+
+caching:   0%|          | 0/42 [00:00<?, ?it/s][A
+caching:   2%|2         | 1/42 [00:00<00:20,  2.05it/s][A
+caching:   7%|7         | 3/42 [00:00<00:07,  4.96it/s][A
+caching:  12%|#1        | 5/42 [00:00<00:05,  6.98it/s][A
+caching:  17%|#6        | 7/42 [00:00<00:04,  8.34it/s][A
+caching:  21%|##1       | 9/42 [00:01<00:03,  9.33it/s][A
+caching:  26%|##6       | 11/42 [00:01<00:03, 10.11it/s][A
+caching:  31%|###       | 13/42 [00:01<00:02, 10.92it/s][A
+caching:  36%|###5      | 15/42 [00:01<00:02, 11.37it/s][A
+caching:  40%|####      | 17/42 [00:01<00:02, 11.86it/s][A
+caching:  45%|####5     | 19/42 [00:01<00:01, 12.26it/s][A
+caching:  50%|#####     | 21/42 [00:01<00:01, 12.73it/s][A
+caching:  55%|#####4    | 23/42 [00:01<00:01, 13.01it/s][A
+caching:  60%|#####9    | 25/42 [00:02<00:01, 13.25it/s][A
+caching:  64%|######4   | 27/42 [00:02<00:01, 13.32it/s][A
+caching:  69%|######9   | 29/42 [00:02<00:00, 13.53it/s][A
+caching:  74%|#######3  | 31/42 [00:02<00:00, 13.69it/s][A
+caching:  79%|#######8  | 33/42 [00:02<00:00, 13.83it/s][A
+caching:  83%|########3 | 35/42 [00:02<00:00, 13.95it/s][A
+caching:  88%|########8 | 37/42 [00:02<00:00, 14.14it/s][A
+caching:  93%|#########2| 39/42 [00:03<00:00, 14.23it/s][A
+caching:  98%|#########7| 41/42 [00:03<00:00, 14.26it/s][Acaching: 100%|##########| 42/42 [00:03<00:00, 12.83it/s]
+
+step:   0%|          | 0/21 [00:00<?, ?it/s][AG:\Auto\OneTrainer\venv\Lib\site-packages\torch\_inductor\compile_fx.py:320: UserWarning: TensorFloat32 tensor cores for float32 matrix multiplication available but not enabled. Consider setting `torch.set_float32_matmul_precision('high')` for better performance.
+  warnings.warn(
+
+step:   5%|4         | 1/21 [00:39<13:19, 39.97s/it][A
+step:  10%|9         | 2/21 [00:42<05:36, 17.70s/it][A
+step:  14%|#4        | 3/21 [00:44<03:16, 10.89s/it][A
+step:  14%|#4        | 3/21 [00:48<03:16, 10.89s/it, loss=0.117, smooth loss=0.117][A
+step:  19%|#9        | 4/21 [00:48<02:16,  8.02s/it, loss=0.117, smooth loss=0.117][A
+step:  24%|##3       | 5/21 [00:50<01:33,  5.86s/it, loss=0.117, smooth loss=0.117][A
+step:  29%|##8       | 6/21 [01:35<04:45, 19.01s/it, loss=0.117, smooth loss=0.117][A
+step:  33%|###3      | 7/21 [01:37<03:08, 13.47s/it, loss=0.117, smooth loss=0.117][A
+step:  33%|###3      | 7/21 [01:40<03:08, 13.47s/it, loss=0.124, smooth loss=0.121][A
+step:  38%|###8      | 8/21 [01:40<02:13, 10.27s/it, loss=0.124, smooth loss=0.121][A
+step:  43%|####2     | 9/21 [01:42<01:32,  7.68s/it, loss=0.124, smooth loss=0.121][A
+step:  48%|####7     | 10/21 [01:45<01:08,  6.19s/it, loss=0.124, smooth loss=0.121][A
+step:  52%|#####2    | 11/21 [01:48<00:51,  5.14s/it, loss=0.124, smooth loss=0.121][A
+step:  52%|#####2    | 11/21 [01:51<00:51,  5.14s/it, loss=0.126, smooth loss=0.122][A
+step:  57%|#####7    | 12/21 [01:51<00:41,  4.66s/it, loss=0.126, smooth loss=0.122][A
+step:  62%|######1   | 13/21 [01:53<00:30,  3.86s/it, loss=0.126, smooth loss=0.122][A
+step:  67%|######6   | 14/21 [01:56<00:24,  3.57s/it, loss=0.126, smooth loss=0.122][A
+step:  71%|#######1  | 15/21 [01:59<00:19,  3.33s/it, loss=0.126, smooth loss=0.122][A
+step:  71%|#######1  | 15/21 [02:02<00:19,  3.33s/it, loss=0.13, smooth loss=0.124] [A
+step:  76%|#######6  | 16/21 [02:02<00:17,  3.40s/it, loss=0.13, smooth loss=0.124][A
+step:  81%|########  | 17/21 [02:04<00:11,  2.99s/it, loss=0.13, smooth loss=0.124][A
+step:  86%|########5 | 18/21 [02:07<00:08,  2.95s/it, loss=0.13, smooth loss=0.124][A
+step:  90%|######### | 19/21 [02:10<00:05,  2.90s/it, loss=0.13, smooth loss=0.124][A
+step:  90%|######### | 19/21 [02:14<00:05,  2.90s/it, loss=0.116, smooth loss=0.123][A
+step:  95%|#########5| 20/21 [02:14<00:03,  3.09s/it, loss=0.116, smooth loss=0.123][A
+step: 100%|##########| 21/21 [02:34<00:00,  8.19s/it, loss=0.116, smooth loss=0.123][Astep: 100%|##########| 21/21 [02:34<00:00,  7.34s/it, loss=0.116, smooth loss=0.123]
+epoch:  17%|#6        | 1/6 [02:47<13:58, 167.68s/it]
+step:   0%|          | 0/21 [00:00<?, ?it/s][A
+step:   5%|4         | 1/21 [00:01<00:39,  2.00s/it][A
+step:  10%|9         | 2/21 [00:04<00:44,  2.36s/it][A
+step:  10%|9         | 2/21 [00:07<00:44,  2.36s/it, loss=0.136, smooth loss=0.125][A
+step:  14%|#4        | 3/21 [00:07<00:49,  2.77s/it, loss=0.136, smooth loss=0.125][A
+step:  19%|#9        | 4/21 [00:09<00:41,  2.43s/it, loss=0.136, smooth loss=0.125][A
+step:  24%|##3       | 5/21 [00:12<00:40,  2.52s/it, loss=0.136, smooth loss=0.125][A
+step:  29%|##8       | 6/21 [00:15<00:38,  2.55s/it, loss=0.136, smooth loss=0.125][A
+step:  29%|##8       | 6/21 [00:18<00:38,  2.55s/it, loss=0.12, smooth loss=0.124] [A
+step:  33%|###3      | 7/21 [00:18<00:39,  2.79s/it, loss=0.12, smooth loss=0.124][A
+step:  38%|###8      | 8/21 [00:20<00:32,  2.51s/it, loss=0.12, smooth loss=0.124][A
+step:  43%|####2     | 9/21 [00:22<00:30,  2.57s/it, loss=0.12, smooth loss=0.124][A
+step:  48%|####7     | 10/21 [00:25<00:28,  2.60s/it, loss=0.12, smooth loss=0.124][A
+step:  48%|####7     | 10/21 [00:28<00:28,  2.60s/it, loss=0.117, smooth loss=0.123][A
+step:  52%|#####2    | 11/21 [00:28<00:28,  2.83s/it, loss=0.117, smooth loss=0.123][A
+step:  57%|#####7    | 12/21 [00:30<00:22,  2.55s/it, loss=0.117, smooth loss=0.123][A
+step:  62%|######1   | 13/21 [00:33<00:20,  2.58s/it, loss=0.117, smooth loss=0.123][A
+step:  67%|######6   | 14/21 [00:36<00:18,  2.61s/it, loss=0.117, smooth loss=0.123][A
+step:  67%|######6   | 14/21 [00:39<00:18,  2.61s/it, loss=0.127, smooth loss=0.124][A
+step:  71%|#######1  | 15/21 [00:39<00:17,  2.83s/it, loss=0.127, smooth loss=0.124][A
+step:  76%|#######6  | 16/21 [00:41<00:12,  2.55s/it, loss=0.127, smooth loss=0.124][A
+step:  81%|########  | 17/21 [00:44<00:10,  2.60s/it, loss=0.127, smooth loss=0.124][A
+step:  86%|########5 | 18/21 [00:46<00:07,  2.62s/it, loss=0.127, smooth loss=0.124][A
+step:  86%|########5 | 18/21 [00:50<00:07,  2.62s/it, loss=0.117, smooth loss=0.123][A
+step:  90%|######### | 19/21 [00:50<00:05,  2.83s/it, loss=0.117, smooth loss=0.123][A
+step:  95%|#########5| 20/21 [00:52<00:02,  2.55s/it, loss=0.117, smooth loss=0.123][A
+step: 100%|##########| 21/21 [00:54<00:00,  2.60s/it, loss=0.117, smooth loss=0.123][Astep: 100%|##########| 21/21 [00:54<00:00,  2.61s/it, loss=0.117, smooth loss=0.123]
+epoch:  33%|###3      | 2/6 [03:42<06:46, 101.52s/it]
+step:   0%|          | 0/21 [00:00<?, ?it/s][A
+step:   5%|4         | 1/21 [00:02<00:40,  2.02s/it][A
+step:   5%|4         | 1/21 [00:05<00:40,  2.02s/it, loss=0.135, smooth loss=0.124][A
+step:  10%|9         | 2/21 [00:05<00:53,  2.79s/it, loss=0.135, smooth loss=0.124][A
+step:  14%|#4        | 3/21 [00:07<00:42,  2.39s/it, loss=0.135, smooth loss=0.124][A
+step:  19%|#9        | 4/21 [00:09<00:42,  2.52s/it, loss=0.135, smooth loss=0.124][A
+step:  24%|##3       | 5/21 [00:12<00:40,  2.56s/it, loss=0.135, smooth loss=0.124][A
+step:  24%|##3       | 5/21 [00:15<00:40,  2.56s/it, loss=0.12, smooth loss=0.124] [A
+step:  29%|##8       | 6/21 [00:15<00:42,  2.80s/it, loss=0.12, smooth loss=0.124][A
+step:  33%|###3      | 7/21 [00:17<00:35,  2.51s/it, loss=0.12, smooth loss=0.124][A
+step:  38%|###8      | 8/21 [00:20<00:33,  2.58s/it, loss=0.12, smooth loss=0.124][A
+step:  43%|####2     | 9/21 [00:23<00:31,  2.60s/it, loss=0.12, smooth loss=0.124][A
+step:  43%|####2     | 9/21 [00:26<00:31,  2.60s/it, loss=0.128, smooth loss=0.124][A
+step:  48%|####7     | 10/21 [00:26<00:30,  2.81s/it, loss=0.128, smooth loss=0.124][A
+step:  52%|#####2    | 11/21 [00:28<00:25,  2.53s/it, loss=0.128, smooth loss=0.124][A
+step:  57%|#####7    | 12/21 [00:31<00:23,  2.59s/it, loss=0.128, smooth loss=0.124][A
+step:  62%|######1   | 13/21 [00:33<00:20,  2.61s/it, loss=0.128, smooth loss=0.124][A
+step:  62%|######1   | 13/21 [00:37<00:20,  2.61s/it, loss=0.125, smooth loss=0.124][A
+step:  67%|######6   | 14/21 [00:37<00:19,  2.83s/it, loss=0.125, smooth loss=0.124][A
+step:  71%|#######1  | 15/21 [00:38<00:15,  2.56s/it, loss=0.125, smooth loss=0.124][A
+step:  76%|#######6  | 16/21 [00:41<00:12,  2.60s/it, loss=0.125, smooth loss=0.124][A
+step:  81%|########  | 17/21 [00:44<00:10,  2.60s/it, loss=0.125, smooth loss=0.124][A
+step:  81%|########  | 17/21 [00:47<00:10,  2.60s/it, loss=0.117, smooth loss=0.124][A
+step:  86%|########5 | 18/21 [00:47<00:08,  2.82s/it, loss=0.117, smooth loss=0.124][A
+step:  90%|######### | 19/21 [00:49<00:05,  2.55s/it, loss=0.117, smooth loss=0.124][A
+step:  95%|#########5| 20/21 [00:52<00:02,  2.60s/it, loss=0.117, smooth loss=0.124][A
+step: 100%|##########| 21/21 [00:54<00:00,  2.60s/it, loss=0.117, smooth loss=0.124][Astep: 100%|##########| 21/21 [00:54<00:00,  2.61s/it, loss=0.117, smooth loss=0.124]
+epoch:  50%|#####     | 3/6 [04:38<04:01, 80.64s/it] 
+step:   0%|          | 0/21 [00:00<?, ?it/s][A
+step:   0%|          | 0/21 [00:02<?, ?it/s, loss=0.123, smooth loss=0.124][A
+step:   5%|4         | 1/21 [00:02<00:54,  2.70s/it, loss=0.123, smooth loss=0.124][A
+step:  10%|9         | 2/21 [00:04<00:42,  2.24s/it, loss=0.123, smooth loss=0.124][A
+step:  14%|#4        | 3/21 [00:07<00:44,  2.47s/it, loss=0.123, smooth loss=0.124][A
+step:  19%|#9        | 4/21 [00:09<00:43,  2.53s/it, loss=0.123, smooth loss=0.124][A
+step:  19%|#9        | 4/21 [00:13<00:43,  2.53s/it, loss=0.134, smooth loss=0.124][A
+step:  24%|##3       | 5/21 [00:13<00:45,  2.82s/it, loss=0.134, smooth loss=0.124][A
+step:  29%|##8       | 6/21 [00:15<00:37,  2.52s/it, loss=0.134, smooth loss=0.124][A
+step:  33%|###3      | 7/21 [00:17<00:36,  2.58s/it, loss=0.134, smooth loss=0.124][A
+step:  38%|###8      | 8/21 [00:20<00:33,  2.59s/it, loss=0.134, smooth loss=0.124][A
+step:  38%|###8      | 8/21 [00:23<00:33,  2.59s/it, loss=0.113, smooth loss=0.124][A
+step:  43%|####2     | 9/21 [00:23<00:33,  2.83s/it, loss=0.113, smooth loss=0.124][A
+step:  48%|####7     | 10/21 [00:26<00:28,  2.60s/it, loss=0.113, smooth loss=0.124][A
+step:  52%|#####2    | 11/21 [00:29<00:27,  2.76s/it, loss=0.113, smooth loss=0.124][A
+step:  57%|#####7    | 12/21 [00:32<00:25,  2.80s/it, loss=0.113, smooth loss=0.124][A
+step:  57%|#####7    | 12/21 [00:35<00:25,  2.80s/it, loss=0.128, smooth loss=0.124][A
+step:  62%|######1   | 13/21 [00:35<00:24,  3.08s/it, loss=0.128, smooth loss=0.124][A
+step:  67%|######6   | 14/21 [00:38<00:20,  2.89s/it, loss=0.128, smooth loss=0.124][A
+step:  71%|#######1  | 15/21 [00:40<00:17,  2.84s/it, loss=0.128, smooth loss=0.124][A
+step:  76%|#######6  | 16/21 [00:43<00:13,  2.78s/it, loss=0.128, smooth loss=0.124][A
+step:  76%|#######6  | 16/21 [00:46<00:13,  2.78s/it, loss=0.12, smooth loss=0.124] [A
+step:  81%|########  | 17/21 [00:46<00:11,  2.95s/it, loss=0.12, smooth loss=0.124][A
+step:  86%|########5 | 18/21 [00:48<00:07,  2.63s/it, loss=0.12, smooth loss=0.124][A
+step:  90%|######### | 19/21 [00:51<00:05,  2.66s/it, loss=0.12, smooth loss=0.124][A
+step:  95%|#########5| 20/21 [00:54<00:02,  2.64s/it, loss=0.12, smooth loss=0.124][A
+step:  95%|#########5| 20/21 [00:57<00:02,  2.64s/it, loss=0.124, smooth loss=0.124][A
+step: 100%|##########| 21/21 [00:57<00:00,  2.84s/it, loss=0.124, smooth loss=0.124][Astep: 100%|##########| 21/21 [00:57<00:00,  2.74s/it, loss=0.124, smooth loss=0.124]
+epoch:  67%|######6   | 4/6 [05:37<02:23, 71.84s/it]
+step:   0%|          | 0/21 [00:00<?, ?it/s][A
+step:   5%|4         | 1/21 [00:01<00:38,  1.92s/it][A
+step:  10%|9         | 2/21 [00:04<00:45,  2.39s/it][A
+step:  14%|#4        | 3/21 [00:07<00:44,  2.49s/it][A
+step:  14%|#4        | 3/21 [00:10<00:44,  2.49s/it, loss=0.118, smooth loss=0.123][A
+step:  19%|#9        | 4/21 [00:10<00:47,  2.81s/it, loss=0.118, smooth loss=0.123][A
+step:  24%|##3       | 5/21 [00:12<00:39,  2.49s/it, loss=0.118, smooth loss=0.123][A
+step:  29%|##8       | 6/21 [00:15<00:38,  2.56s/it, loss=0.118, smooth loss=0.123][A
+step:  33%|###3      | 7/21 [00:17<00:36,  2.59s/it, loss=0.118, smooth loss=0.123][A
+step:  33%|###3      | 7/21 [00:21<00:36,  2.59s/it, loss=0.126, smooth loss=0.124][A
+step:  38%|###8      | 8/21 [00:21<00:36,  2.82s/it, loss=0.126, smooth loss=0.124][A
+step:  43%|####2     | 9/21 [00:23<00:30,  2.53s/it, loss=0.126, smooth loss=0.124][A
+step:  48%|####7     | 10/21 [00:25<00:28,  2.59s/it, loss=0.126, smooth loss=0.124][A
+step:  52%|#####2    | 11/21 [00:28<00:25,  2.59s/it, loss=0.126, smooth loss=0.124][A
+step:  52%|#####2    | 11/21 [00:31<00:25,  2.59s/it, loss=0.114, smooth loss=0.123][A
+step:  57%|#####7    | 12/21 [00:31<00:25,  2.81s/it, loss=0.114, smooth loss=0.123][A
+step:  62%|######1   | 13/21 [00:33<00:20,  2.54s/it, loss=0.114, smooth loss=0.123][A
+step:  67%|######6   | 14/21 [00:36<00:18,  2.59s/it, loss=0.114, smooth loss=0.123][A
+step:  71%|#######1  | 15/21 [00:38<00:15,  2.60s/it, loss=0.114, smooth loss=0.123][A
+step:  71%|#######1  | 15/21 [00:42<00:15,  2.60s/it, loss=0.112, smooth loss=0.123][A
+step:  76%|#######6  | 16/21 [00:42<00:14,  2.82s/it, loss=0.112, smooth loss=0.123][A
+step:  81%|########  | 17/21 [00:44<00:10,  2.57s/it, loss=0.112, smooth loss=0.123][A
+step:  86%|########5 | 18/21 [00:47<00:08,  2.73s/it, loss=0.112, smooth loss=0.123][A
+step:  90%|######### | 19/21 [00:50<00:05,  2.82s/it, loss=0.112, smooth loss=0.123][A
+step:  90%|######### | 19/21 [00:53<00:05,  2.82s/it, loss=0.126, smooth loss=0.123][A
+step:  95%|#########5| 20/21 [00:53<00:03,  3.06s/it, loss=0.126, smooth loss=0.123][A
+step: 100%|##########| 21/21 [00:56<00:00,  2.78s/it, loss=0.126, smooth loss=0.123][Astep: 100%|##########| 21/21 [00:56<00:00,  2.67s/it, loss=0.126, smooth loss=0.123]
+epoch:  83%|########3 | 5/6 [06:33<01:06, 66.27s/it]
+step:   0%|          | 0/21 [00:00<?, ?it/s][A
+step:   5%|4         | 1/21 [00:02<00:44,  2.24s/it][A
+step:  10%|9         | 2/21 [00:05<00:49,  2.60s/it][A
+step:  10%|9         | 2/21 [00:08<00:49,  2.60s/it, loss=0.114, smooth loss=0.123][A
+step:  14%|#4        | 3/21 [00:08<00:54,  3.05s/it, loss=0.114, smooth loss=0.123][A
+step:  19%|#9        | 4/21 [00:10<00:45,  2.66s/it, loss=0.114, smooth loss=0.123][A
+step:  24%|##3       | 5/21 [00:13<00:45,  2.83s/it, loss=0.114, smooth loss=0.123][A
+step:  29%|##8       | 6/21 [00:16<00:43,  2.88s/it, loss=0.114, smooth loss=0.123][A
+step:  29%|##8       | 6/21 [00:20<00:43,  2.88s/it, loss=0.155, smooth loss=0.124][A
+step:  33%|###3      | 7/21 [00:20<00:43,  3.11s/it, loss=0.155, smooth loss=0.124][A
+step:  38%|###8      | 8/21 [00:22<00:36,  2.79s/it, loss=0.155, smooth loss=0.124][A
+step:  43%|####2     | 9/21 [00:25<00:33,  2.82s/it, loss=0.155, smooth loss=0.124][A
+step:  48%|####7     | 10/21 [00:28<00:31,  2.82s/it, loss=0.155, smooth loss=0.124][A
+step:  48%|####7     | 10/21 [00:31<00:31,  2.82s/it, loss=0.141, smooth loss=0.124][A
+step:  52%|#####2    | 11/21 [00:31<00:30,  3.05s/it, loss=0.141, smooth loss=0.124][A
+step:  57%|#####7    | 12/21 [00:33<00:24,  2.75s/it, loss=0.141, smooth loss=0.124][A
+step:  62%|######1   | 13/21 [00:36<00:22,  2.80s/it, loss=0.141, smooth loss=0.124][A
+step:  67%|######6   | 14/21 [00:39<00:19,  2.81s/it, loss=0.141, smooth loss=0.124][A
+step:  67%|######6   | 14/21 [00:43<00:19,  2.81s/it, loss=0.132, smooth loss=0.125][A
+step:  71%|#######1  | 15/21 [00:43<00:18,  3.04s/it, loss=0.132, smooth loss=0.125][A
+step:  76%|#######6  | 16/21 [00:45<00:13,  2.74s/it, loss=0.132, smooth loss=0.125][A
+step:  81%|########  | 17/21 [00:48<00:11,  2.79s/it, loss=0.132, smooth loss=0.125][A
+step:  86%|########5 | 18/21 [00:50<00:08,  2.78s/it, loss=0.132, smooth loss=0.125][A
+step:  86%|########5 | 18/21 [00:54<00:08,  2.78s/it, loss=0.112, smooth loss=0.124][A
+step:  90%|######### | 19/21 [00:54<00:05,  2.98s/it, loss=0.112, smooth loss=0.124][A
+step:  95%|#########5| 20/21 [00:56<00:02,  2.70s/it, loss=0.112, smooth loss=0.124][A
+step: 100%|##########| 21/21 [00:59<00:00,  2.77s/it, loss=0.112, smooth loss=0.124][Astep: 100%|##########| 21/21 [00:59<00:00,  2.82s/it, loss=0.112, smooth loss=0.124]
+epoch: 100%|##########| 6/6 [07:33<00:00, 64.27s/it]epoch: 100%|##########| 6/6 [07:33<00:00, 75.64s/it]
+Creating Backup G:\Auto\OneTrainer\perf_tests\workspace\00_ft_baseline\backup\2026-07-04_14-52-33-backup-126-6-0
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|##########| 1/1 [00:01<00:00,  1.93s/it]Writing model shards: 100%|##########| 1/1 [00:01<00:00,  1.93s/it]
+Saving G:\Auto\OneTrainer\perf_tests\out\00_ft_baseline.safetensors
+Traceback (most recent call last):
+  File "G:\Auto\OneTrainer\scripts\train.py", line 62, in <module>
+    main()
+  File "G:\Auto\OneTrainer\scripts\train.py", line 58, in main
+    trainer.end()
+  File "G:\Auto\OneTrainer\modules\trainer\GenericTrainer.py", line 869, in end
+    self.model_saver.save(
+  File "G:\Auto\OneTrainer\modules\modelSaver\GenericFineTuneModelSaver.py", line 37, in save
+    base_model_saver.save(model, output_model_format, output_model_destination, dtype)
+  File "G:\Auto\OneTrainer\modules\modelSaver\krea2\Krea2ModelSaver.py", line 74, in save
+    raise NotImplementedError(f"Unsupported output format: {output_model_format}")
+NotImplementedError: Unsupported output format: LEGACY_SAFETENSORS

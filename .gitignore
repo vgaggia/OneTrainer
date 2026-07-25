@@ -1,0 +1,40 @@
+# development
+.idea
+*.bak
+*.pyc
+*.swp
+*~
+debug*.ipynb
+debug*.py
+/debug*
+
+# user data
+/workspace*
+/models/*
+/training_concepts
+/training_samples
+/training_user_settings
+/external
+/update.var
+config.json
+secrets.json
+*.zip
+
+# environments
+/.venv*
+/venv*
+/conda_env*
+.python-version
+*.egg-info
+
+# pixi environments
+.pixi
+pixi.lock
+pixi.toml
+
+# misc files
+/src
+train.bat
+debug_report.log
+config_diff.txt
+CLAUDE.md
