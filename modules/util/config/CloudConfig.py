@@ -58,7 +58,11 @@ class CloudConfig(BaseConfig):
     tensorboard_tunnel: bool
     sub_type: str
     gpu_type: str
+    gpu_count: int
+    cuda_version: str
     volume_size: int
+    network_volume_id: str
+    data_center_id: str
     min_download: int
     remote_dir: str
     huggingface_cache_dir: str
@@ -94,7 +98,11 @@ class CloudConfig(BaseConfig):
         data.append(("tensorboard_tunnel", True, bool, False))
         data.append(("sub_type", "", str, False))
         data.append(("gpu_type", "", str, False))
+        data.append(("gpu_count", 1, int, False))
+        data.append(("cuda_version", "", str, False))
         data.append(("volume_size", 100, int, False))
+        data.append(("network_volume_id", "", str, False))
+        data.append(("data_center_id", "", str, False))
         data.append(("min_download", 0, int, False))
         data.append(("remote_dir", "/workspace", str, False))
         data.append(("huggingface_cache_dir", "/workspace/huggingface_cache", str, False))

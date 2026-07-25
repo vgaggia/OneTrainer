@@ -141,12 +141,38 @@ class BaseCloudTabView(ABC):
 
         self.components.label(frame, 4, 4, "GPU",
                          tooltip="Select the GPU type. Enter an API key before pressing the button.")
-        _, gpu_components = self.components.options_adv(frame, 4, 5, [("")], ui_state, "cloud.gpu_type", adv_command=self._on_set_gpu_types)
+        selected_gpu_type = ui_state.get_var("cloud.gpu_type").get()
+        initial_gpu_types = [selected_gpu_type] if selected_gpu_type else [""]
+        _, gpu_components = self.components.options_adv(
+            frame,
+            4,
+            5,
+            initial_gpu_types,
+            ui_state,
+            "cloud.gpu_type",
+            adv_command=self._on_set_gpu_types,
+        )
         self.gpu_types_menu = gpu_components['component']
 
         self.components.label(frame, 5, 4, "Volume size",
                          tooltip="Set the storage volume size in GB. This volume persists only until the cloud is deleted - not a RunPod network volume")
         self.components.entry(frame, 5, 5, ui_state, "cloud.volume_size")
+
+        self.components.label(frame, 7, 4, "GPU count",
+                         tooltip="Number of GPUs to request for the pod. For >1, also enable multi-GPU training (leave device indexes blank to use all).")
+        self.components.entry(frame, 7, 5, ui_state, "cloud.gpu_count")
+
+        self.components.label(frame, 7, 6, "CUDA version",
+                         tooltip="Only place the pod on hosts whose driver supports this CUDA version (e.g. 13.0 for torch cu130). Comma-separate for multiple; blank = no filter.")
+        self.components.entry(frame, 7, 7, ui_state, "cloud.cuda_version")
+
+        self.components.label(frame, 5, 6, "Network volume id",
+                         tooltip="Attach an existing RunPod network volume. It replaces the pod volume at the mount point, so datasets/model/cache persist between pods. Blank = use a temporary pod volume.")
+        self.components.entry(frame, 5, 7, ui_state, "cloud.network_volume_id")
+
+        self.components.label(frame, 6, 6, "Data center",
+                         tooltip="Pin the pod to one data center, e.g. EUR-IS-1. Required to match a network volume, since volumes cannot cross data centers. Blank = let RunPod choose.")
+        self.components.entry(frame, 6, 7, ui_state, "cloud.data_center_id")
 
         self.components.label(frame, 6, 4, "Min download",
                          tooltip="Set the minimum download speed of the cloud in Mbps.")

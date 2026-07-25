@@ -32,6 +32,7 @@ class LinuxCloud(BaseCloud):
         self.exit_status_file=f'{config.cloud.remote_dir}/{name}.exit'
         self.log_file=f'{config.cloud.remote_dir}/{name}.log'
         self.pid_file=f'{config.cloud.remote_dir}/{name}.pid'
+        self.environment_file=f'{config.cloud.remote_dir}/.{name}.env'
 
     def _connect(self):
         if self.connection:
@@ -92,6 +93,18 @@ class LinuxCloud(BaseCloud):
                                   && cd {shlex.quote(parent)} \
                                   && {config.install_cmd})',in_stream=False)
 
+        git_repo, git_branch = self.__parse_git_clone_install_cmd(config.install_cmd)
+        if git_repo and git_branch:
+            self.connection.run(
+                f'if test -d {shlex.quote(config.onetrainer_dir)}/.git; then \
+                    cd {shlex.quote(config.onetrainer_dir)} \
+                    && git remote set-url origin {shlex.quote(git_repo)} \
+                    && git fetch origin {shlex.quote(git_branch)} \
+                    && git checkout -B {shlex.quote(git_branch)} origin/{shlex.quote(git_branch)}; \
+                  fi',
+                in_stream=False,
+            )
+
         result=self.connection.run(f"test -d {shlex.quote(config.onetrainer_dir)}/venv",warn=True,in_stream=False)
 
         #many docker images, including the default ones on RunPod and vast.ai, only set up $PATH correctly
@@ -109,6 +122,38 @@ class LinuxCloud(BaseCloud):
                 self.connection.run(cmd_env + "&& export PIP_EXISTS_ACTION=w && ./update.sh", in_stream=False)
         else:
             self.connection.run(cmd_env + "&& ./install.sh", in_stream=False)
+
+    @staticmethod
+    def __parse_git_clone_install_cmd(install_cmd: str) -> tuple[str | None, str | None]:
+        try:
+            parts = shlex.split(install_cmd)
+        except ValueError:
+            return None, None
+
+        if len(parts) < 3 or parts[0:2] != ["git", "clone"]:
+            return None, None
+
+        branch = None
+        repo = None
+        index = 2
+        while index < len(parts):
+            part = parts[index]
+            if part in {"--branch", "-b"} and index + 1 < len(parts):
+                branch = parts[index + 1]
+                index += 2
+                continue
+            if part.startswith("--branch="):
+                branch = part.split("=", 1)[1]
+                index += 1
+                continue
+            if part.startswith("-"):
+                index += 1
+                continue
+
+            repo = part
+            break
+
+        return repo, branch
 
     def _make_tensorboard_tunnel(self):
         self.tensorboard_tunnel_stop=threading.Event()
@@ -137,7 +182,27 @@ class LinuxCloud(BaseCloud):
             self.connection=None
 
     def can_reattach(self):
-        result=self.connection.run(f"test -f {self.pid_file}",warn=True,in_stream=False)
+        pid_file = shlex.quote(self.pid_file)
+        config_file = shlex.quote(self.config_file)
+        result = self.connection.run(
+            f'test -s {pid_file} \
+              && pid=$(cat {pid_file}) \
+              && kill -0 "$pid" 2>/dev/null \
+              && tr "\\0" " " < "/proc/$pid/cmdline" \
+                 | grep -F -- {config_file} >/dev/null',
+            warn=True,
+            hide=True,
+            in_stream=False,
+        )
+        if result.exited != 0:
+            # Network volumes survive a stopped/restarted pod, but processes do not.
+            # Remove a stale detached-run marker so a fresh run can start normally.
+            self.connection.run(
+                f"rm -f {pid_file}",
+                warn=True,
+                hide=True,
+                in_stream=False,
+            )
         return result.exited == 0
 
     def _get_action_cmd(self,action : CloudAction):
@@ -145,39 +210,92 @@ class LinuxCloud(BaseCloud):
             raise NotImplementedError("Action on detached not supported for this cloud type")
         return ":"
 
+    def __write_environment_file(self, variables: dict[str, str]):
+        content = "".join(
+            f"export {name}={shlex.quote(value)}\n"
+            for name, value in variables.items()
+        )
+        sftp = self.connection.sftp()
+        with sftp.file(self.environment_file, "w") as remote_file:
+            remote_file.write(content)
+        sftp.chmod(self.environment_file, 0o600)
+
     def run_trainer(self):
         config=self.config.cloud
         if self.can_reattach():
             self.__trail_detached_trainer()
             return
 
-        cmd="export PATH=$PATH:/usr/local/cuda/bin:/venv/main/bin \
+        onetrainer_dir = shlex.quote(config.onetrainer_dir)
+        cmd=f'cuda_library_path="$(find {onetrainer_dir}/venv/lib \
+                                      -path "*/site-packages/nvidia/*/lib" \
+                                      -type d -print 2>/dev/null | paste -sd: -)" \
+             && if test -n "$cuda_library_path"; then \
+                    export LD_LIBRARY_PATH="$cuda_library_path${{LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}}"; \
+                fi \
+             && export PATH=$PATH:/usr/local/cuda/bin:/venv/main/bin \
              && export PYTHONUNBUFFERED=1 \
-             && export OT_LAZY_UPDATES=true"
+             && export OT_LAZY_UPDATES=true \
+             && export HF_HUB_DISABLE_XET=0 \
+             && export HF_XET_HIGH_PERFORMANCE=1 \
+             && export HF_XET_RECONSTRUCT_WRITE_SEQUENTIALLY=1 \
+             && export HF_HUB_DOWNLOAD_TIMEOUT=60'
 
+        environment_file_created = False
         if self.config.secrets.huggingface_token != "":
-            cmd+=f" && export HF_TOKEN={self.config.secrets.huggingface_token}"
+            self.__write_environment_file({
+                "HF_TOKEN": self.config.secrets.huggingface_token,
+                "HUGGING_FACE_HUB_TOKEN": self.config.secrets.huggingface_token,
+            })
+            environment_file_created = True
+            environment_file = shlex.quote(self.environment_file)
+            cmd+=f" && . {environment_file} && rm -f {environment_file}"
         if config.huggingface_cache_dir != "":
-            cmd+=f" && export HF_HOME={config.huggingface_cache_dir}"
+            cmd+=f" && export HF_HOME={shlex.quote(config.huggingface_cache_dir)}"
 
-        cmd+=f' && {config.onetrainer_dir}/run-cmd.sh train_remote --config-path={shlex.quote(self.config_file)} \
+        # The large Krea 2 transformer has repeatedly failed through Xet on RunPod with
+        # "error decoding response body". Download only that blob through resumable HTTP
+        # in a separate process, then leave Xet enabled for large/many-file HF datasets.
+        krea2_preload_script = (
+            "import json, sys\n"
+            "from pathlib import Path\n"
+            "from huggingface_hub import hf_hub_download\n"
+            "with open(sys.argv[1], encoding='utf-8') as file:\n"
+            "    config = json.load(file)\n"
+            "model_name = config.get('base_model_name', '')\n"
+            "if config.get('model_type') == 'KREA_2' and model_name and not Path(model_name).exists():\n"
+            "    hf_hub_download(repo_id=model_name, filename='raw.safetensors')\n"
+        )
+        cmd+=f' && HF_HUB_DISABLE_XET=1 {onetrainer_dir}/venv/bin/python \
+                       -c {shlex.quote(krea2_preload_script)} {shlex.quote(self.config_file)}'
+
+        cmd+=f' && {onetrainer_dir}/run-cmd.sh train_remote --config-path={shlex.quote(self.config_file)} \
                                                                    --callback-path={shlex.quote(self.callback_file)} \
                                                                    --command-path={shlex.quote(self.command_pipe)}'
 
-        if config.detach_trainer:
-            self.connection.run(f'rm -f {self.exit_status_file}',in_stream=False)
+        try:
+            if config.detach_trainer:
+                self.connection.run(f'rm -f {self.exit_status_file}',in_stream=False)
 
-            cmd=f"({cmd} ; exit_status=$? ; echo $exit_status > {self.exit_status_file}; exit $exit_status)"
+                cmd=f"({cmd} ; exit_status=$? ; echo $exit_status > {self.exit_status_file}; exit $exit_status)"
 
-            #if the callback file still exists 10 seconds after the trainer has exited, the client must be detached, because the clients reads and deletes this file:
-            cmd+=f" && (sleep 10 && test -f {shlex.quote(self.callback_file)} && {self._get_action_cmd(config.on_detached_finish)} || true) \
-                    || (sleep 10 && test -f {shlex.quote(self.callback_file)} && {self._get_action_cmd(config.on_detached_error)})"
+                #if the callback file still exists 10 seconds after the trainer has exited, the client must be detached, because the clients reads and deletes this file:
+                cmd+=f" && (sleep 10 && test -f {shlex.quote(self.callback_file)} && {self._get_action_cmd(config.on_detached_finish)} || true) \
+                        || (sleep 10 && test -f {shlex.quote(self.callback_file)} && {self._get_action_cmd(config.on_detached_error)})"
 
-            cmd=f'(nohup true && {cmd}) > {self.log_file} 2>&1 & echo $! > {self.pid_file}'
-            self.connection.run(cmd,disown=True)
-            self.__trail_detached_trainer()
-        else:
-            self.connection.run(cmd,in_stream=False)
+                cmd=f'(nohup true && {cmd}) > {self.log_file} 2>&1 & echo $! > {self.pid_file}'
+                self.connection.run(cmd,disown=True)
+                self.__trail_detached_trainer()
+            else:
+                self.connection.run(cmd,in_stream=False)
+        finally:
+            if environment_file_created:
+                self.connection.run(
+                    f"rm -f {shlex.quote(self.environment_file)}",
+                    warn=True,
+                    hide=True,
+                    in_stream=False,
+                )
 
     def __trail_detached_trainer(self):
         cmd=f'tail -f {self.log_file} --pid $(<{self.pid_file})'

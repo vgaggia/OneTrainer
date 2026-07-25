@@ -5,8 +5,8 @@ from modules.cloud.LinuxCloud import LinuxCloud
 from modules.util.config.TrainConfig import TrainConfig
 from modules.util.enum.CloudAction import CloudAction
 
+import requests
 import runpod
-from runpod.api.graphql import run_graphql_query
 
 
 class RunpodCloud(LinuxCloud):
@@ -29,7 +29,9 @@ class RunpodCloud(LinuxCloud):
                 resumed=True
             elif pod and (runtime:=pod['runtime']) is not None and 'ports' in runtime and runtime['ports'] is not None:
                 for port in runtime['ports']:
-                    if port['isIpPublic']:
+                    # ponytail: runpod also exposes a public UDP port, and the order is not stable.
+                    # Without the type check this happily hands SSH the UDP port number.
+                    if port['isIpPublic'] and port.get('type') == 'tcp':
                         secrets.host=port['ip']
                         secrets.port=port['publicPort']
                         if resumed:
@@ -68,13 +70,36 @@ class RunpodCloud(LinuxCloud):
 
     def __get_template_image_name(self, template_id: str) -> str:
         # RunPod's create_pod requires a non-empty image_name even when a template_id is given,
-        # so look up the template's current image instead of hardcoding a version tag here.
-        result = run_graphql_query("query myself { myself { podTemplates { id imageName } } }")
-        templates = result["data"]["myself"]["podTemplates"]
-        for template in templates:
-            if template["id"] == template_id:
-                return template["imageName"]
-        raise ValueError(f"RunPod template {template_id} not found")
+        # so look up the public template's current image instead of hardcoding a version tag here.
+        # `myself.podTemplates` cannot be used because it only contains templates owned by the
+        # current account, while OneTrainer's template is public and owned by another account.
+        try:
+            response = requests.get(
+                f"https://rest.runpod.io/v1/templates/{template_id}",
+                headers={"Authorization": f"Bearer {self.config.secrets.cloud.api_key}"},
+                params={
+                    "includePublicTemplates": "true",
+                    "includeRunpodTemplates": "true",
+                },
+                timeout=30,
+            )
+            response.raise_for_status()
+            template = response.json()
+        except (requests.RequestException, ValueError) as exc:
+            raise ValueError(f"Could not retrieve RunPod template {template_id}: {exc}") from exc
+
+        image_name = template.get("imageName") if isinstance(template, dict) else None
+        if not image_name:
+            raise ValueError(f"RunPod template {template_id} has no container image")
+        return image_name
+
+    def _gpu_count(self) -> int:
+        return max(1, self.config.cloud.gpu_count)
+
+    def _allowed_cuda_versions(self):
+        # ponytail: blank = no filter (current behaviour); e.g. "13.0" pins hosts whose driver supports torch cu130
+        vals = [v.strip() for v in self.config.cloud.cuda_version.split(",") if v.strip()]
+        return vals or None
 
     def _create(self):
         config=self.config.cloud
@@ -84,8 +109,13 @@ class RunpodCloud(LinuxCloud):
             image_name=self.__get_template_image_name(self.__TEMPLATE_ID),
             template_id=self.__TEMPLATE_ID,
             gpu_type_id=config.gpu_type,
+            gpu_count=self._gpu_count(),
+            allowed_cuda_versions=self._allowed_cuda_versions(),
             cloud_type=config.sub_type,
             support_public_ip=True,
+            # ponytail: a network volume replaces the pod volume at volume_mount_path, so volume_size is ignored then
+            network_volume_id=config.network_volume_id or None,
+            data_center_id=config.data_center_id or None,
             volume_in_gb=config.volume_size,
             container_disk_in_gb=20,
             volume_mount_path="/workspace",
@@ -101,7 +131,7 @@ class RunpodCloud(LinuxCloud):
         runpod.stop_pod(self.config.secrets.cloud.id)
 
     def _start(self):
-        runpod.resume_pod(self.config.secrets.cloud.id,gpu_count=1)
+        runpod.resume_pod(self.config.secrets.cloud.id,gpu_count=self._gpu_count())
 
     def _get_action_cmd(self,action : CloudAction):
         if action == CloudAction.STOP:
