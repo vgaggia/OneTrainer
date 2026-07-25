@@ -68,7 +68,19 @@ def int8_backward_axiswise(output: Tensor, weight: Tensor, weight_scale: Tensor)
     output = output.float().mul(weight_scale.view(1, -1))
     output_8, output_scale = quantize_int8_axiswise(output, dim=-1)
     #almost always, grad outputs are already contiguous and this is a no-op. But there are some grad outputs from SDXL that are non-contiguous:
-    mm_res = mm_8bit(output_8.contiguous(), weight)
+    output_8 = output_8.contiguous()
+    # cuBLAS int8 NN gemm (torch._int_mm) rejects token counts that aren't a multiple of
+    # 32 when the contraction dim (out_features) is < 128 (measured empirically on
+    # sm_120 / cu130; TN and K >= 128 are unaffected). Only tiny layers like the final
+    # projection hit this. Zero rows are exact: they contribute zero output rows, which
+    # are sliced off below. Scales are per-real-row and computed before padding.
+    n_tokens = output_8.shape[0]
+    pad = (-n_tokens) % 32 if weight.shape[0] < 128 else 0
+    if pad:
+        output_8 = torch.nn.functional.pad(output_8, (0, 0, 0, pad))
+    mm_res = mm_8bit(output_8, weight)
+    if pad:
+        mm_res = mm_res[:n_tokens]
     return mm_res.float().mul_(output_scale).to(out_dtype)
 
 @torch.no_grad()
