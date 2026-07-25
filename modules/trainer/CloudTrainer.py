@@ -19,6 +19,7 @@ class CloudTrainer(BaseTrainer):
 
     def __init__(self, config: TrainConfig, callbacks: TrainCallbacks, commands: TrainCommands, reattach: bool=False):
         super().__init__(config, callbacks, commands)
+        self.__check_cache_not_cleared_on_network_volume(config)
         self.error_caught=False
         self.callback_thread=None
         self.sync_thread=None
@@ -37,6 +38,23 @@ class CloudTrainer(BaseTrainer):
                 self.cloud=RunpodCloud(self.remote_config)
             case CloudType.LINUX:
                 self.cloud=LinuxCloud(self.remote_config)
+
+    @staticmethod
+    def __check_cache_not_cleared_on_network_volume(config: TrainConfig):
+        # A network volume outlives every pod attached to it, so its latent cache is usually the
+        # most expensive thing in the whole setup - rebuilding one can be many GPU-hours. Deleting
+        # it is also completely silent: the run just starts caching again and looks healthy.
+        # clear_cache_before_training defaults to True, so anything that resets the config to
+        # defaults re-arms it. Refuse rather than warn.
+        if (config.cloud.network_volume_id
+                and config.clear_cache_before_training
+                and config.latent_caching):
+            raise ValueError(
+                f'"Clear cache before training" is enabled while network volume '
+                f'{config.cloud.network_volume_id} is attached. That would delete the cache on the '
+                f'volume, which persists across pods and can take many GPU-hours to rebuild. '
+                f'Turn it off, or detach the network volume if you really do want to re-cache.'
+            )
 
     def start(self):
         try:
