@@ -38,6 +38,45 @@ steady-state s/it (first 30% of samples dropped for compile warmup).
 
 ## TREAD caveat (important)
 
+**UPDATE 2026-07-25: TREAD was tried at real length and the quality loss is real.
+Do not enable it for fine-tuning. The section below is kept for context but its
+"mechanically expected, will recover" conclusion is WRONG.**
+
+The implementation is correct — this is not a misconfiguration. Verified in
+`transformer_krea2.py`: text tokens are excluded from routing, rope rows are
+gathered per kept token (`_apply_rotary_emb_batched` is mathematically identical
+to diffusers' interleaved `apply_rotary_emb`), the attention mask is gathered
+with the same permutation, and routing is gated on `self.training and
+torch.is_grad_enabled()` so inference is untouched.
+
+Three things make it harmful for *fine-tuning* specifically:
+
+1. **The route is far wider than it reads.** `start=2, end=-3` on 28 blocks means
+   dropped tokens traverse blocks 0, 1, 26, 27 — **4 of 28, 14% of depth**. At
+   ratio 0.5 that is half the image tokens seeing one-seventh of the model.
+2. **The loss cannot be masked.** `route_info` is a local variable in `forward`
+   and is never returned, so the diffusion loss is computed over *all* image
+   tokens. Bypassed tokens' large errors backprop into blocks 26/27 and
+   `final_layer` — layers **every** token passes through. That distils a 4-block
+   shortcut into weights whose pretrained job is the 28-block path. Harmless when
+   pretraining (no pretrained function to damage); actively erosive when
+   fine-tuning.
+3. **Representation-scale mismatch at the merge**: dropped tokens re-enter
+   carrying layer-2 residual activations while kept tokens carry layer-25, so
+   blocks 26/27 see a bimodal input distribution. Worse the wider the route.
+
+**The speedup *is* the damage.** Saving ~= (blocks skipped / 28) x drop ratio.
+The measured 1.68x matches 24/28 x 0.5 = 42.9% almost exactly. A quality-safe
+route (e.g. `[8, 18]` at ratio 0.25, leaving tokens 17/28 blocks) yields only
+~1.11x — not worth the risk on a fine-tune whose entire value is preserving
+base-model quality.
+
+If revisiting: the principled fix is to plumb `route_info` out of `forward` and
+**mask the loss to kept tokens**, which turns TREAD from "distil a shortcut into
+shared weights" into "train a random token subset at full depth". ~10-15 lines.
+
+--- original note (superseded) ---
+
 Loss during these 126-iteration runs sits ~3x higher. Mechanically expected:
 dropped tokens' predictions ride an identity skip past blocks 2..25 and the
 model needs hundreds of optimizer steps to adapt (SimpleTuner documents the same
