@@ -5,17 +5,18 @@ CloudTrainer already remaps debug_dir/workspace_dir/cache_dir/output_model_desti
 concept path onto /workspace/remote/..., so those are left alone here. Only the cloud block, the
 quantization cache (which CloudTrainer does *not* remap) and the pod id need touching.
 
-    python perf_tests/make_cloud_configs.py <git-branch> [pod-id]
+    python perf_tests/make_cloud_configs.py <git-branch> [pod-id] [src-dir]
 """
 import json
 import sys
 from pathlib import Path
 
-BRANCH = sys.argv[1] if len(sys.argv) > 1 else "perf/efficiency-experiments"
+BRANCH = sys.argv[1] if len(sys.argv) > 1 else "pod/krea2-matrix"
 POD_ID = sys.argv[2] if len(sys.argv) > 2 else ""  # empty on the first run: creates the pod
+SRC_NAME = sys.argv[3] if len(sys.argv) > 3 else "configs2"
 
-SRC = Path(__file__).parent / "configs2"
-DST = Path(__file__).parent / "configs2_cloud"
+SRC = Path(__file__).parent / SRC_NAME
+DST = Path(__file__).parent / f"{SRC_NAME}_cloud"
 
 CLOUD = {
     "__version": 0,

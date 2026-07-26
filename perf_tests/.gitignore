@@ -8,3 +8,7 @@ workspace2/
 out2/
 configs2_cloud/
 _cloud_secrets.json
+runbook/
+configs3_cloud/
+workspace3/
+out3/
