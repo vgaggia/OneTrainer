@@ -88,6 +88,14 @@ def report():
         print(f"FAIL: tread_enabled=True on {tread_on} - speed numbers would be inflated and quality damaged")
         return 1
     print("ok: tread_enabled=False on every run")
+
+    # quantized_weight_training.py:132 rejects compile outright - the fused update runs Python
+    # side effects inside autograd backward, which fullgraph tracing cannot trace
+    both = [p.stem for p in CONFIGS if (c := load(p)).compile and c.quantized_weight_training]
+    if both:
+        print(f"FAIL: compile=True with QWT on {both} - the run dies at setup")
+        return 1
+    print("ok: no run combines compile with quantized_weight_training")
     return 0
 
 
