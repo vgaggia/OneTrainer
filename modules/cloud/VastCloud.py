@@ -366,8 +366,8 @@ class VastCloud(LinuxCloud):
     @staticmethod
     def _secure_generated_private_key(private_key_path: Path):
         """Restrict the dedicated Vast key so both Paramiko and native OpenSSH accept it."""
-        private_key_path.chmod(0o600)
         if os.name != "nt":
+            private_key_path.chmod(0o600)
             return
 
         username = os.environ.get("USERNAME", "").strip() or getpass.getuser()
@@ -380,7 +380,7 @@ class VastCloud(LinuxCloud):
                     str(private_key_path),
                     "/inheritance:r",
                     "/grant:r",
-                    f"{identity}:(R)",
+                    f"{identity}:(F)",
                 ],
                 check=True,
                 capture_output=True,

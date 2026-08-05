@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from types import SimpleNamespace
-from unittest.mock import Mock, patch
+from unittest.mock import Mock, call, patch
 
 from modules.cloud.LinuxCloud import LinuxCloud
 from modules.cloud.VastCloud import VastApi, VastCloud
@@ -371,22 +371,26 @@ class VastCloudTest(unittest.TestCase):
             with (
                 patch.dict(os.environ, {"USERNAME": "tester", "USERDOMAIN": "MACHINE"}),
                 patch("modules.cloud.VastCloud.subprocess.run") as run,
+                patch.object(Path, "chmod") as chmod,
             ):
                 VastCloud._secure_generated_private_key(private_key_path)
+                VastCloud._secure_generated_private_key(private_key_path)
 
-        run.assert_called_once_with(
+        expected_call = call(
             [
                 "icacls",
                 str(private_key_path),
                 "/inheritance:r",
                 "/grant:r",
-                "MACHINE\\tester:(R)",
+                "MACHINE\\tester:(F)",
             ],
             check=True,
             capture_output=True,
             text=True,
             creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
         )
+        self.assertEqual([expected_call, expected_call], run.call_args_list)
+        chmod.assert_not_called()
 
     def test_detached_actions_use_vast_instance_credentials(self):
         cloud = VastCloud.__new__(VastCloud)
