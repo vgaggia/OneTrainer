@@ -19,6 +19,9 @@ class VastApiError(RuntimeError):
 
 class VastApi:
     BASE_URL = "https://console.vast.ai/api/v0"
+    RATE_LIMIT_RETRIES = 6
+    RATE_LIMIT_INITIAL_BACKOFF_SECONDS = 1.0
+    RATE_LIMIT_MAX_BACKOFF_SECONDS = 10.0
 
     def __init__(self, api_key: str, session: requests.Session | None = None):
         self.session = session or requests.Session()
@@ -28,20 +31,46 @@ class VastApi:
         }
 
     def _request(self, method: str, path: str, **kwargs) -> dict[str, Any]:
-        try:
-            response = self.session.request(
-                method,
-                f"{self.BASE_URL}/{path.lstrip('/')}",
-                headers=self.headers,
-                timeout=30,
-                **kwargs,
+        response = None
+        for attempt in range(self.RATE_LIMIT_RETRIES + 1):
+            try:
+                response = self.session.request(
+                    method,
+                    f"{self.BASE_URL}/{path.lstrip('/')}",
+                    headers=self.headers,
+                    timeout=30,
+                    **kwargs,
+                )
+            except requests.RequestException as exc:
+                raise VastApiError("Could not reach the Vast.ai API") from exc
+
+            if response.status_code != 429:
+                break
+            if attempt == self.RATE_LIMIT_RETRIES:
+                raise VastApiError(
+                    "Vast.ai API rate limit remained active after retries",
+                    response.status_code,
+                )
+
+            delay = min(
+                self.RATE_LIMIT_INITIAL_BACKOFF_SECONDS * (2 ** attempt),
+                self.RATE_LIMIT_MAX_BACKOFF_SECONDS,
             )
-        except requests.RequestException as exc:
-            raise VastApiError("Could not reach the Vast.ai API") from exc
+            print(f"Vast.ai API rate limited this request; retrying in {delay:g}s...")
+            time.sleep(delay)
+
+        assert response is not None
 
         try:
             data = response.json()
         except ValueError as exc:
+            if not response.ok:
+                message = str(getattr(response, "text", "")).strip()
+                if message:
+                    raise VastApiError(
+                        f"{message[:300]} (HTTP {response.status_code})",
+                        response.status_code,
+                    ) from exc
             raise VastApiError(
                 f"Vast.ai returned an invalid response (HTTP {response.status_code})",
                 response.status_code,
@@ -119,6 +148,7 @@ class VastCloud(LinuxCloud):
     POLL_INTERVAL_SECONDS = 10
     SSH_ATTEMPTS = 60
     SSH_POLL_INTERVAL_SECONDS = 5
+    INSTANCE_VISIBILITY_GRACE_SECONDS = 60
 
     def __init__(self, config: TrainConfig):
         super().__init__(config)
@@ -226,6 +256,7 @@ class VastCloud(LinuxCloud):
             raise ValueError("A Vast.ai API key is required to manage an instance")
 
         instance = None
+        created_instance = False
         if instance_id:
             secrets.id = instance_id
             instance = self.api.get_instance(instance_id)
@@ -237,23 +268,23 @@ class VastCloud(LinuxCloud):
                 secrets.host = ""
                 secrets.port = 0
                 self._create()
-                instance = self.api.get_instance(secrets.id)
+                created_instance = True
         elif config.create:
             # Host/port can be left over from a previous RunPod or Linux connection. The Create
             # switch is authoritative, matching RunPodCloud: a blank provider ID means provision.
             secrets.host = ""
             secrets.port = 0
             self._create()
-            instance = self.api.get_instance(secrets.id)
+            created_instance = True
 
-        if manage_via_api and instance is None:
-            raise ValueError("Vast.ai accepted no usable instance after provisioning")
-
-        if instance is not None:
-            status = str(instance.get("actual_status") or "").lower()
-            if status in {"exited", "stopped"}:
+        if manage_via_api:
+            status = str(instance.get("actual_status") or "").lower() if instance else ""
+            if instance is not None and status in {"exited", "stopped"}:
                 self._start()
-            self._wait_for_host_port()
+            self._wait_for_host_port(
+                initial_instance=instance,
+                tolerate_initial_missing=created_instance,
+            )
             self._ensure_instance_ssh_key()
 
         self._connect_ssh()
@@ -368,16 +399,32 @@ class VastCloud(LinuxCloud):
         if public_key_identity not in existing_identities:
             self.api.attach_ssh_key(secrets.id, public_key)
 
-    def _wait_for_host_port(self):
+    def _wait_for_host_port(
+            self,
+            initial_instance: dict[str, Any] | None = None,
+            tolerate_initial_missing: bool = False,
+    ):
         secrets = self.config.secrets.cloud
         deadline = time.monotonic() + self.READY_TIMEOUT_SECONDS
+        visibility_deadline = time.monotonic() + self.INSTANCE_VISIBILITY_GRACE_SECONDS
         terminal_status_since = None
+        instance = initial_instance
 
         while time.monotonic() < deadline:
             now = time.monotonic()
-            instance = self.api.get_instance(secrets.id)
             if instance is None:
+                instance = self.api.get_instance(secrets.id)
+            if instance is None:
+                if tolerate_initial_missing and now < visibility_deadline:
+                    print(
+                        "waiting for Vast.ai instance record... Status: provisioning. "
+                        "https://cloud.vast.ai/instances/"
+                    )
+                    time.sleep(self.POLL_INTERVAL_SECONDS)
+                    continue
                 raise ValueError(f"Vast.ai instance {secrets.id} does not exist")
+
+            tolerate_initial_missing = False
 
             status = str(instance.get("actual_status") or "provisioning").lower()
             host = instance.get("ssh_host")
@@ -401,6 +448,7 @@ class VastCloud(LinuxCloud):
                 "https://cloud.vast.ai/instances/"
             )
             time.sleep(self.POLL_INTERVAL_SECONDS)
+            instance = None
 
         raise TimeoutError(f"Timed out waiting for Vast.ai instance {secrets.id}")
 

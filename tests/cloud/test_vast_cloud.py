@@ -13,12 +13,15 @@ import paramiko
 
 
 class FakeResponse:
-    def __init__(self, status_code: int, data: dict):
+    def __init__(self, status_code: int, data: dict | None, text: str = ""):
         self.status_code = status_code
         self._data = data
+        self.text = text
         self.ok = 200 <= status_code < 400
 
     def json(self):
+        if self._data is None:
+            raise ValueError("not JSON")
         return self._data
 
 
@@ -51,6 +54,20 @@ class VastApiTest(unittest.TestCase):
         api = VastApi("test-key", session=session)
 
         self.assertIsNone(api.get_instance("123"))
+
+    def test_rate_limit_with_plain_text_body_is_retried(self):
+        session = FakeSession(
+            FakeResponse(429, None, "API requests too frequent"),
+            FakeResponse(200, {"instances": {"id": 123, "actual_status": "loading"}}),
+        )
+        api = VastApi("test-key", session=session)
+
+        with patch("modules.cloud.VastCloud.time.sleep") as sleep:
+            instance = api.get_instance("123")
+
+        self.assertEqual(123, instance["id"])
+        self.assertEqual(2, len(session.requests))
+        sleep.assert_called_once_with(1.0)
 
     def test_instance_ssh_key_endpoints(self):
         session = FakeSession(
@@ -185,7 +202,7 @@ class VastCloudTest(unittest.TestCase):
             cloud=SimpleNamespace(create=True),
             secrets=SimpleNamespace(cloud=secrets),
         )
-        cloud.api = SimpleNamespace(get_instance=Mock(return_value={"actual_status": "running"}))
+        cloud.api = SimpleNamespace(get_instance=Mock())
 
         def create():
             secrets.id = "123"
@@ -199,11 +216,15 @@ class VastCloudTest(unittest.TestCase):
             cloud._connect()
 
         create_mock.assert_called_once_with()
-        wait_mock.assert_called_once_with()
+        wait_mock.assert_called_once_with(
+            initial_instance=None,
+            tolerate_initial_missing=True,
+        )
         key_mock.assert_called_once_with()
         ssh_mock.assert_called_once_with()
         self.assertEqual("", secrets.host)
         self.assertEqual(0, secrets.port)
+        cloud.api.get_instance.assert_not_called()
 
     def test_create_ignores_a_stale_runpod_id(self):
         cloud = VastCloud.__new__(VastCloud)
@@ -233,6 +254,42 @@ class VastCloudTest(unittest.TestCase):
 
         create_mock.assert_called_once_with()
         self.assertEqual("123", secrets.id)
+
+    def test_initial_instance_is_reused_without_an_immediate_second_get(self):
+        cloud = VastCloud.__new__(VastCloud)
+        secrets = SimpleNamespace(id="123", host="", port=0)
+        cloud.config = SimpleNamespace(secrets=SimpleNamespace(cloud=secrets))
+        cloud.api = SimpleNamespace(get_instance=Mock())
+
+        cloud._wait_for_host_port(initial_instance={
+            "actual_status": "running",
+            "ssh_host": "ssh.example.test",
+            "ssh_port": 12345,
+        })
+
+        cloud.api.get_instance.assert_not_called()
+        self.assertEqual("ssh.example.test", secrets.host)
+        self.assertEqual("12345", secrets.port)
+
+    def test_new_instance_visibility_delay_is_retried(self):
+        cloud = VastCloud.__new__(VastCloud)
+        secrets = SimpleNamespace(id="123", host="", port=0)
+        cloud.config = SimpleNamespace(secrets=SimpleNamespace(cloud=secrets))
+        cloud.api = SimpleNamespace(get_instance=Mock(side_effect=[
+            None,
+            {
+                "actual_status": "running",
+                "ssh_host": "ssh.example.test",
+                "ssh_port": 12345,
+            },
+        ]))
+
+        with patch("modules.cloud.VastCloud.time.sleep") as sleep:
+            cloud._wait_for_host_port(tolerate_initial_missing=True)
+
+        self.assertEqual(2, cloud.api.get_instance.call_count)
+        sleep.assert_called_once_with(cloud.POLL_INTERVAL_SECONDS)
+        self.assertEqual("ssh.example.test", secrets.host)
 
     def test_missing_manual_host_port_fails_without_ssh_retries(self):
         cloud = VastCloud.__new__(VastCloud)
