@@ -142,6 +142,9 @@ class BaseCloudTabView(ABC):
         self.components.label(frame, 16, 2, "Delete remote workspace",
                          tooltip="Delete the workspace directory on the cloud after training has finished successfully and data has been downloaded.")
         self.components.switch(frame, 16, 3, ui_state, "cloud.delete_workspace")
+        self.components.label(frame, 17, 2, "Transfer datasets as tar",
+                         tooltip="Compresses datasets into tar.gz files before uploading, potentially reducing overhead")
+        self.components.switch(frame, 17, 3, ui_state, "cloud.transfer_datasets_as_tar")
 
         self.components.label(frame, 1, 4, "Create cloud via API",
                          tooltip="Automatically creates a new instance if both Host:Port and Cloud ID are empty. Supported for RUNPOD and VAST.")

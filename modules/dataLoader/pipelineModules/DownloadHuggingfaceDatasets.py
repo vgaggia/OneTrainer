@@ -8,11 +8,11 @@ from concurrent.futures import ThreadPoolExecutor
 from contextlib import suppress
 from pathlib import Path
 
-import huggingface_hub
-from filelock import FileLock
 from mgds.PipelineModule import PipelineModule
 from mgds.pipelineModuleTypes.RandomAccessPipelineModule import RandomAccessPipelineModule
 
+import huggingface_hub
+from filelock import FileLock
 
 HF_ARCHIVE_PREFIX = "hf-archive:"
 
@@ -169,7 +169,7 @@ class DownloadHuggingfaceDatasets(
             enabled_in_name: str,
             concept_out_name: str,
     ):
-        super(DownloadHuggingfaceDatasets, self).__init__()
+        super().__init__()
 
         self.concept_in_name = concept_in_name
         self.enabled_in_name = enabled_in_name

@@ -1,4 +1,6 @@
 import shlex
+import tarfile
+import tempfile
 from abc import abstractmethod
 from pathlib import Path
 
@@ -46,28 +48,97 @@ class BaseSSHFileSync(BaseFileSync):
         self.upload_file(local_file=local,remote_file=remote)
 
 
-    def sync_up_dir(self,local : Path,remote: Path,recursive: bool,sync_info=None,
-                    skip_hidden: bool=False, allowed_extensions: set[str] | None=None):
-        if sync_info is None:
-            sync_info=self.__get_sync_info(remote)
-        self.sync_connection.open()
-        self.sync_connection.run(f'mkdir -p {shlex.quote(remote.as_posix())}',in_stream=False)
-        files=[]
+    def __collect_files_to_upload(
+        self,
+        local: Path,
+        remote: Path,
+        recursive: bool,
+        sync_info: dict,
+        skip_hidden: bool=False,
+        allowed_extensions: set[str] | None=None
+    ) -> tuple[list[Path], list[Path]]:
+        # Collect files that need uploading and subdirectories to process
+        files_to_upload = []
+        subdirs_to_process = []
+
         for local_entry in local.iterdir():
             if local_entry.is_file():
                 if allowed_extensions is not None and local_entry.suffix.lower() not in allowed_extensions:
                     continue
-                remote_entry=remote/local_entry.name
-                if self.__needs_upload(local=local_entry,remote=remote_entry,sync_info=sync_info):
-                    files.append(local_entry)
+                remote_entry = remote / local_entry.name
+                if self.__needs_upload(local=local_entry, remote=remote_entry, sync_info=sync_info):
+                    files_to_upload.append(local_entry)
             elif recursive and local_entry.is_dir():
                 if skip_hidden and local_entry.name.startswith('.'):
                     continue
-                self.sync_up_dir(local=local_entry,remote=remote/local_entry.name,recursive=True,
-                                 sync_info=sync_info,skip_hidden=skip_hidden,
-                                 allowed_extensions=allowed_extensions)
+                subdirs_to_process.append(local_entry)
 
-        self.upload_files(local_files=files,remote_dir=remote)
+        return files_to_upload, subdirs_to_process
+
+    def __upload_as_tar(
+        self,
+        local: Path,
+        remote: Path,
+        files_to_upload: list[Path],
+        subdirs_to_process: list[Path],
+        sync_info: dict,
+        skip_hidden: bool=False,
+        allowed_extensions: set[str] | None=None
+    ):
+        # Upload files as a compressed tar archive.
+        with tempfile.TemporaryDirectory(prefix="onetrainer_dataset_") as temp_dir:
+            tar_path = Path(temp_dir) / f"{local.name}_sync.tar.gz"
+
+            print(f"Creating tar archive for {local.name}...")
+            with tarfile.open(tar_path, 'w:gz') as tar:
+                # Add files that need uploading
+                for file in files_to_upload:
+                    tar.add(file, arcname=file.name)
+
+                # Process subdirectories if recursive
+                for subdir in subdirs_to_process:
+                    self._add_dir_to_tar(tar, subdir, subdir.name, sync_info, remote / subdir.name,
+                                         skip_hidden=skip_hidden, allowed_extensions=allowed_extensions)
+
+            # Only upload if tar has content
+            with tarfile.open(tar_path, 'r:gz') as tar:
+                file_count = len(tar.getnames())
+                if file_count > 0:
+                    print(f"Uploading tar archive with {file_count} files...")
+                    remote_tar_path = remote / f"{local.name}_sync.tar.gz"
+                    self.sync_up_file(local=tar_path, remote=remote_tar_path)
+                    self._extract_tar_file(remote_tar_path, remote)
+                    print("Tar archive extracted successfully")
+                else:
+                    print("Skipping upload, no files need syncing")
+
+    def sync_up_dir(self,local : Path,remote: Path,recursive: bool,sync_info=None,
+                    skip_hidden: bool=False, allowed_extensions: set[str] | None=None):
+        if sync_info is None:
+            sync_info=self.__get_sync_info(remote)
+
+        # Prepare remote directory
+        self.sync_connection.open()
+        self.sync_connection.run(f'mkdir -p {shlex.quote(remote.as_posix())}',in_stream=False)
+
+        # Collect files that need to be uploaded
+        files_to_upload, subdirs_to_process = self.__collect_files_to_upload(
+            local, remote, recursive, sync_info, skip_hidden, allowed_extensions
+        )
+
+        # Upload using chosen strategy
+        if self.config.transfer_datasets_as_tar and (files_to_upload or subdirs_to_process):
+            self.__upload_as_tar(local, remote, files_to_upload, subdirs_to_process, sync_info,
+                                 skip_hidden=skip_hidden, allowed_extensions=allowed_extensions)
+        else:
+            # Upload files individually
+            if files_to_upload:
+                self.upload_files(local_files=files_to_upload,remote_dir=remote)
+
+            # Process subdirectories recursively
+            for subdir in subdirs_to_process:
+                self.sync_up_dir(local=subdir,remote=remote/subdir.name,recursive=True,sync_info=sync_info,
+                                 skip_hidden=skip_hidden,allowed_extensions=allowed_extensions)
 
     def sync_down_file(self,local : Path,remote : Path):
         sync_info=self.__get_sync_info(remote)
@@ -93,6 +164,28 @@ class BaseSSHFileSync(BaseFileSync):
             dir.mkdir(parents=True,exist_ok=True)
             self.download_files(local_dir=dir,remote_files=files)
 
+    def _add_dir_to_tar(self, tar: tarfile.TarFile, local_dir: Path, arcname: str, sync_info: dict, remote_dir: Path,
+                        skip_hidden: bool=False, allowed_extensions: set[str] | None=None):
+        # Recursively add files from directory that need uploading
+        for entry in local_dir.iterdir():
+            if entry.is_file():
+                if allowed_extensions is not None and entry.suffix.lower() not in allowed_extensions:
+                    continue
+                remote_entry = remote_dir / entry.name
+                if self.__needs_upload(local=entry, remote=remote_entry, sync_info=sync_info):
+                    tar.add(entry, arcname=f"{arcname}/{entry.name}")
+            elif entry.is_dir():
+                if skip_hidden and entry.name.startswith('.'):
+                    continue
+                self._add_dir_to_tar(tar, entry, f"{arcname}/{entry.name}", sync_info, remote_dir / entry.name,
+                                     skip_hidden=skip_hidden, allowed_extensions=allowed_extensions)
+
+    def _extract_tar_file(self, remote_tar_path: Path, extract_to: Path):
+        # Extract tar file on remote
+        extract_dir = extract_to.as_posix()
+        tar_path = remote_tar_path.as_posix()
+        extract_cmd = f"mkdir -p {shlex.quote(extract_dir)} && cd {shlex.quote(extract_dir)} && tar -xzf {shlex.quote(tar_path)} && rm {shlex.quote(tar_path)}"
+        self.sync_connection.run(extract_cmd, in_stream=False)
 
     def __get_sync_info(self,remote : Path):
         cmd = f'find {shlex.quote(remote.as_posix())} -type f -exec stat --printf "%n\\t%s\\t%Y\\n"' + ' {} \\;'
