@@ -1,4 +1,7 @@
+import getpass
 import json
+import os
+import subprocess
 import time
 from pathlib import Path
 from typing import Any
@@ -360,29 +363,61 @@ class VastCloud(LinuxCloud):
         VastCloud._public_key_identity(public_key)
         return public_key
 
+    @staticmethod
+    def _secure_generated_private_key(private_key_path: Path):
+        """Restrict the dedicated Vast key so both Paramiko and native OpenSSH accept it."""
+        private_key_path.chmod(0o600)
+        if os.name != "nt":
+            return
+
+        username = os.environ.get("USERNAME", "").strip() or getpass.getuser()
+        domain = os.environ.get("USERDOMAIN", "").strip()
+        identity = username if not domain or "\\" in username else f"{domain}\\{username}"
+        try:
+            subprocess.run(
+                [
+                    "icacls",
+                    str(private_key_path),
+                    "/inheritance:r",
+                    "/grant:r",
+                    f"{identity}:(R)",
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+            )
+        except (OSError, subprocess.CalledProcessError) as exc:
+            raise ValueError(
+                f"Could not secure the generated Vast.ai SSH key at {private_key_path}"
+            ) from exc
+
     def _ensure_local_ssh_key(self) -> str:
         secrets = self.config.secrets.cloud
+        dedicated_private_key_path = Path.home() / ".ssh" / "onetrainer_vast_rsa"
         configured_key = secrets.expanded_key_file()
         if configured_key:
             private_key_path = Path(configured_key)
             if not private_key_path.is_file():
                 raise ValueError(f"SSH keyfile does not exist: {private_key_path}")
+            if private_key_path.resolve() == dedicated_private_key_path.resolve():
+                self._secure_generated_private_key(private_key_path)
             return self._public_key_for_private_key(private_key_path)
 
-        ssh_dir = Path.home() / ".ssh"
+        ssh_dir = dedicated_private_key_path.parent
         ssh_dir.mkdir(mode=0o700, parents=True, exist_ok=True)
-        private_key_path = ssh_dir / "onetrainer_vast_rsa"
+        private_key_path = dedicated_private_key_path
         public_key_path = Path(f"{private_key_path}.pub")
         if not private_key_path.exists():
             private_key = paramiko.RSAKey.generate(bits=3072)
             private_key.write_private_key_file(str(private_key_path))
-            private_key_path.chmod(0o600)
             public_key_path.write_text(
                 f"{private_key.get_name()} {private_key.get_base64()} onetrainer-vast\n",
                 encoding="utf-8",
             )
             print(f"created a dedicated Vast.ai SSH key at {private_key_path}")
 
+        self._secure_generated_private_key(private_key_path)
         secrets.key_file = str(private_key_path)
         return self._public_key_for_private_key(private_key_path)
 

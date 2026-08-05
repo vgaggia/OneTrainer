@@ -1,3 +1,5 @@
+import os
+import subprocess
 import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -358,6 +360,32 @@ class VastCloudTest(unittest.TestCase):
         api.attach_ssh_key.assert_called_once_with(
             "123",
             "ssh-rsa AAAATEST onetrainer-test",
+        )
+
+    @unittest.skipUnless(os.name == "nt", "Windows ACL behavior")
+    def test_generated_private_key_gets_windows_openssh_acl(self):
+        with TemporaryDirectory() as temp_dir:
+            private_key_path = Path(temp_dir) / "onetrainer_vast_rsa"
+            private_key_path.touch()
+
+            with (
+                patch.dict(os.environ, {"USERNAME": "tester", "USERDOMAIN": "MACHINE"}),
+                patch("modules.cloud.VastCloud.subprocess.run") as run,
+            ):
+                VastCloud._secure_generated_private_key(private_key_path)
+
+        run.assert_called_once_with(
+            [
+                "icacls",
+                str(private_key_path),
+                "/inheritance:r",
+                "/grant:r",
+                "MACHINE\\tester:(R)",
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
         )
 
     def test_detached_actions_use_vast_instance_credentials(self):
