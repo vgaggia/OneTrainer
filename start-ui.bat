@@ -51,6 +51,12 @@ if errorlevel 1 (
 )
 
 :launch
+REM Disable mimalloc's 1 GB arena pre-reservation. PyTorch's bundled mimalloc can otherwise
+REM inflate Windows commit usage far beyond the resident set on large model workloads.
+if not defined MIMALLOC_ARENA_RESERVE set "MIMALLOC_ARENA_RESERVE=0"
+if not defined MIMALLOC_EAGER_COMMIT set "MIMALLOC_EAGER_COMMIT=0"
+if not defined MIMALLOC_ARENA_EAGER_COMMIT set "MIMALLOC_ARENA_EAGER_COMMIT=0"
+
 REM stable per-step cost for eager 8-bit matmuls on bucketed datasets (triton
 REM autotune re-benchmarks per bucket shape; required for quantized_weight_training)
 if not defined OT_MM8_NO_TRITON (set OT_MM8_NO_TRITON=1)
