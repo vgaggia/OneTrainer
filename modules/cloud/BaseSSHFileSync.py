@@ -78,6 +78,7 @@ class BaseSSHFileSync(BaseFileSync):
         with tempfile.TemporaryDirectory(prefix="onetrainer_dataset_") as temp_dir:
             tar_path = Path(temp_dir) / f"{local.name}_sync.tar.gz"
 
+            print(f"Creating tar archive for {local.name}...")
             with tarfile.open(tar_path, 'w:gz') as tar:
                 # Add files that need uploading
                 for file in files_to_upload:
@@ -88,10 +89,16 @@ class BaseSSHFileSync(BaseFileSync):
                     self._add_dir_to_tar(tar, subdir, subdir.name, sync_info, remote / subdir.name)
 
             # Only upload if tar has content
-            if tar_path.stat().st_size > 0:
-                remote_tar_path = remote / f".{local.name}_sync.tar.gz"
-                self.sync_up_file(local=tar_path, remote=remote_tar_path)
-                self._extract_tar_file(remote_tar_path, remote)
+            with tarfile.open(tar_path, 'r:gz') as tar:
+                file_count = len(tar.getnames())
+                if file_count > 0:
+                    print(f"Uploading tar archive with {file_count} files...")
+                    remote_tar_path = remote / f"{local.name}_sync.tar.gz"
+                    self.sync_up_file(local=tar_path, remote=remote_tar_path)
+                    self._extract_tar_file(remote_tar_path, remote)
+                    print(f"Tar archive extracted successfully")
+                else:
+                    print(f"Skipping upload, no files need syncing")
 
     def sync_up_dir(self,local : Path,remote: Path,recursive: bool,sync_info=None):
         if sync_info is None:
