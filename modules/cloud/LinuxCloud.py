@@ -24,6 +24,7 @@ class LinuxCloud(BaseCloud):
         self.callback_connection=None
         self.command_connection=None
         self.tensorboard_tunnel_stop=None
+        self.reattach_requested=False
 
         name=config.cloud.run_id if config.cloud.detach_trainer else get_string_timestamp()
         self.callback_file=f'{config.cloud.remote_dir}/{name}.callback'
@@ -81,8 +82,8 @@ class LinuxCloud(BaseCloud):
             raise
 
 
-    def setup(self):
-        super().setup()
+    def setup(self, install: bool=True):
+        super().setup(install=install)
         self.connection.run(f'mkfifo {shlex.quote(self.command_pipe)}',warn=True,hide=True,in_stream=False)
 
     def _install_onetrainer(self, update: bool=False):
@@ -237,6 +238,16 @@ class LinuxCloud(BaseCloud):
             )
         return result.exited == 0
 
+    def can_recover_completed_run(self):
+        result = self.connection.run(
+            f'test -s {shlex.quote(self.log_file)} \
+              && test -s {shlex.quote(self.exit_status_file)}',
+            warn=True,
+            hide=True,
+            in_stream=False,
+        )
+        return result.exited == 0
+
     def _get_action_cmd(self,action : CloudAction):
         if action != CloudAction.NONE:
             raise NotImplementedError("Action on detached not supported for this cloud type")
@@ -254,8 +265,18 @@ class LinuxCloud(BaseCloud):
 
     def run_trainer(self):
         config=self.config.cloud
+        if self.reattach_requested:
+            if self.can_reattach():
+                self.__trail_detached_trainer(process_running=True)
+                return
+            if self.can_recover_completed_run():
+                self.__trail_detached_trainer(process_running=False)
+                return
+            raise ValueError(
+                f'Detached trainer {config.run_id!r} disappeared before reattach completed'
+            )
         if self.can_reattach():
-            self.__trail_detached_trainer()
+            self.__trail_detached_trainer(process_running=True)
             return
 
         onetrainer_dir = shlex.quote(config.onetrainer_dir)
@@ -316,9 +337,16 @@ class LinuxCloud(BaseCloud):
                 cmd+=f" && (sleep 10 && test -f {shlex.quote(self.callback_file)} && {self._get_action_cmd(config.on_detached_finish)} || true) \
                         || (sleep 10 && test -f {shlex.quote(self.callback_file)} && {self._get_action_cmd(config.on_detached_error)})"
 
-                cmd=f'(nohup true && {cmd}) > {self.log_file} 2>&1 & echo $! > {self.pid_file}'
+                # Protect the entire worker shell from SIGHUP when the client/SSH connection dies.
+                # `nohup true && worker` only protects `true`, which caused detached trainers to
+                # terminate when the local computer lost power.
+                cmd=(
+                    f'nohup bash -c {shlex.quote(cmd)} '
+                    f'> {shlex.quote(self.log_file)} 2>&1 < /dev/null '
+                    f'& echo $! > {shlex.quote(self.pid_file)}'
+                )
                 self.connection.run(cmd,disown=True)
-                self.__trail_detached_trainer()
+                self.__trail_detached_trainer(process_running=True)
             else:
                 self.connection.run(cmd,in_stream=False)
         finally:
@@ -330,13 +358,22 @@ class LinuxCloud(BaseCloud):
                     in_stream=False,
                 )
 
-    def __trail_detached_trainer(self):
-        cmd=f'tail -f {self.log_file} --pid $(<{self.pid_file})'
+    def __trail_detached_trainer(self, process_running: bool):
+        if process_running:
+            cmd=(
+                f'tail -f {shlex.quote(self.log_file)} '
+                f'--pid $(cat {shlex.quote(self.pid_file)})'
+            )
+        else:
+            cmd=f'cat {shlex.quote(self.log_file)}'
         self.connection.run(cmd,in_stream=False)
         #trainer has exited, don't reattach:
-        self.connection.run(f'rm -f {self.pid_file}',in_stream=False)
+        self.connection.run(f'rm -f {shlex.quote(self.pid_file)}',in_stream=False)
         #raise an exception if the training process return an exit code != 0:
-        self.connection.run(f'exit $(<{self.exit_status_file})',in_stream=False)
+        self.connection.run(
+            f'exit $(cat {shlex.quote(self.exit_status_file)})',
+            in_stream=False,
+        )
 
 
 

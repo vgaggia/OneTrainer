@@ -1,3 +1,4 @@
+import shlex
 from types import SimpleNamespace
 from unittest import TestCase
 from unittest.mock import MagicMock, Mock
@@ -123,6 +124,33 @@ class LinuxCloudTest(TestCase):
         self.assertEqual(cleanup.args[0], "rm -f '/workspace/job 1.pid'")
         self.assertTrue(cleanup.kwargs["hide"])
 
+    def test_completed_detached_run_can_be_recovered(self):
+        cloud = object.__new__(LinuxCloud)
+        cloud.connection = Mock()
+        cloud.connection.run.return_value.exited = 0
+        cloud.log_file = "/workspace/job 1.log"
+        cloud.exit_status_file = "/workspace/job 1.exit"
+
+        self.assertTrue(cloud.can_recover_completed_run())
+
+        command = cloud.connection.run.call_args.args[0]
+        self.assertIn("test -s '/workspace/job 1.log'", command)
+        self.assertIn("test -s '/workspace/job 1.exit'", command)
+
+    def test_reattach_replays_a_completed_detached_run(self):
+        cloud = object.__new__(LinuxCloud)
+        cloud.config = SimpleNamespace(cloud=SimpleNamespace(run_id="job1"))
+        cloud.reattach_requested = True
+        cloud.can_reattach = Mock(return_value=False)
+        cloud.can_recover_completed_run = Mock(return_value=True)
+        cloud._LinuxCloud__trail_detached_trainer = Mock()
+
+        cloud.run_trainer()
+
+        cloud._LinuxCloud__trail_detached_trainer.assert_called_once_with(
+            process_running=False,
+        )
+
     def test_detached_command_forwards_tokens_and_cuda_libraries(self):
         cloud = object.__new__(LinuxCloud)
         cloud.config = SimpleNamespace(
@@ -137,6 +165,7 @@ class LinuxCloudTest(TestCase):
         )
         cloud.connection = Mock()
         cloud.can_reattach = Mock(return_value=False)
+        cloud.reattach_requested = False
         cloud._get_action_cmd = Mock(return_value=":")
         cloud._LinuxCloud__trail_detached_trainer = Mock()
         cloud.exit_status_file = "/workspace/job.exit"
@@ -153,7 +182,12 @@ class LinuxCloudTest(TestCase):
 
         cloud.run_trainer()
 
-        command = cloud.connection.run.call_args_list[1].args[0]
+        launcher = cloud.connection.run.call_args_list[1].args[0]
+        worker_command = shlex.split(launcher)[3]
+        self.assertIn("nohup bash -c", launcher)
+        self.assertNotIn("nohup true", launcher)
+        self.assertIn("< /dev/null", launcher)
+        command = worker_command
         self.assertIn("site-packages/nvidia/*/lib", command)
         self.assertIn("export LD_LIBRARY_PATH=", command)
         # defaulted, not forced - an explicit value in the pod's environment still wins
@@ -177,4 +211,4 @@ class LinuxCloudTest(TestCase):
             "export HUGGING_FACE_HUB_TOKEN='hf_token with space'\n"
         )
         cloud.connection.sftp.return_value.chmod.assert_called_once_with("/workspace/.job.env", 0o600)
-        cloud._LinuxCloud__trail_detached_trainer.assert_called_once_with()
+        cloud._LinuxCloud__trail_detached_trainer.assert_called_once_with(process_running=True)

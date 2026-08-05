@@ -17,10 +17,12 @@ class BaseCloud(metaclass=ABCMeta):
         self.file_sync=None
 
 
-    def setup(self):
+    def setup(self, install: bool=True):
         self._connect()
 
-        if (self.config.cloud.install_onetrainer or self.config.cloud.update_onetrainer) and not self.can_reattach():
+        if install \
+                and (self.config.cloud.install_onetrainer or self.config.cloud.update_onetrainer) \
+                and not self.can_reattach():
             self._install_onetrainer(update=self.config.cloud.update_onetrainer)
 
         if self.config.cloud.tensorboard_tunnel:
@@ -112,6 +114,9 @@ class BaseCloud(metaclass=ABCMeta):
     @abstractmethod
     def can_reattach(self):
         pass
+
+    def can_recover_completed_run(self):
+        return False
 
     def _create(self):
         raise NotImplementedError("creating clouds not supported for this cloud type")

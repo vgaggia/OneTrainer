@@ -63,11 +63,21 @@ class CloudTrainer(BaseTrainer):
     def start(self):
         try:
             self.callbacks.on_update_status("setting up cloud")
-            self.cloud.setup()
+            # A reattach only needs the existing worker marker/log. Installing or updating first
+            # wastes paid GPU time and obscures the useful "no detached worker" diagnosis.
+            self.cloud.setup(install=not self.reattach)
 
             if self.reattach:
-                if not self.cloud.can_reattach():
-                    raise ValueError(f"There is no detached trainer with run id {self.config.cloud.run_id} on this cloud")
+                live_run = self.cloud.can_reattach()
+                completed_run = not live_run and self.cloud.can_recover_completed_run()
+                if not live_run and not completed_run:
+                    raise ValueError(
+                        f"There is no live or completed detached trainer with run id "
+                        f"{self.config.cloud.run_id!r} on this cloud. The previous session did not "
+                        f"reach trainer launch, or its remote process exited without a result. "
+                        f"Use the normal Start button to launch training on the existing instance."
+                    )
+                self.cloud.reattach_requested=True
             else:
                 if self.cloud.can_reattach():
                     raise ValueError(f"a detached trainer with id {self.config.cloud.run_id} is still running. Use \"Reattach now\" to reattach to this trainer!")
