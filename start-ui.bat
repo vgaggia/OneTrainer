@@ -35,6 +35,14 @@ set PYTHON="%VENV_DIR%\Scripts\python.exe" -X utf8
 if defined PROFILE (set PYTHON=%PYTHON% -m scalene --off --cpu --gpu --profile-all --no-browser)
 echo Using Python %PYTHON%
 
+REM Disable mimalloc's 1 GB arena pre-reservation. PyTorch's bundled mimalloc 2.2.4 defaults
+REM to reserving + eager-committing 1 GB arenas at a time, which on Windows inflates the
+REM process's commit charge ~2x actual usage and triggers commit-limit OOM / c10.dll AV
+REM on large models (e.g. 9B Flux.2). Arena-on-demand keeps commit close to RSS.
+if not defined MIMALLOC_ARENA_RESERVE set "MIMALLOC_ARENA_RESERVE=0"
+if not defined MIMALLOC_EAGER_COMMIT set "MIMALLOC_EAGER_COMMIT=0"
+if not defined MIMALLOC_ARENA_EAGER_COMMIT set "MIMALLOC_ARENA_EAGER_COMMIT=0"
+
 :check_python_version
 echo Checking Python version...
 %PYTHON% --version
