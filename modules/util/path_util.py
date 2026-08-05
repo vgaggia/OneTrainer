@@ -1,5 +1,7 @@
 import json
-import os.path
+import os
+import tempfile
+import time
 from pathlib import Path
 from typing import Any
 
@@ -30,9 +32,37 @@ def canonical_join(base_path: str, *paths: str):
 
 
 def write_json_atomic(path: str, obj: Any):
-    with open(path + ".write", "w") as f:
-        json.dump(obj, f, indent=4)
-    os.replace(path + ".write", path)
+    destination = Path(path)
+    temp_path = None
+    try:
+        with tempfile.NamedTemporaryFile(
+                mode="w",
+                encoding="utf-8",
+                dir=destination.parent,
+                prefix=f".{destination.name}.",
+                suffix=".write",
+                delete=False,
+        ) as file:
+            temp_path = Path(file.name)
+            json.dump(obj, file, indent=4)
+            file.flush()
+            os.fsync(file.fileno())
+
+        # Windows denies os.replace while another process briefly holds the destination open
+        # (antivirus/indexers are common culprits). Retry sharing violations without giving up the
+        # atomic same-directory replacement.
+        for attempt in range(6):
+            try:
+                os.replace(temp_path, destination)
+                temp_path = None
+                return
+            except PermissionError:  # noqa: PERF203 - retry loop is intentional on Windows
+                if attempt == 5:
+                    raise
+                time.sleep(0.05 * (2 ** attempt))
+    finally:
+        if temp_path is not None:
+            temp_path.unlink(missing_ok=True)
 
 
 SUPPORTED_IMAGE_EXTENSIONS = {'.bmp', '.jpg', '.jpeg', '.png', '.tif', '.tiff', '.webp', '.avif'}

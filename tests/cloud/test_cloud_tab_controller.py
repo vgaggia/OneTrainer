@@ -70,6 +70,7 @@ class CloudTabControllerTest(unittest.TestCase):
             instance_type="ondemand",
             volume_size=100,
             min_download=500,
+            gpu_count=2,
         )
 
 

@@ -147,7 +147,7 @@ class BaseCloudTabView(ABC):
         self.components.switch(frame, 17, 3, ui_state, "cloud.transfer_datasets_as_tar")
 
         self.components.label(frame, 1, 4, "Create cloud via API",
-                         tooltip="Automatically creates a new instance if both Host:Port and Cloud ID are empty. Supported for RUNPOD and VAST.")
+                         tooltip="Automatically creates a new instance when Cloud ID is empty. Leave Host and Port blank; the provider fills them after provisioning. Supported for RUNPOD and VAST.")
         create_frame = self._make_create_frame(frame)
         self.components.switch(create_frame, 0, 0, ui_state, "cloud.create")
         self.components.button(create_frame, 0, 1, "Create cloud via website", controller.open_create_cloud_url)

@@ -1,10 +1,15 @@
 import unittest
+from pathlib import Path
+from tempfile import TemporaryDirectory
 from types import SimpleNamespace
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
+from modules.cloud.LinuxCloud import LinuxCloud
 from modules.cloud.VastCloud import VastApi, VastCloud
 from modules.util.config.CloudConfig import CloudSecretsConfig
 from modules.util.enum.CloudAction import CloudAction
+
+import paramiko
 
 
 class FakeResponse:
@@ -47,6 +52,28 @@ class VastApiTest(unittest.TestCase):
 
         self.assertIsNone(api.get_instance("123"))
 
+    def test_instance_ssh_key_endpoints(self):
+        session = FakeSession(
+            FakeResponse(200, {
+                "success": True,
+                "ssh_keys": '[{"id": 1, "public_key": "ssh-rsa AAAA existing"}]',
+            }),
+            FakeResponse(200, {"success": True}),
+        )
+        api = VastApi("test-key", session=session)
+
+        keys = api.get_instance_ssh_keys("123")
+        api.attach_ssh_key("123", "ssh-rsa BBBB new")
+
+        self.assertEqual("ssh-rsa AAAA existing", keys[0]["public_key"])
+        self.assertEqual("GET", session.requests[0][0])
+        self.assertEqual(
+            "https://console.vast.ai/api/v0/instances/123/ssh/",
+            session.requests[0][1],
+        )
+        self.assertEqual("POST", session.requests[1][0])
+        self.assertEqual({"ssh_key": "ssh-rsa BBBB new"}, session.requests[1][2]["json"])
+
 
 class VastCloudTest(unittest.TestCase):
     def test_legacy_cloud_key_migrates_to_runpod_key(self):
@@ -63,15 +90,19 @@ class VastCloudTest(unittest.TestCase):
         class FakeApi:
             def __init__(self):
                 self.created_offer_id = None
+                self.filters = None
+                self.payload = None
 
-            def search_offers(self, _filters):
+            def search_offers(self, filters):
+                self.filters = filters
                 return [
                     {"id": 10, "dph_total": 1.25},
                     {"id": 20, "dph_total": 0.75},
                 ]
 
-            def create_instance(self, offer_id, _payload):
+            def create_instance(self, offer_id, payload):
                 self.created_offer_id = offer_id
+                self.payload = payload
                 return "456"
 
         cloud = VastCloud.__new__(VastCloud)
@@ -82,6 +113,7 @@ class VastCloudTest(unittest.TestCase):
                 vast_instance_type="ondemand",
                 volume_size=100,
                 min_download=500,
+                gpu_count=2,
                 name="OneTrainer",
             ),
             secrets=SimpleNamespace(cloud=SimpleNamespace(id="")),
@@ -91,6 +123,9 @@ class VastCloudTest(unittest.TestCase):
 
         self.assertEqual(20, cloud.api.created_offer_id)
         self.assertEqual("456", cloud.config.secrets.cloud.id)
+        self.assertEqual("ssh_direct", cloud.api.payload["runtype"])
+        self.assertEqual({"eq": 2}, cloud.api.filters["num_gpus"])
+        self.assertEqual({"gte": 1}, cloud.api.filters["direct_port_count"])
 
     def test_gpu_availability_aggregates_offer_count_and_lowest_price(self):
         offers = [
@@ -127,6 +162,7 @@ class VastCloudTest(unittest.TestCase):
                 vast_instance_type="bid",
                 volume_size=100,
                 min_download=500,
+                gpu_count=1,
                 name="OneTrainer",
             ),
             secrets=SimpleNamespace(cloud=SimpleNamespace(id="")),
@@ -135,6 +171,137 @@ class VastCloudTest(unittest.TestCase):
         cloud._create()
 
         self.assertEqual(0.4, cloud.api.payload["price"])
+
+    def test_create_switch_provisions_before_ssh_even_with_stale_host_port(self):
+        cloud = VastCloud.__new__(VastCloud)
+        secrets = SimpleNamespace(
+            id="",
+            host="old-runpod-host",
+            port="22000",
+            user="root",
+            vast_api_key="test-key",
+        )
+        cloud.config = SimpleNamespace(
+            cloud=SimpleNamespace(create=True),
+            secrets=SimpleNamespace(cloud=secrets),
+        )
+        cloud.api = SimpleNamespace(get_instance=Mock(return_value={"actual_status": "running"}))
+
+        def create():
+            secrets.id = "123"
+
+        with (
+            patch.object(cloud, "_create", side_effect=create) as create_mock,
+            patch.object(cloud, "_wait_for_host_port") as wait_mock,
+            patch.object(cloud, "_ensure_instance_ssh_key") as key_mock,
+            patch.object(cloud, "_connect_ssh") as ssh_mock,
+        ):
+            cloud._connect()
+
+        create_mock.assert_called_once_with()
+        wait_mock.assert_called_once_with()
+        key_mock.assert_called_once_with()
+        ssh_mock.assert_called_once_with()
+        self.assertEqual("", secrets.host)
+        self.assertEqual(0, secrets.port)
+
+    def test_create_ignores_a_stale_runpod_id(self):
+        cloud = VastCloud.__new__(VastCloud)
+        secrets = SimpleNamespace(
+            id="old-runpod-id",
+            host="",
+            port=0,
+            user="root",
+            vast_api_key="test-key",
+        )
+        cloud.config = SimpleNamespace(
+            cloud=SimpleNamespace(create=True),
+            secrets=SimpleNamespace(cloud=secrets),
+        )
+        cloud.api = SimpleNamespace(get_instance=Mock(return_value={"actual_status": "running"}))
+
+        def create():
+            secrets.id = "123"
+
+        with (
+            patch.object(cloud, "_create", side_effect=create) as create_mock,
+            patch.object(cloud, "_wait_for_host_port"),
+            patch.object(cloud, "_ensure_instance_ssh_key"),
+            patch.object(cloud, "_connect_ssh"),
+        ):
+            cloud._connect()
+
+        create_mock.assert_called_once_with()
+        self.assertEqual("123", secrets.id)
+
+    def test_missing_manual_host_port_fails_without_ssh_retries(self):
+        cloud = VastCloud.__new__(VastCloud)
+        cloud.config = SimpleNamespace(
+            secrets=SimpleNamespace(cloud=SimpleNamespace(
+                id="",
+                host="",
+                port=0,
+                user="root",
+            )),
+        )
+
+        with (
+            patch.object(LinuxCloud, "_connect") as connect,
+            self.assertRaisesRegex(ValueError, "Create cloud via API"),
+        ):
+            cloud._connect_ssh()
+
+        connect.assert_not_called()
+
+    def test_ssh_authentication_error_is_reported_without_retries(self):
+        cloud = VastCloud.__new__(VastCloud)
+        cloud.config = SimpleNamespace(
+            secrets=SimpleNamespace(cloud=SimpleNamespace(
+                id="123",
+                host="ssh.example.test",
+                port=22,
+                user="root",
+            )),
+        )
+
+        with (
+            patch.object(
+                LinuxCloud,
+                "_connect",
+                side_effect=paramiko.AuthenticationException("denied"),
+            ) as connect,
+            self.assertRaisesRegex(ConnectionError, "authentication failed"),
+        ):
+            cloud._connect_ssh()
+
+        connect.assert_called_once_with()
+
+    def test_configured_public_key_is_attached_to_instance(self):
+        with TemporaryDirectory() as temp_dir:
+            private_key_path = Path(temp_dir) / "vast-key"
+            private_key_path.write_text("not-read-when-public-key-exists", encoding="utf-8")
+            Path(f"{private_key_path}.pub").write_text(
+                "ssh-rsa AAAATEST onetrainer-test\n",
+                encoding="utf-8",
+            )
+            secrets = SimpleNamespace(
+                id="123",
+                expanded_key_file=lambda: str(private_key_path),
+            )
+            api = SimpleNamespace(
+                get_instance_ssh_keys=Mock(return_value=[]),
+                attach_ssh_key=Mock(),
+            )
+            cloud = VastCloud.__new__(VastCloud)
+            cloud.config = SimpleNamespace(secrets=SimpleNamespace(cloud=secrets))
+            cloud.api = api
+
+            cloud._ensure_instance_ssh_key()
+
+        api.attach_ssh_key.assert_called_once_with(
+            "123",
+            "ssh-rsa AAAATEST onetrainer-test",
+        )
 
     def test_detached_actions_use_vast_instance_credentials(self):
         cloud = VastCloud.__new__(VastCloud)

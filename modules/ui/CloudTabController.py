@@ -33,6 +33,7 @@ class CloudTabController:
                 instance_type=self.config.cloud.vast_instance_type,
                 volume_size=self.config.cloud.volume_size,
                 min_download=self.config.cloud.min_download,
+                gpu_count=self.config.cloud.gpu_count,
             )
         return []
 
@@ -78,6 +79,7 @@ class CloudTabController:
                     instance_type=self.config.cloud.vast_instance_type,
                     volume_size=self.config.cloud.volume_size,
                     min_download=self.config.cloud.min_download,
+                    gpu_count=self.config.cloud.gpu_count,
                 )
             except Exception:
                 traceback.print_exc()
