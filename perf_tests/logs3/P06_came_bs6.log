@@ -1,485 +1,0 @@
-Modular Diffusers is currently an experimental feature under active development. The API is subject to breaking changes in future releases.
-From https://github.com/vgaggia/OneTrainer
- * branch              pod/krea2-matrix -> FETCH_HEAD
-Reset branch 'pod/krea2-matrix'
-Branch 'pod/krea2-matrix' set up to track remote branch 'pod/krea2-matrix' from 'origin'.
-Your branch is up to date with 'origin/pod/krea2-matrix'.
-Uploading G:\Auto\OneTrainer\perf_tests\workspace3\P06_came_bs6\remote_config-2026-07-26_17-14-34.json...
-uploading concept perftest_akko_train...
-uploading concept perftest_akko_val...
-[OneTrainer] Using Python Venv environment in "venv"...
-[OneTrainer] + python scripts/util/version_check.py 3.10 3.14
-[OneTrainer] + python scripts/train_remote.py --config-path=/workspace/2026-07-26_17-14-25.json --callback-path=/workspace/2026-07-26_17-14-25.callback --command-path=/workspace/2026-07-26_17-14-25.command
-Modular Diffusers is currently an experimental feature under active development. The API is subject to breaking changes in future releases.
-/OneTrainer/venv/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py:205: UserWarning: The `local_dir_use_symlinks` argument is deprecated and ignored in `hf_hub_download`. Downloading to a local directory does not use symlinks anymore.
-  warnings.warn(
-`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
-
-Downloading G:\Auto\OneTrainer\perf_tests\workspace3\P06_came_bs6\config\2026-07-26_15-14-45.json...
-Quantizing model weights:  49%|â–ˆâ–ˆâ–ˆâ–ˆâ–‰     | 276/563 [00:05<00:05, 54.88it/s]Quantizing model weights:  51%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     | 286/563 [00:05<00:05, 55.13it/s]Quantizing model weights:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 292/563 [00:05<00:04, 54.40it/s]Quantizing model weights:  53%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž    | 300/563 [00:05<00:04, 54.91it/s]Quantizing model weights:  54%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 306/563 [00:05<00:04, 52.96it/s]Quantizing model weights:  56%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹    | 317/563 [00:05<00:04, 54.43it/s]Quantizing model weights:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 324/563 [00:06<00:04, 52.56it/s]Quantizing model weights:  59%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰    | 334/563 [00:06<00:04, 53.90it/s]Quantizing model weights:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    | 341/563 [00:06<00:04, 51.98it/s]Quantizing model weights:  62%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 351/563 [00:06<00:03, 53.44it/s]Quantizing model weights:  64%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž   | 358/563 [00:06<00:03, 51.37it/s]Quantizing model weights:  65%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ   | 368/563 [00:06<00:03, 52.99it/s]Quantizing model weights:  67%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹   | 375/563 [00:07<00:03, 50.73it/s]Quantizing model weights:  68%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š   | 385/563 [00:07<00:03, 52.52it/s]Quantizing model weights:  70%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰   | 392/563 [00:07<00:03, 50.23it/s]Quantizing model weights:  71%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 402/563 [00:07<00:03, 52.17it/s]Quantizing model weights:  73%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž  | 409/563 [00:07<00:03, 49.71it/s]Quantizing model weights:  74%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 419/563 [00:07<00:02, 51.75it/s]Quantizing model weights:  76%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ  | 426/563 [00:08<00:02, 49.19it/s]Quantizing model weights:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 436/563 [00:08<00:02, 51.36it/s]Quantizing model weights:  79%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š  | 443/563 [00:08<00:02, 42.57it/s]Quantizing model weights:  80%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 453/563 [00:08<00:02, 44.83it/s]Quantizing model weights:  82%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 460/563 [00:09<00:02, 43.11it/s]Quantizing model weights:  83%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž | 470/563 [00:09<00:02, 45.30it/s]Quantizing model weights:  85%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 476/563 [00:09<00:02, 42.88it/s]Quantizing model weights:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 487/563 [00:09<00:01, 45.73it/s]Quantizing model weights:  88%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š | 494/563 [00:09<00:01, 43.82it/s]Quantizing model weights:  90%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰ | 504/563 [00:10<00:01, 46.33it/s]Quantizing model weights:  91%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 511/563 [00:10<00:01, 44.24it/s]Quantizing model weights:  93%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 521/563 [00:10<00:00, 46.82it/s]Quantizing model weights:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 528/563 [00:10<00:00, 44.60it/s]Quantizing model weights:  96%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ| 538/563 [00:10<00:00, 47.17it/s]Quantizing model weights:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 545/563 [00:11<00:00, 44.93it/s]Quantizing model weights:  99%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š| 555/563 [00:11<00:00, 47.53it/s]Quantizing model weights: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰| 562/563 [00:11<00:00, 45.15it/s]Quantizing model weights: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 563/563 [00:11<00:00, 48.62it/s]
-Attention backends are an experimental feature and the API may be subject to change.
-Selected layers: 91
-Deselected layers: 339
-Note: Enable Debug mode to see the full list of layer names
-quantized_weight_training: 264 int8 Linear layers now receive fused SR updates
-epoch:   0%|          | 0/1 [00:00<?, ?it/s]
-enumerating sample paths:   0%|          | 0/1 [00:00<?, ?it/s][Aenumerating sample paths: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 1/1 [00:00<00:00, 177.29it/s]
-
-step:   0%|          | 0/61 [00:00<?, ?it/s][A
-
-sampling:   0%|          | 0/31 [00:00<?, ?it/s][A[A
-
-sampling:   3%|â–Ž         | 1/31 [00:02<01:21,  2.70s/it][A[A
-
-sampling:   6%|â–‹         | 2/31 [00:04<01:08,  2.37s/it][A[A
-
-sampling:  10%|â–‰         | 3/31 [00:07<01:07,  2.42s/it][A[A
-
-sampling:  13%|â–ˆâ–Ž        | 4/31 [00:09<01:05,  2.44s/it][A[A
-
-sampling:  16%|â–ˆâ–Œ        | 5/31 [00:12<01:03,  2.45s/it][A[A
-
-sampling:  19%|â–ˆâ–‰        | 6/31 [00:14<01:00,  2.42s/it][A[A
-
-sampling:  23%|â–ˆâ–ˆâ–Ž       | 7/31 [00:16<00:57,  2.40s/it][A[A
-
-sampling:  26%|â–ˆâ–ˆâ–Œ       | 8/31 [00:19<00:54,  2.37s/it][A[A
-
-sampling:  29%|â–ˆâ–ˆâ–‰       | 9/31 [00:20<00:47,  2.15s/it][A[A
-
-sampling:  32%|â–ˆâ–ˆâ–ˆâ–�      | 10/31 [00:21<00:37,  1.80s/it][A[A
-
-sampling:  35%|â–ˆâ–ˆâ–ˆâ–Œ      | 11/31 [00:22<00:31,  1.56s/it][A[A
-
-sampling:  39%|â–ˆâ–ˆâ–ˆâ–Š      | 12/31 [00:23<00:26,  1.39s/it][A[A
-
-sampling:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 13/31 [00:24<00:22,  1.27s/it][A[A
-
-sampling:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 14/31 [00:25<00:20,  1.18s/it][A[A
-
-sampling:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 15/31 [00:26<00:17,  1.12s/it][A[A
-
-sampling:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 16/31 [00:27<00:16,  1.08s/it][A[A
-
-sampling:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 17/31 [00:29<00:15,  1.11s/it][A[A
-
-sampling:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 18/31 [00:30<00:14,  1.09s/it][A[A
-
-sampling:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 19/31 [00:31<00:13,  1.09s/it][A[A
-
-sampling:  65%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 20/31 [00:32<00:12,  1.17s/it][A[A
-
-sampling:  68%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š   | 21/31 [00:33<00:11,  1.15s/it][A[A
-
-sampling:  71%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 22/31 [00:34<00:10,  1.14s/it][A[A
-
-sampling:  74%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 23/31 [00:36<00:11,  1.38s/it][A[A
-
-sampling:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 24/31 [00:39<00:11,  1.68s/it][A[A
-
-sampling:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 25/31 [00:41<00:11,  1.87s/it][A[A
-
-sampling:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 26/31 [00:43<00:09,  2.00s/it][A[A
-
-sampling:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 27/31 [00:46<00:08,  2.09s/it][A[A
-
-sampling:  90%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 28/31 [00:48<00:06,  2.16s/it][A[A
-
-sampling:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 29/31 [00:50<00:04,  2.20s/it][A[A
-
-sampling:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 30/31 [00:52<00:02,  2.24s/it][A[A
-
-sampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [00:55<00:00,  2.26s/it][A[Asampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [00:55<00:00,  1.78s/it]
-
-Downloading G:\Auto\OneTrainer\perf_tests\workspace3\P06_came_bs6\samples\0 - akko brown hair red eyes witch u\2026-07-26_15-15-15-training-sample-0-0-0.jpg...
-
-
-sampling:   0%|          | 0/31 [00:00<?, ?it/s][A[A
-
-sampling:   3%|â–Ž         | 1/31 [00:02<01:11,  2.39s/it][A[A
-
-sampling:   6%|â–‹         | 2/31 [00:04<01:02,  2.15s/it][A[A
-
-sampling:  10%|â–‰         | 3/31 [00:06<01:03,  2.26s/it][A[A
-
-sampling:  13%|â–ˆâ–Ž        | 4/31 [00:09<01:01,  2.28s/it][A[A
-
-sampling:  16%|â–ˆâ–Œ        | 5/31 [00:11<00:59,  2.28s/it][A[A
-
-sampling:  19%|â–ˆâ–‰        | 6/31 [00:13<00:56,  2.27s/it][A[A
-
-sampling:  23%|â–ˆâ–ˆâ–Ž       | 7/31 [00:15<00:54,  2.25s/it][A[A
-
-sampling:  26%|â–ˆâ–ˆâ–Œ       | 8/31 [00:18<00:51,  2.25s/it][A[A
-
-sampling:  29%|â–ˆâ–ˆâ–‰       | 9/31 [00:20<00:50,  2.30s/it][A[A
-
-sampling:  32%|â–ˆâ–ˆâ–ˆâ–�      | 10/31 [00:22<00:47,  2.24s/it][A[A
-
-sampling:  35%|â–ˆâ–ˆâ–ˆâ–Œ      | 11/31 [00:23<00:37,  1.88s/it][A[A
-
-sampling:  39%|â–ˆâ–ˆâ–ˆâ–Š      | 12/31 [00:24<00:30,  1.63s/it][A[A
-
-sampling:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 13/31 [00:25<00:26,  1.45s/it][A[A
-
-sampling:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 14/31 [00:26<00:22,  1.33s/it][A[A
-
-sampling:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 15/31 [00:27<00:19,  1.25s/it][A[A
-
-sampling:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 16/31 [00:28<00:17,  1.19s/it][A[A
-
-sampling:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 17/31 [00:30<00:17,  1.21s/it][A[A
-
-sampling:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 18/31 [00:31<00:15,  1.19s/it][A[A
-
-sampling:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 19/31 [00:32<00:15,  1.26s/it][A[A
-
-sampling:  65%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 20/31 [00:33<00:13,  1.20s/it][A[A
-
-sampling:  68%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š   | 21/31 [00:34<00:11,  1.16s/it][A[A
-
-sampling:  71%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 22/31 [00:35<00:10,  1.14s/it][A[A
-
-sampling:  74%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 23/31 [00:38<00:11,  1.49s/it][A[A
-
-sampling:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 24/31 [00:40<00:12,  1.73s/it][A[A
-
-sampling:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 25/31 [00:42<00:11,  1.89s/it][A[A
-
-sampling:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 26/31 [00:45<00:09,  2.00s/it][A[A
-
-sampling:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 27/31 [00:47<00:08,  2.07s/it][A[A
-
-sampling:  90%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 28/31 [00:49<00:06,  2.12s/it][A[A
-
-sampling:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 29/31 [00:51<00:04,  2.17s/it][A[A
-
-sampling:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 30/31 [00:54<00:02,  2.25s/it][A[A
-
-sampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [00:56<00:00,  2.31s/it][A[Asampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [00:56<00:00,  1.83s/it]
-
-Downloading G:\Auto\OneTrainer\perf_tests\workspace3\P06_came_bs6\samples\1 - a photograph of a red vintage ca\2026-07-26_15-16-33-training-sample-0-0-0.jpg...
-
-
-sampling:   0%|          | 0/31 [00:00<?, ?it/s][A[A
-
-sampling:   3%|â–Ž         | 1/31 [00:02<01:12,  2.41s/it][A[A
-
-sampling:   6%|â–‹         | 2/31 [00:04<01:02,  2.16s/it][A[A
-
-sampling:  10%|â–‰         | 3/31 [00:06<01:03,  2.28s/it][A[A
-
-sampling:  13%|â–ˆâ–Ž        | 4/31 [00:09<01:03,  2.33s/it][A[A
-
-sampling:  16%|â–ˆâ–Œ        | 5/31 [00:11<01:01,  2.37s/it][A[A
-
-sampling:  19%|â–ˆâ–‰        | 6/31 [00:14<00:59,  2.38s/it][A[A
-
-sampling:  23%|â–ˆâ–ˆâ–Ž       | 7/31 [00:16<00:56,  2.36s/it][A[A
-
-sampling:  26%|â–ˆâ–ˆâ–Œ       | 8/31 [00:18<00:54,  2.35s/it][A[A
-
-sampling:  29%|â–ˆâ–ˆâ–‰       | 9/31 [00:21<00:51,  2.33s/it][A[A
-
-sampling:  32%|â–ˆâ–ˆâ–ˆâ–�      | 10/31 [00:23<00:48,  2.31s/it][A[A
-
-sampling:  35%|â–ˆâ–ˆâ–ˆâ–Œ      | 11/31 [00:24<00:39,  1.98s/it][A[A
-
-sampling:  39%|â–ˆâ–ˆâ–ˆâ–Š      | 12/31 [00:25<00:32,  1.69s/it][A[A
-
-sampling:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 13/31 [00:26<00:26,  1.49s/it][A[A
-
-sampling:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 14/31 [00:27<00:22,  1.34s/it][A[A
-
-sampling:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 15/31 [00:28<00:19,  1.23s/it][A[A
-
-sampling:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 16/31 [00:29<00:17,  1.16s/it][A[A
-
-sampling:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 17/31 [00:30<00:15,  1.12s/it][A[A
-
-sampling:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 18/31 [00:31<00:14,  1.14s/it][A[A
-
-sampling:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 19/31 [00:32<00:13,  1.12s/it][A[A
-
-sampling:  65%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 20/31 [00:34<00:13,  1.19s/it][A[A
-
-sampling:  68%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š   | 21/31 [00:35<00:11,  1.16s/it][A[A
-
-sampling:  71%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 22/31 [00:36<00:10,  1.13s/it][A[A
-
-sampling:  74%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 23/31 [00:37<00:09,  1.25s/it][A[A
-
-sampling:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 24/31 [00:40<00:10,  1.57s/it][A[A
-
-sampling:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 25/31 [00:42<00:10,  1.79s/it][A[A
-
-sampling:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 26/31 [00:44<00:09,  1.93s/it][A[A
-
-sampling:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 27/31 [00:46<00:08,  2.03s/it][A[A
-
-sampling:  90%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 28/31 [00:49<00:06,  2.09s/it][A[A
-
-sampling:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 29/31 [00:51<00:04,  2.16s/it][A[A
-
-sampling:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 30/31 [00:54<00:02,  2.26s/it][A[A
-
-sampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [00:56<00:00,  2.37s/it][A[Asampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [00:56<00:00,  1.83s/it]
-
-Downloading G:\Auto\OneTrainer\perf_tests\workspace3\P06_came_bs6\samples\2 - extreme close up of a peacock fe\2026-07-26_15-17-44-training-sample-0-0-0.jpg...
-
-
-sampling:   0%|          | 0/31 [00:00<?, ?it/s][A[A
-
-sampling:   3%|â–Ž         | 1/31 [00:02<01:22,  2.74s/it][A[A
-
-sampling:   6%|â–‹         | 2/31 [00:05<01:13,  2.53s/it][A[A
-
-sampling:  10%|â–‰         | 3/31 [00:08<01:15,  2.69s/it][A[A
-
-sampling:  13%|â–ˆâ–Ž        | 4/31 [00:10<01:13,  2.74s/it][A[A
-
-sampling:  16%|â–ˆâ–Œ        | 5/31 [00:13<01:11,  2.74s/it][A[A
-
-sampling:  19%|â–ˆâ–‰        | 6/31 [00:16<01:07,  2.72s/it][A[A
-
-sampling:  23%|â–ˆâ–ˆâ–Ž       | 7/31 [00:18<01:04,  2.69s/it][A[A
-
-sampling:  26%|â–ˆâ–ˆâ–Œ       | 8/31 [00:21<01:00,  2.63s/it][A[A
-
-sampling:  29%|â–ˆâ–ˆâ–‰       | 9/31 [00:23<00:57,  2.61s/it][A[A
-
-sampling:  32%|â–ˆâ–ˆâ–ˆâ–�      | 10/31 [00:26<00:55,  2.65s/it][A[A
-
-sampling:  35%|â–ˆâ–ˆâ–ˆâ–Œ      | 11/31 [00:29<00:53,  2.68s/it][A[A
-
-sampling:  39%|â–ˆâ–ˆâ–ˆâ–Š      | 12/31 [00:31<00:50,  2.64s/it][A[A
-
-sampling:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 13/31 [00:33<00:39,  2.19s/it][A[A
-
-sampling:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 14/31 [00:34<00:31,  1.87s/it][A[A
-
-sampling:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 15/31 [00:35<00:26,  1.65s/it][A[A
-
-sampling:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 16/31 [00:36<00:22,  1.48s/it][A[A
-
-sampling:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 17/31 [00:37<00:19,  1.37s/it][A[A
-
-sampling:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 18/31 [00:38<00:16,  1.29s/it][A[A
-
-sampling:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 19/31 [00:40<00:15,  1.30s/it][A[A
-
-sampling:  65%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 20/31 [00:41<00:13,  1.26s/it][A[A
-
-sampling:  68%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š   | 21/31 [00:42<00:12,  1.23s/it][A[A
-
-sampling:  71%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 22/31 [00:43<00:10,  1.22s/it][A[A
-
-sampling:  74%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 23/31 [00:45<00:10,  1.32s/it][A[A
-
-sampling:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 24/31 [00:47<00:11,  1.65s/it][A[A
-
-sampling:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 25/31 [00:49<00:11,  1.88s/it][A[A
-
-sampling:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 26/31 [00:52<00:10,  2.05s/it][A[A
-
-sampling:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 27/31 [00:54<00:08,  2.09s/it][A[A
-
-sampling:  90%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 28/31 [00:57<00:06,  2.24s/it][A[A
-
-sampling:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 29/31 [00:59<00:04,  2.29s/it][A[A
-
-sampling:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 30/31 [01:01<00:02,  2.31s/it][A[A
-
-sampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [01:03<00:00,  2.00s/it][A[Asampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [01:03<00:00,  2.04s/it]
-[torch.compile] compiling kernel 0 forward (variant #0)...
-                                            
-                                            [Aepoch:   0%|          | 0/1 [05:01<?, ?it/s]
-step:   0%|          | 0/61 [04:59<?, ?it/s][A[torch.compile] compiling kernel 0 forward (variant #1)...
-                                            
-                                            [Aepoch:   0%|          | 0/1 [05:02<?, ?it/s]
-step:   0%|          | 0/61 [05:00<?, ?it/s][A                                            
-                                            [A[torch.compile] compiling kernel 0 forward (variant #2)...
-epoch:   0%|          | 0/1 [05:03<?, ?it/s]
-step:   0%|          | 0/61 [05:00<?, ?it/s][A                                            
-[torch.compile] compiling kernel 0 forward (variant #3)...
-                                            [Aepoch:   0%|          | 0/1 [05:03<?, ?it/s]
-step:   0%|          | 0/61 [05:00<?, ?it/s][A                                            
-                                            [A[torch.compile] compiling kernel 0 forward (variant #4)...
-epoch:   0%|          | 0/1 [05:03<?, ?it/s]
-step:   0%|          | 0/61 [05:00<?, ?it/s][A                                            
-                                            [A[torch.compile] compiling kernel 0 forward (variant #5)...
-epoch:   0%|          | 0/1 [05:03<?, ?it/s]
-step:   0%|          | 0/61 [05:00<?, ?it/s][A
-Downloading G:\Auto\OneTrainer\perf_tests\workspace3\P06_came_bs6\samples\3 - three ceramic mugs in a row on a\2026-07-26_15-18-55-training-sample-0-0-0.jpg...
-                                            
-                                            [Aepoch:   0%|          | 0/1 [05:03<?, ?it/s]
-step:   0%|          | 0/61 [05:01<?, ?it/s][torch.compile] compiling kernel 0 forward (variant #6)...
-[A[torch.compile] compiling kernel 0 forward (variant #7)...
-                                            
-                                            [Aepoch:   0%|          | 0/1 [05:03<?, ?it/s]
-step:   0%|          | 0/61 [05:01<?, ?it/s][A                                            
-                                            [Aepoch:   0%|          | 0/1 [05:04<?, ?it/s]
-[torch.compile] compiling kernel 0 forward (variant #8)...
-step:   0%|          | 0/61 [05:01<?, ?it/s][A                                            
-                                            [A[torch.compile] compiling kernel 0 forward (variant #9)...
-epoch:   0%|          | 0/1 [05:04<?, ?it/s]
-step:   0%|          | 0/61 [05:01<?, ?it/s][A[torch.compile] compiling kernel 0 forward (variant #10)...
-                                            
-                                            [Aepoch:   0%|          | 0/1 [05:04<?, ?it/s]
-step:   0%|          | 0/61 [05:02<?, ?it/s][A                                            
-[torch.compile] compiling kernel 0 forward (variant #11)...
-                                            [Aepoch:   0%|          | 0/1 [05:06<?, ?it/s]
-step:   0%|          | 0/61 [05:03<?, ?it/s][A[torch.compile] compiling kernel 0 forward (variant #12)...
-                                            
-                                            [Aepoch:   0%|          | 0/1 [05:06<?, ?it/s]
-step:   0%|          | 0/61 [05:03<?, ?it/s][A                                            
-                                            [A[torch.compile] compiling kernel 0 forward (variant #13)...
-epoch:   0%|          | 0/1 [05:06<?, ?it/s]
-step:   0%|          | 0/61 [05:03<?, ?it/s][A[torch.compile] compiling kernel 0 forward (variant #14)...
-                                            
-                                            [Aepoch:   0%|          | 0/1 [05:06<?, ?it/s]
-step:   0%|          | 0/61 [05:03<?, ?it/s][AW0726 15:20:19.726000 28008 venv/lib/python3.11/site-packages/torch/_dynamo/convert_frame.py:1853] [0/15] torch._dynamo hit config.recompile_limit (8)
-W0726 15:20:19.726000 28008 venv/lib/python3.11/site-packages/torch/_dynamo/convert_frame.py:1853] [0/15]    function: 'inner' (/OneTrainer/venv/lib/python3.11/site-packages/torch/_dynamo/external_utils.py:67)
-W0726 15:20:19.726000 28008 venv/lib/python3.11/site-packages/torch/_dynamo/convert_frame.py:1853] [0/15]    last reason: 0/14: GLOBAL_STATE changed: autocast(cuda)_enabled 
-W0726 15:20:19.726000 28008 venv/lib/python3.11/site-packages/torch/_dynamo/convert_frame.py:1853] [0/15] To log all recompilation reasons, use TORCH_LOGS="recompiles".
-W0726 15:20:19.726000 28008 venv/lib/python3.11/site-packages/torch/_dynamo/convert_frame.py:1853] [0/15] To diagnose recompilation issues, see https://docs.pytorch.org/docs/main/user_guide/torch_compiler/compile/programming_model.recompilation.html
-                                            
-                                            [A[torch.compile] compiling kernel 1 forward (variant #0)...
-epoch:   0%|          | 0/1 [05:10<?, ?it/s]
-step:   0%|          | 0/61 [05:07<?, ?it/s][A                                            
-                                            [A[torch.compile] compiling kernel 1 forward (variant #1)...
-epoch:   0%|          | 0/1 [05:21<?, ?it/s]
-step:   0%|          | 0/61 [05:18<?, ?it/s][A[torch.compile] compiling kernel 1 forward (variant #2)...
-                                            
-                                            [Aepoch:   0%|          | 0/1 [05:28<?, ?it/s]
-step:   0%|          | 0/61 [05:25<?, ?it/s][A                                            
-                                            [A[torch.compile] compiling kernel 1 forward (variant #3)...
-epoch:   0%|          | 0/1 [05:33<?, ?it/s]
-step:   0%|          | 0/61 [05:30<?, ?it/s][A[torch.compile] compiling kernel 1 forward (variant #4)...
-                                            
-                                            [Aepoch:   0%|          | 0/1 [05:37<?, ?it/s]
-step:   0%|          | 0/61 [05:34<?, ?it/s][A
-step:   0%|          | 0/61 [05:37<?, ?it/s, loss=0.0803, smooth loss=0.0803][A
-step:   2%|â–�         | 1/61 [05:37<5:37:45, 337.75s/it, loss=0.0803, smooth loss=0.0803][A
-step:   2%|â–�         | 1/61 [06:16<5:37:45, 337.75s/it, loss=0.0878, smooth loss=0.084] [A
-step:   3%|â–Ž         | 2/61 [06:16<2:39:11, 161.89s/it, loss=0.0878, smooth loss=0.084][A
-step:   3%|â–Ž         | 2/61 [06:24<2:39:11, 161.89s/it, loss=0.113, smooth loss=0.0937][A
-step:   5%|â–�         | 3/61 [06:24<1:28:23, 91.44s/it, loss=0.113, smooth loss=0.0937] [A
-step:   5%|â–�         | 3/61 [07:01<1:28:23, 91.44s/it, loss=0.0914, smooth loss=0.0931][A
-step:   7%|â–‹         | 4/61 [07:01<1:06:31, 70.02s/it, loss=0.0914, smooth loss=0.0931][A
-step:   7%|â–‹         | 4/61 [07:37<1:06:31, 70.02s/it, loss=0.069, smooth loss=0.0883] [A
-step:   8%|â–Š         | 5/61 [07:37<53:54, 57.76s/it, loss=0.069, smooth loss=0.0883]  [A
-step:   8%|â–Š         | 5/61 [08:11<53:54, 57.76s/it, loss=0.104, smooth loss=0.0908][A
-step:  10%|â–‰         | 6/61 [08:11<45:35, 49.73s/it, loss=0.104, smooth loss=0.0908][A
-step:  10%|â–‰         | 6/61 [08:44<45:35, 49.73s/it, loss=0.106, smooth loss=0.093] [A
-step:  11%|â–ˆâ–�        | 7/61 [08:44<39:47, 44.20s/it, loss=0.106, smooth loss=0.093][A
-step:  11%|â–ˆâ–�        | 7/61 [09:17<39:47, 44.20s/it, loss=0.0887, smooth loss=0.0924][A
-step:  13%|â–ˆâ–Ž        | 8/61 [09:17<36:02, 40.81s/it, loss=0.0887, smooth loss=0.0924][A
-step:  13%|â–ˆâ–Ž        | 8/61 [09:53<36:02, 40.81s/it, loss=0.101, smooth loss=0.0934] [A
-step:  15%|â–ˆâ–�        | 9/61 [09:53<33:54, 39.13s/it, loss=0.101, smooth loss=0.0934][A
-step:  15%|â–ˆâ–�        | 9/61 [10:04<33:54, 39.13s/it, loss=0.0826, smooth loss=0.0923][A
-step:  16%|â–ˆâ–‹        | 10/61 [10:04<25:48, 30.36s/it, loss=0.0826, smooth loss=0.0923][A
-step:  16%|â–ˆâ–‹        | 10/61 [10:40<25:48, 30.36s/it, loss=0.099, smooth loss=0.0929] [A
-step:  18%|â–ˆâ–Š        | 11/61 [10:40<26:53, 32.28s/it, loss=0.099, smooth loss=0.0929][A
-step:  18%|â–ˆâ–Š        | 11/61 [11:12<26:53, 32.28s/it, loss=0.0856, smooth loss=0.0923][A
-step:  20%|â–ˆâ–‰        | 12/61 [11:12<26:22, 32.29s/it, loss=0.0856, smooth loss=0.0923][A
-step:  20%|â–ˆâ–‰        | 12/61 [11:20<26:22, 32.29s/it, loss=0.109, smooth loss=0.0935] [A
-step:  21%|â–ˆâ–ˆâ–�       | 13/61 [11:20<19:47, 24.74s/it, loss=0.109, smooth loss=0.0935][A
-step:  21%|â–ˆâ–ˆâ–�       | 13/61 [11:27<19:47, 24.74s/it, loss=0.137, smooth loss=0.0966][A
-step:  23%|â–ˆâ–ˆâ–Ž       | 14/61 [11:27<15:08, 19.32s/it, loss=0.137, smooth loss=0.0966][A
-step:  23%|â–ˆâ–ˆâ–Ž       | 14/61 [11:33<15:08, 19.32s/it, loss=0.137, smooth loss=0.0993][A
-step:  25%|â–ˆâ–ˆâ–�       | 15/61 [11:33<11:54, 15.53s/it, loss=0.137, smooth loss=0.0993][A
-step:  25%|â–ˆâ–ˆâ–�       | 15/61 [11:40<11:54, 15.53s/it, loss=0.0987, smooth loss=0.0993][A
-step:  26%|â–ˆâ–ˆâ–Œ       | 16/61 [11:40<09:38, 12.85s/it, loss=0.0987, smooth loss=0.0993][A
-step:  26%|â–ˆâ–ˆâ–Œ       | 16/61 [11:47<09:38, 12.85s/it, loss=0.105, smooth loss=0.0996] [A
-step:  28%|â–ˆâ–ˆâ–Š       | 17/61 [11:47<08:01, 10.94s/it, loss=0.105, smooth loss=0.0996][A
-step:  28%|â–ˆâ–ˆâ–Š       | 17/61 [11:53<08:01, 10.94s/it, loss=0.0982, smooth loss=0.0995][A
-step:  30%|â–ˆâ–ˆâ–‰       | 18/61 [11:53<06:49,  9.52s/it, loss=0.0982, smooth loss=0.0995][A
-step:  30%|â–ˆâ–ˆâ–‰       | 18/61 [12:00<06:49,  9.52s/it, loss=0.113, smooth loss=0.1]    [A
-step:  31%|â–ˆâ–ˆâ–ˆ       | 19/61 [12:00<06:08,  8.78s/it, loss=0.113, smooth loss=0.1][A
-step:  31%|â–ˆâ–ˆâ–ˆ       | 19/61 [12:32<06:08,  8.78s/it, loss=0.127, smooth loss=0.102][A
-step:  33%|â–ˆâ–ˆâ–ˆâ–Ž      | 20/61 [12:32<10:48, 15.81s/it, loss=0.127, smooth loss=0.102][A
-step:  33%|â–ˆâ–ˆâ–ˆâ–Ž      | 20/61 [13:03<10:48, 15.81s/it, loss=0.0821, smooth loss=0.101][A
-step:  34%|â–ˆâ–ˆâ–ˆâ–�      | 21/61 [13:03<13:30, 20.27s/it, loss=0.0821, smooth loss=0.101][A
-step:  34%|â–ˆâ–ˆâ–ˆâ–�      | 21/61 [13:10<13:30, 20.27s/it, loss=0.0952, smooth loss=0.1]  [A
-step:  36%|â–ˆâ–ˆâ–ˆâ–Œ      | 22/61 [13:10<10:36, 16.31s/it, loss=0.0952, smooth loss=0.1][A
-step:  36%|â–ˆâ–ˆâ–ˆâ–Œ      | 22/61 [13:17<10:36, 16.31s/it, loss=0.0788, smooth loss=0.0995][A
-step:  38%|â–ˆâ–ˆâ–ˆâ–Š      | 23/61 [13:17<08:31, 13.46s/it, loss=0.0788, smooth loss=0.0995][A
-step:  38%|â–ˆâ–ˆâ–ˆâ–Š      | 23/61 [13:23<08:31, 13.46s/it, loss=0.112, smooth loss=0.1]    [A
-step:  39%|â–ˆâ–ˆâ–ˆâ–‰      | 24/61 [13:23<06:57, 11.29s/it, loss=0.112, smooth loss=0.1][A
-step:  39%|â–ˆâ–ˆâ–ˆâ–‰      | 24/61 [13:32<06:57, 11.29s/it, loss=0.0628, smooth loss=0.0985][A
-step:  41%|â–ˆâ–ˆâ–ˆâ–ˆ      | 25/61 [13:32<06:22, 10.62s/it, loss=0.0628, smooth loss=0.0985][A
-step:  41%|â–ˆâ–ˆâ–ˆâ–ˆ      | 25/61 [14:02<06:22, 10.62s/it, loss=0.129, smooth loss=0.0997] [A
-step:  43%|â–ˆâ–ˆâ–ˆâ–ˆâ–Ž     | 26/61 [14:02<09:32, 16.36s/it, loss=0.129, smooth loss=0.0997][A
-step:  43%|â–ˆâ–ˆâ–ˆâ–ˆâ–Ž     | 26/61 [14:09<09:32, 16.36s/it, loss=0.0933, smooth loss=0.0995][A
-step:  44%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 27/61 [14:09<07:43, 13.64s/it, loss=0.0933, smooth loss=0.0995][A
-step:  44%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 27/61 [14:15<07:43, 13.64s/it, loss=0.148, smooth loss=0.101]  [A
-step:  46%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 28/61 [14:15<06:17, 11.45s/it, loss=0.148, smooth loss=0.101][A
-step:  46%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 28/61 [14:22<06:17, 11.45s/it, loss=0.0946, smooth loss=0.101][A
-step:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 29/61 [14:22<05:20, 10.03s/it, loss=0.0946, smooth loss=0.101][A
-step:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 29/61 [14:29<05:20, 10.03s/it, loss=0.118, smooth loss=0.102] [A
-step:  49%|â–ˆâ–ˆâ–ˆâ–ˆâ–‰     | 30/61 [14:29<04:45,  9.20s/it, loss=0.118, smooth loss=0.102][A
-step:  49%|â–ˆâ–ˆâ–ˆâ–ˆâ–‰     | 30/61 [14:37<04:45,  9.20s/it, loss=0.079, smooth loss=0.101][A
-step:  51%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     | 31/61 [14:37<04:20,  8.70s/it, loss=0.079, smooth loss=0.101][A
-step:  51%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     | 31/61 [14:44<04:20,  8.70s/it, loss=0.0863, smooth loss=0.1] [A
-step:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 32/61 [14:44<04:00,  8.30s/it, loss=0.0863, smooth loss=0.1][A
-step:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 32/61 [14:51<04:00,  8.30s/it, loss=0.0817, smooth loss=0.0998][A
-step:  54%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 33/61 [14:51<03:38,  7.80s/it, loss=0.0817, smooth loss=0.0998][A
-step:  54%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 33/61 [14:57<03:38,  7.80s/it, loss=0.0947, smooth loss=0.0996][A
-step:  56%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ    | 34/61 [14:57<03:19,  7.39s/it, loss=0.0947, smooth loss=0.0996][A
-step:  56%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ    | 34/61 [15:04<03:19,  7.39s/it, loss=0.106, smooth loss=0.0998] [A
-step:  57%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹    | 35/61 [15:04<03:08,  7.23s/it, loss=0.106, smooth loss=0.0998][A
-step:  57%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹    | 35/61 [15:11<03:08,  7.23s/it, loss=0.102, smooth loss=0.0999][A
-step:  59%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰    | 36/61 [15:11<02:56,  7.04s/it, loss=0.102, smooth loss=0.0999][A
-step:  59%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰    | 36/61 [15:17<02:56,  7.04s/it, loss=0.0972, smooth loss=0.0998][A
-step:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    | 37/61 [15:17<02:45,  6.91s/it, loss=0.0972, smooth loss=0.0998][A
-step:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    | 37/61 [15:24<02:45,  6.91s/it, loss=0.0958, smooth loss=0.0997][A
-step:  62%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 38/61 [15:24<02:37,  6.86s/it, loss=0.0958, smooth loss=0.0997][A
-step:  62%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 38/61 [15:31<02:37,  6.86s/it, loss=0.109, smooth loss=0.0999] [A
-step:  64%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 39/61 [15:31<02:32,  6.95s/it, loss=0.109, smooth loss=0.0999][A
-step:  64%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 39/61 [15:38<02:32,  6.95s/it, loss=0.109, smooth loss=0.1]   [A
-step:  66%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ   | 40/61 [15:38<02:24,  6.89s/it, loss=0.109, smooth loss=0.1][A
-step:  66%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ   | 40/61 [15:44<02:24,  6.89s/it, loss=0.0755, smooth loss=0.0996][A
-step:  67%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹   | 41/61 [15:44<02:13,  6.68s/it, loss=0.0755, smooth loss=0.0996][A
-step:  67%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹   | 41/61 [15:50<02:13,  6.68s/it, loss=0.0903, smooth loss=0.0993][A
-step:  69%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰   | 42/61 [15:50<02:05,  6.60s/it, loss=0.0903, smooth loss=0.0993][A
-step:  69%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰   | 42/61 [15:58<02:05,  6.60s/it, loss=0.105, smooth loss=0.0995] [A
-step:  70%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 43/61 [15:58<02:03,  6.85s/it, loss=0.105, smooth loss=0.0995][A
-step:  70%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 43/61 [16:05<02:03,  6.85s/it, loss=0.0777, smooth loss=0.099][A
-step:  72%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 44/61 [16:05<01:58,  6.94s/it, loss=0.0777, smooth loss=0.099][A
-step:  72%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 44/61 [16:12<01:58,  6.94s/it, loss=0.11, smooth loss=0.0992] [A
-step:  74%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 45/61 [16:12<01:52,  7.03s/it, loss=0.11, smooth loss=0.0992][A
-step:  74%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 45/61 [16:19<01:52,  7.03s/it, loss=0.0876, smooth loss=0.099][A
-step:  75%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ  | 46/61 [16:19<01:42,  6.86s/it, loss=0.0876, smooth loss=0.099][A
-step:  75%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ  | 46/61 [16:25<01:42,  6.86s/it, loss=0.109, smooth loss=0.0992][A
-step:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 47/61 [16:25<01:35,  6.80s/it, loss=0.109, smooth loss=0.0992][A
-step:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 47/61 [16:32<01:35,  6.80s/it, loss=0.102, smooth loss=0.0992][A
-step:  79%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š  | 48/61 [16:32<01:27,  6.73s/it, loss=0.102, smooth loss=0.0992][A
-step:  79%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š  | 48/61 [16:39<01:27,  6.73s/it, loss=0.0947, smooth loss=0.0991][A
-step:  80%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 49/61 [16:39<01:22,  6.84s/it, loss=0.0947, smooth loss=0.0991][A
-step:  80%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 49/61 [16:46<01:22,  6.84s/it, loss=0.0914, smooth loss=0.099] [A
-step:  82%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 50/61 [16:46<01:15,  6.85s/it, loss=0.0914, smooth loss=0.099][A
-step:  82%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 50/61 [16:53<01:15,  6.85s/it, loss=0.0859, smooth loss=0.0987][A
-step:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž | 51/61 [16:53<01:09,  6.93s/it, loss=0.0859, smooth loss=0.0987][A
-step:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž | 51/61 [17:00<01:09,  6.93s/it, loss=0.0773, smooth loss=0.0983][A
-step:  85%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ | 52/61 [17:00<01:02,  6.89s/it, loss=0.0773, smooth loss=0.0983][A
-step:  85%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ | 52/61 [17:07<01:02,  6.89s/it, loss=0.118, smooth loss=0.0987] [A
-step:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 53/61 [17:07<00:54,  6.81s/it, loss=0.118, smooth loss=0.0987][A
-step:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 53/61 [17:14<00:54,  6.81s/it, loss=0.108, smooth loss=0.0989][A
-step:  89%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š | 54/61 [17:14<00:49,  7.04s/it, loss=0.108, smooth loss=0.0989][A
-step:  89%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š | 54/61 [17:21<00:49,  7.04s/it, loss=0.0783, smooth loss=0.0985][A
-step:  90%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 55/61 [17:21<00:42,  7.01s/it, loss=0.0783, smooth loss=0.0985][A
-step:  90%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 55/61 [17:28<00:42,  7.01s/it, loss=0.095, smooth loss=0.0984] [A
-step:  92%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 56/61 [17:28<00:35,  7.01s/it, loss=0.095, smooth loss=0.0984][A
-step:  92%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 56/61 [17:35<00:35,  7.01s/it, loss=0.117, smooth loss=0.0988][A
-step:  93%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 57/61 [17:35<00:27,  6.86s/it, loss=0.117, smooth loss=0.0988][A
-step:  93%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 57/61 [18:09<00:27,  6.86s/it, loss=0.0774, smooth loss=0.0984][A
-step:  95%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ| 58/61 [18:09<00:45, 15.16s/it, loss=0.0774, smooth loss=0.0984][A
-step:  95%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ| 58/61 [18:15<00:45, 15.16s/it, loss=0.12, smooth loss=0.0988]  [A
-step:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 59/61 [18:15<00:24, 12.50s/it, loss=0.12, smooth loss=0.0988][A
-step:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 59/61 [18:22<00:24, 12.50s/it, loss=0.12, smooth loss=0.0991][A
-step:  98%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š| 60/61 [18:22<00:10, 10.65s/it, loss=0.12, smooth loss=0.0991][A
-step:  98%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š| 60/61 [18:29<00:10, 10.65s/it, loss=0.088, smooth loss=0.0989][A
-step: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 61/61 [18:29<00:00,  9.57s/it, loss=0.088, smooth loss=0.0989][Astep: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 61/61 [18:29<00:00, 18.18s/it, loss=0.088, smooth loss=0.0989]
-epoch: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 1/1 [18:31<00:00, 1111.94s/it]epoch: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 1/1 [18:31<00:00, 1111.94s/it]
-Saving /workspace/remote/Auto/OneTrainer/perf_tests/out3/P06_came_bs6.safetensors

@@ -10,6 +10,7 @@ configs2_cloud/
 _cloud_secrets.json
 runbook/
 configs3_cloud/
+logs3/
 workspace3/
 out3/
 tb_events/
@@ -23,3 +24,4 @@ out5/
 logs5/
 tb_events5/
 _secrets_*.json
+dev/user_config.json

@@ -1,1802 +1,0 @@
-Modular Diffusers is currently an experimental feature under active development. The API is subject to breaking changes in future releases.
-From https://github.com/vgaggia/OneTrainer
- * branch              pod/krea2-matrix -> FETCH_HEAD
-Reset branch 'pod/krea2-matrix'
-Branch 'pod/krea2-matrix' set up to track remote branch 'pod/krea2-matrix' from 'origin'.
-Your branch is up to date with 'origin/pod/krea2-matrix'.
-Uploading G:\Auto\OneTrainer\perf_tests\workspace3\Q04_adafactor\remote_config-2026-07-26_18-05-54.json...
-uploading concept perftest_akko_train...
-uploading concept perftest_akko_val...
-[OneTrainer] Using Python Venv environment in "venv"...
-[OneTrainer] + python scripts/util/version_check.py 3.10 3.14
-[OneTrainer] + python scripts/train_remote.py --config-path=/workspace/2026-07-26_18-05-45.json --callback-path=/workspace/2026-07-26_18-05-45.callback --command-path=/workspace/2026-07-26_18-05-45.command
-Modular Diffusers is currently an experimental feature under active development. The API is subject to breaking changes in future releases.
-/OneTrainer/venv/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py:205: UserWarning: The `local_dir_use_symlinks` argument is deprecated and ignored in `hf_hub_download`. Downloading to a local directory does not use symlinks anymore.
-  warnings.warn(
-
-Downloading G:\Auto\OneTrainer\perf_tests\workspace3\Q04_adafactor\config\2026-07-26_16-06-06.json...
-`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
-Quantizing model weights:  40%|â–ˆâ–ˆâ–ˆâ–ˆ      | 228/563 [00:05<00:07, 45.59it/s]Quantizing model weights:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 235/563 [00:05<00:07, 45.49it/s]Quantizing model weights:  43%|â–ˆâ–ˆâ–ˆâ–ˆâ–Ž     | 240/563 [00:05<00:07, 44.14it/s]Quantizing model weights:  44%|â–ˆâ–ˆâ–ˆâ–ˆâ–Ž     | 245/563 [00:05<00:07, 40.54it/s]Quantizing model weights:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 252/563 [00:06<00:07, 40.53it/s]Quantizing model weights:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 256/563 [00:06<00:07, 39.30it/s]Quantizing model weights:  47%|â–ˆâ–ˆâ–ˆâ–ˆâ–‹     | 266/563 [00:06<00:07, 40.60it/s]Quantizing model weights:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 270/563 [00:06<00:07, 39.74it/s]Quantizing model weights:  49%|â–ˆâ–ˆâ–ˆâ–ˆâ–‰     | 276/563 [00:06<00:07, 40.07it/s]Quantizing model weights:  50%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     | 283/563 [00:06<00:06, 41.02it/s]Quantizing model weights:  51%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     | 288/563 [00:07<00:07, 38.49it/s]Quantizing model weights:  53%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž    | 296/563 [00:07<00:06, 39.83it/s]Quantizing model weights:  54%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 303/563 [00:07<00:06, 40.58it/s]Quantizing model weights:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 308/563 [00:07<00:06, 39.59it/s]Quantizing model weights:  56%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹    | 317/563 [00:07<00:05, 41.07it/s]Quantizing model weights:  57%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹    | 322/563 [00:08<00:06, 37.54it/s]Quantizing model weights:  59%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰    | 334/563 [00:08<00:05, 40.22it/s]Quantizing model weights:  60%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    | 339/563 [00:08<00:06, 37.00it/s]Quantizing model weights:  62%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 351/563 [00:08<00:05, 39.92it/s]Quantizing model weights:  63%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž   | 356/563 [00:08<00:05, 36.31it/s]Quantizing model weights:  65%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 364/563 [00:09<00:05, 38.12it/s]Quantizing model weights:  66%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ   | 371/563 [00:09<00:04, 38.99it/s]Quantizing model weights:  67%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹   | 376/563 [00:09<00:04, 37.80it/s]Quantizing model weights:  68%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š   | 385/563 [00:09<00:04, 39.60it/s]Quantizing model weights:  69%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰   | 390/563 [00:09<00:04, 35.98it/s]Quantizing model weights:  71%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 398/563 [00:09<00:04, 37.92it/s]Quantizing model weights:  72%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 405/563 [00:10<00:04, 38.76it/s]Quantizing model weights:  73%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž  | 410/563 [00:10<00:04, 36.77it/s]Quantizing model weights:  74%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž  | 415/563 [00:10<00:03, 37.36it/s]Quantizing model weights:  75%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 422/563 [00:10<00:03, 37.83it/s]Quantizing model weights:  76%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ  | 427/563 [00:10<00:03, 36.70it/s]Quantizing model weights:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 436/563 [00:10<00:03, 39.03it/s]Quantizing model weights:  78%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š  | 441/563 [00:11<00:03, 31.10it/s]Quantizing model weights:  80%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 453/563 [00:11<00:03, 34.92it/s]Quantizing model weights:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 458/563 [00:11<00:03, 32.80it/s]Quantizing model weights:  83%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž | 470/563 [00:12<00:02, 36.55it/s]Quantizing model weights:  85%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 476/563 [00:12<00:02, 34.58it/s]Quantizing model weights:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 487/563 [00:12<00:02, 37.73it/s]Quantizing model weights:  88%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š | 493/563 [00:12<00:01, 35.33it/s]Quantizing model weights:  90%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰ | 504/563 [00:12<00:01, 38.42it/s]Quantizing model weights:  91%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 510/563 [00:13<00:01, 35.94it/s]Quantizing model weights:  93%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 521/563 [00:13<00:01, 38.96it/s]Quantizing model weights:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 527/563 [00:13<00:00, 36.53it/s]Quantizing model weights:  96%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ| 538/563 [00:13<00:00, 39.65it/s]Quantizing model weights:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 544/563 [00:14<00:00, 37.03it/s]Quantizing model weights:  99%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š| 555/563 [00:14<00:00, 40.04it/s]Quantizing model weights: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰| 561/563 [00:14<00:00, 37.58it/s]Quantizing model weights: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 563/563 [00:14<00:00, 38.45it/s]
-Attention backends are an experimental feature and the API may be subject to change.
-Selected layers: 91
-Deselected layers: 339
-Note: Enable Debug mode to see the full list of layer names
-quantized_weight_training: 264 int8 Linear layers now receive fused SR updates
-epoch:   0%|          | 0/2 [00:00<?, ?it/s]
-enumerating sample paths:   0%|          | 0/1 [00:00<?, ?it/s][Aenumerating sample paths: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 1/1 [00:00<00:00, 173.75it/s]
-
-step:   0%|          | 0/95 [00:00<?, ?it/s][A
-
-sampling:   0%|          | 0/31 [00:00<?, ?it/s][A[A
-
-sampling:   3%|â–Ž         | 1/31 [00:01<00:30,  1.00s/it][A[A
-
-sampling:   6%|â–‹         | 2/31 [00:01<00:24,  1.17it/s][A[A
-
-sampling:  10%|â–‰         | 3/31 [00:02<00:24,  1.14it/s][A[A
-
-sampling:  13%|â–ˆâ–Ž        | 4/31 [00:03<00:23,  1.13it/s][A[A
-
-sampling:  16%|â–ˆâ–Œ        | 5/31 [00:04<00:23,  1.12it/s][A[A
-
-sampling:  19%|â–ˆâ–‰        | 6/31 [00:05<00:22,  1.12it/s][A[A
-
-sampling:  23%|â–ˆâ–ˆâ–Ž       | 7/31 [00:06<00:21,  1.11it/s][A[A
-
-sampling:  26%|â–ˆâ–ˆâ–Œ       | 8/31 [00:07<00:20,  1.10it/s][A[A
-
-sampling:  29%|â–ˆâ–ˆâ–‰       | 9/31 [00:08<00:20,  1.07it/s][A[A
-
-sampling:  32%|â–ˆâ–ˆâ–ˆâ–�      | 10/31 [00:09<00:19,  1.06it/s][A[A
-
-sampling:  35%|â–ˆâ–ˆâ–ˆâ–Œ      | 11/31 [00:10<00:19,  1.03it/s][A[A
-
-sampling:  39%|â–ˆâ–ˆâ–ˆâ–Š      | 12/31 [00:11<00:18,  1.00it/s][A[A
-
-sampling:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 13/31 [00:12<00:18,  1.01s/it][A[A
-
-sampling:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 14/31 [00:13<00:17,  1.03s/it][A[A
-
-sampling:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 15/31 [00:14<00:16,  1.04s/it][A[A
-
-sampling:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 16/31 [00:15<00:15,  1.04s/it][A[A
-
-sampling:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 17/31 [00:16<00:14,  1.03s/it][A[A
-
-sampling:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 18/31 [00:17<00:13,  1.03s/it][A[A
-
-sampling:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 19/31 [00:18<00:12,  1.03s/it][A[A
-
-sampling:  65%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 20/31 [00:19<00:11,  1.03s/it][A[A
-
-sampling:  68%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š   | 21/31 [00:20<00:10,  1.02s/it][A[A
-
-sampling:  71%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 22/31 [00:21<00:09,  1.01s/it][A[A
-
-sampling:  74%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 23/31 [00:22<00:08,  1.01s/it][A[A
-
-sampling:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 24/31 [00:23<00:07,  1.00s/it][A[A
-
-sampling:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 25/31 [00:24<00:05,  1.01it/s][A[A
-
-sampling:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 26/31 [00:25<00:04,  1.02it/s][A[A
-
-sampling:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 27/31 [00:26<00:03,  1.02it/s][A[A
-
-sampling:  90%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 28/31 [00:27<00:02,  1.03it/s][A[A
-
-sampling:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 29/31 [00:28<00:01,  1.03it/s][A[A
-
-sampling:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 30/31 [00:29<00:00,  1.03it/s][A[A
-
-sampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [00:30<00:00,  1.04it/s][A[Asampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [00:30<00:00,  1.02it/s]
-
-
-sampling:   0%|          | 0/31 [00:00<?, ?it/s][A[A
-
-sampling:   3%|â–Ž         | 1/31 [00:00<00:26,  1.12it/s][A[A
-Downloading G:\Auto\OneTrainer\perf_tests\workspace3\Q04_adafactor\samples\0 - akko brown hair red eyes witch u\2026-07-26_16-06-40-training-sample-0-0-0.jpg...
-
-
-sampling:   6%|â–‹         | 2/31 [00:01<00:24,  1.20it/s][A[A
-
-sampling:  10%|â–‰         | 3/31 [00:02<00:24,  1.12it/s][A[A
-
-sampling:  13%|â–ˆâ–Ž        | 4/31 [00:03<00:24,  1.09it/s][A[A
-
-sampling:  16%|â–ˆâ–Œ        | 5/31 [00:04<00:24,  1.07it/s][A[A
-
-sampling:  19%|â–ˆâ–‰        | 6/31 [00:05<00:23,  1.06it/s][A[A
-
-sampling:  23%|â–ˆâ–ˆâ–Ž       | 7/31 [00:06<00:22,  1.06it/s][A[A
-
-sampling:  26%|â–ˆâ–ˆâ–Œ       | 8/31 [00:07<00:21,  1.06it/s][A[A
-
-sampling:  29%|â–ˆâ–ˆâ–‰       | 9/31 [00:08<00:20,  1.06it/s][A[A
-
-sampling:  32%|â–ˆâ–ˆâ–ˆâ–�      | 10/31 [00:09<00:19,  1.07it/s][A[A
-
-sampling:  35%|â–ˆâ–ˆâ–ˆâ–Œ      | 11/31 [00:10<00:18,  1.07it/s][A[A
-
-sampling:  39%|â–ˆâ–ˆâ–ˆâ–Š      | 12/31 [00:11<00:17,  1.07it/s][A[A
-
-sampling:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 13/31 [00:12<00:16,  1.06it/s][A[A
-
-sampling:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 14/31 [00:13<00:15,  1.07it/s][A[A
-
-sampling:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 15/31 [00:13<00:14,  1.08it/s][A[A
-
-sampling:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 16/31 [00:14<00:13,  1.08it/s][A[A
-
-sampling:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 17/31 [00:15<00:12,  1.09it/s][A[A
-
-sampling:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 18/31 [00:16<00:11,  1.09it/s][A[A
-
-sampling:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 19/31 [00:17<00:10,  1.09it/s][A[A
-
-sampling:  65%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 20/31 [00:18<00:10,  1.09it/s][A[A
-
-sampling:  68%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š   | 21/31 [00:19<00:09,  1.09it/s][A[A
-
-sampling:  71%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 22/31 [00:20<00:08,  1.09it/s][A[A
-
-sampling:  74%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 23/31 [00:21<00:07,  1.09it/s][A[A
-
-sampling:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 24/31 [00:22<00:06,  1.09it/s][A[A
-
-sampling:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 25/31 [00:23<00:05,  1.09it/s][A[A
-
-sampling:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 26/31 [00:23<00:04,  1.09it/s][A[A
-
-sampling:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 27/31 [00:24<00:03,  1.09it/s][A[A
-
-sampling:  90%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 28/31 [00:25<00:02,  1.07it/s][A[A
-
-sampling:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 29/31 [00:26<00:01,  1.05it/s][A[A
-
-sampling:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 30/31 [00:27<00:00,  1.04it/s][A[A
-
-sampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [00:28<00:00,  1.04it/s][A[Asampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [00:28<00:00,  1.08it/s]
-
-
-sampling:   0%|          | 0/31 [00:00<?, ?it/s][A[A
-
-sampling:   3%|â–Ž         | 1/31 [00:00<00:26,  1.15it/s][A[A
-Downloading G:\Auto\OneTrainer\perf_tests\workspace3\Q04_adafactor\samples\1 - a photograph of a red vintage ca\2026-07-26_16-07-30-training-sample-0-0-0.jpg...
-
-
-sampling:   6%|â–‹         | 2/31 [00:01<00:23,  1.23it/s][A[A
-
-sampling:  10%|â–‰         | 3/31 [00:02<00:24,  1.16it/s][A[A
-
-sampling:  13%|â–ˆâ–Ž        | 4/31 [00:03<00:23,  1.14it/s][A[A
-
-sampling:  16%|â–ˆâ–Œ        | 5/31 [00:04<00:23,  1.12it/s][A[A
-
-sampling:  19%|â–ˆâ–‰        | 6/31 [00:05<00:22,  1.11it/s][A[A
-
-sampling:  23%|â–ˆâ–ˆâ–Ž       | 7/31 [00:06<00:21,  1.11it/s][A[A
-
-sampling:  26%|â–ˆâ–ˆâ–Œ       | 8/31 [00:07<00:20,  1.11it/s][A[A
-
-sampling:  29%|â–ˆâ–ˆâ–‰       | 9/31 [00:08<00:19,  1.10it/s][A[A
-
-sampling:  32%|â–ˆâ–ˆâ–ˆâ–�      | 10/31 [00:08<00:19,  1.10it/s][A[A
-
-sampling:  35%|â–ˆâ–ˆâ–ˆâ–Œ      | 11/31 [00:09<00:18,  1.10it/s][A[A
-
-sampling:  39%|â–ˆâ–ˆâ–ˆâ–Š      | 12/31 [00:10<00:17,  1.10it/s][A[A
-
-sampling:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 13/31 [00:11<00:16,  1.10it/s][A[A
-
-sampling:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 14/31 [00:12<00:15,  1.10it/s][A[A
-
-sampling:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 15/31 [00:13<00:14,  1.09it/s][A[A
-
-sampling:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 16/31 [00:14<00:13,  1.09it/s][A[A
-
-sampling:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 17/31 [00:15<00:12,  1.09it/s][A[A
-
-sampling:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 18/31 [00:16<00:11,  1.09it/s][A[A
-
-sampling:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 19/31 [00:17<00:11,  1.09it/s][A[A
-
-sampling:  65%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 20/31 [00:18<00:10,  1.09it/s][A[A
-
-sampling:  68%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š   | 21/31 [00:19<00:09,  1.09it/s][A[A
-
-sampling:  71%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 22/31 [00:19<00:08,  1.09it/s][A[A
-
-sampling:  74%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 23/31 [00:20<00:07,  1.09it/s][A[A
-
-sampling:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 24/31 [00:21<00:06,  1.09it/s][A[A
-
-sampling:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 25/31 [00:22<00:05,  1.09it/s][A[A
-
-sampling:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 26/31 [00:23<00:04,  1.09it/s][A[A
-
-sampling:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 27/31 [00:24<00:03,  1.09it/s][A[A
-
-sampling:  90%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 28/31 [00:25<00:02,  1.08it/s][A[A
-
-sampling:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 29/31 [00:26<00:01,  1.08it/s][A[A
-
-sampling:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 30/31 [00:27<00:00,  1.08it/s][A[A
-
-sampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [00:28<00:00,  1.07it/s][A[Asampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [00:28<00:00,  1.10it/s]
-
-
-sampling:   0%|          | 0/31 [00:00<?, ?it/s][A[A
-
-sampling:   3%|â–Ž         | 1/31 [00:00<00:25,  1.17it/s][A[A
-Downloading G:\Auto\OneTrainer\perf_tests\workspace3\Q04_adafactor\samples\2 - extreme close up of a peacock fe\2026-07-26_16-08-10-training-sample-0-0-0.jpg...
-
-
-sampling:   6%|â–‹         | 2/31 [00:01<00:23,  1.25it/s][A[A
-
-sampling:  10%|â–‰         | 3/31 [00:02<00:23,  1.17it/s][A[A
-
-sampling:  13%|â–ˆâ–Ž        | 4/31 [00:03<00:23,  1.14it/s][A[A
-
-sampling:  16%|â–ˆâ–Œ        | 5/31 [00:04<00:23,  1.12it/s][A[A
-
-sampling:  19%|â–ˆâ–‰        | 6/31 [00:05<00:22,  1.11it/s][A[A
-
-sampling:  23%|â–ˆâ–ˆâ–Ž       | 7/31 [00:06<00:21,  1.10it/s][A[A
-
-sampling:  26%|â–ˆâ–ˆâ–Œ       | 8/31 [00:07<00:21,  1.09it/s][A[A
-
-sampling:  29%|â–ˆâ–ˆâ–‰       | 9/31 [00:08<00:20,  1.08it/s][A[A
-
-sampling:  32%|â–ˆâ–ˆâ–ˆâ–�      | 10/31 [00:09<00:19,  1.06it/s][A[A
-
-sampling:  35%|â–ˆâ–ˆâ–ˆâ–Œ      | 11/31 [00:10<00:19,  1.04it/s][A[A
-
-sampling:  39%|â–ˆâ–ˆâ–ˆâ–Š      | 12/31 [00:11<00:18,  1.03it/s][A[A
-
-sampling:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 13/31 [00:12<00:17,  1.03it/s][A[A
-
-sampling:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 14/31 [00:13<00:16,  1.02it/s][A[A
-
-sampling:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 15/31 [00:13<00:15,  1.03it/s][A[A
-
-sampling:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 16/31 [00:14<00:14,  1.03it/s][A[A
-
-sampling:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 17/31 [00:15<00:13,  1.04it/s][A[A
-
-sampling:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 18/31 [00:16<00:12,  1.04it/s][A[A
-
-sampling:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 19/31 [00:17<00:11,  1.04it/s][A[A
-
-sampling:  65%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 20/31 [00:18<00:10,  1.04it/s][A[A
-
-sampling:  68%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š   | 21/31 [00:19<00:09,  1.04it/s][A[A
-
-sampling:  71%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 22/31 [00:20<00:08,  1.04it/s][A[A
-
-sampling:  74%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 23/31 [00:21<00:07,  1.04it/s][A[A
-
-sampling:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 24/31 [00:22<00:06,  1.04it/s][A[A
-
-sampling:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 25/31 [00:23<00:05,  1.04it/s][A[A
-
-sampling:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 26/31 [00:24<00:04,  1.04it/s][A[A
-
-sampling:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 27/31 [00:25<00:03,  1.04it/s][A[A
-
-sampling:  90%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 28/31 [00:26<00:02,  1.04it/s][A[A
-
-sampling:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 29/31 [00:27<00:01,  1.04it/s][A[A
-
-sampling:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 30/31 [00:28<00:00,  1.04it/s][A[A
-
-sampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [00:29<00:00,  1.05it/s][A[Asampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [00:29<00:00,  1.06it/s]
-                                            
-                                            [A[torch.compile] compiling kernel 0 forward (variant #0)...
-epoch:   0%|          | 0/2 [02:52<?, ?it/s]
-step:   0%|          | 0/95 [02:50<?, ?it/s][A                                            
-[torch.compile] compiling kernel 0 forward (variant #1)...
-                                            [Aepoch:   0%|          | 0/2 [02:53<?, ?it/s]
-step:   0%|          | 0/95 [02:51<?, ?it/s][A                                            
-                                            [A[torch.compile] compiling kernel 0 forward (variant #2)...
-epoch:   0%|          | 0/2 [02:54<?, ?it/s]
-step:   0%|          | 0/95 [02:52<?, ?it/s][A                                            
-                                            [A[torch.compile] compiling kernel 0 forward (variant #3)...
-epoch:   0%|          | 0/2 [02:54<?, ?it/s]
-step:   0%|          | 0/95 [02:52<?, ?it/s][A
-Downloading G:\Auto\OneTrainer\perf_tests\workspace3\Q04_adafactor\samples\3 - three ceramic mugs in a row on a\2026-07-26_16-08-49-training-sample-0-0-0.jpg...
-[torch.compile] compiling kernel 0 forward (variant #4)...
-                                            
-                                            [Aepoch:   0%|          | 0/2 [02:54<?, ?it/s]
-step:   0%|          | 0/95 [02:52<?, ?it/s][A[torch.compile] compiling kernel 0 forward (variant #5)...
-                                            
-                                            [Aepoch:   0%|          | 0/2 [02:54<?, ?it/s]
-step:   0%|          | 0/95 [02:52<?, ?it/s][A                                            
-                                            [A[torch.compile] compiling kernel 0 forward (variant #6)...
-epoch:   0%|          | 0/2 [02:54<?, ?it/s]
-step:   0%|          | 0/95 [02:52<?, ?it/s][A[torch.compile] compiling kernel 0 forward (variant #7)...
-                                            
-                                            [Aepoch:   0%|          | 0/2 [02:54<?, ?it/s]
-step:   0%|          | 0/95 [02:52<?, ?it/s][A[torch.compile] compiling kernel 0 forward (variant #8)...
-                                            
-                                            [Aepoch:   0%|          | 0/2 [02:55<?, ?it/s]
-step:   0%|          | 0/95 [02:53<?, ?it/s][A[torch.compile] compiling kernel 0 forward (variant #9)...
-                                            
-                                            [Aepoch:   0%|          | 0/2 [02:55<?, ?it/s]
-step:   0%|          | 0/95 [02:53<?, ?it/s][A[torch.compile] compiling kernel 0 forward (variant #10)...
-                                            
-                                            [Aepoch:   0%|          | 0/2 [02:55<?, ?it/s]
-step:   0%|          | 0/95 [02:53<?, ?it/s][A                                            
-                                            [A[torch.compile] compiling kernel 0 forward (variant #11)...
-epoch:   0%|          | 0/2 [02:56<?, ?it/s]
-step:   0%|          | 0/95 [02:54<?, ?it/s][A                                            
-                                            [torch.compile] compiling kernel 0 forward (variant #12)...
-[Aepoch:   0%|          | 0/2 [02:56<?, ?it/s]
-step:   0%|          | 0/95 [02:54<?, ?it/s][A[torch.compile] compiling kernel 0 forward (variant #13)...
-                                            
-                                            [Aepoch:   0%|          | 0/2 [02:56<?, ?it/s]
-step:   0%|          | 0/95 [02:54<?, ?it/s][A                                            
-                                            [A[torch.compile] compiling kernel 0 forward (variant #14)...
-epoch:   0%|          | 0/2 [02:56<?, ?it/s]
-step:   0%|          | 0/95 [02:54<?, ?it/s][AW0726 16:09:35.785000 39345 venv/lib/python3.11/site-packages/torch/_dynamo/convert_frame.py:1853] [0/15] torch._dynamo hit config.recompile_limit (8)
-W0726 16:09:35.785000 39345 venv/lib/python3.11/site-packages/torch/_dynamo/convert_frame.py:1853] [0/15]    function: 'inner' (/OneTrainer/venv/lib/python3.11/site-packages/torch/_dynamo/external_utils.py:67)
-W0726 16:09:35.785000 39345 venv/lib/python3.11/site-packages/torch/_dynamo/convert_frame.py:1853] [0/15]    last reason: 0/14: GLOBAL_STATE changed: autocast(cuda)_enabled 
-W0726 16:09:35.785000 39345 venv/lib/python3.11/site-packages/torch/_dynamo/convert_frame.py:1853] [0/15] To log all recompilation reasons, use TORCH_LOGS="recompiles".
-W0726 16:09:35.785000 39345 venv/lib/python3.11/site-packages/torch/_dynamo/convert_frame.py:1853] [0/15] To diagnose recompilation issues, see https://docs.pytorch.org/docs/main/user_guide/torch_compiler/compile/programming_model.recompilation.html
-                                            
-                                            [A[torch.compile] compiling kernel 1 forward (variant #0)...
-epoch:   0%|          | 0/2 [03:00<?, ?it/s]
-step:   0%|          | 0/95 [02:58<?, ?it/s][A[torch.compile] compiling kernel 1 forward (variant #1)...
-                                            
-                                            [Aepoch:   0%|          | 0/2 [03:06<?, ?it/s]
-step:   0%|          | 0/95 [03:04<?, ?it/s][A                                            
-                                            [A[torch.compile] compiling kernel 1 forward (variant #2)...
-epoch:   0%|          | 0/2 [03:12<?, ?it/s]
-step:   0%|          | 0/95 [03:10<?, ?it/s][A                                            
-                                            [A[torch.compile] compiling kernel 1 forward (variant #3)...
-epoch:   0%|          | 0/2 [03:16<?, ?it/s]
-step:   0%|          | 0/95 [03:14<?, ?it/s][A                                            
-                                            [A[torch.compile] compiling kernel 1 forward (variant #4)...
-epoch:   0%|          | 0/2 [03:20<?, ?it/s]
-step:   0%|          | 0/95 [03:18<?, ?it/s][A
-step:   0%|          | 0/95 [03:20<?, ?it/s, loss=0.0802, smooth loss=0.0802][A
-
-enumerating sample paths:   0%|          | 0/1 [00:00<?, ?it/s][A[Aenumerating sample paths: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 1/1 [00:00<00:00, 959.79it/s]
-
-
-validation_step:   0%|          | 0/64 [00:00<?, ?it/s][A[A
-
-validation_step:   2%|â–�         | 1/64 [00:00<00:31,  1.97it/s][A[A
-
-validation_step:   3%|â–Ž         | 2/64 [00:01<00:31,  1.99it/s][A[A
-
-validation_step:   5%|â–�         | 3/64 [00:01<00:31,  1.96it/s][A[A
-
-validation_step:   6%|â–‹         | 4/64 [00:02<00:31,  1.93it/s][A[A
-
-validation_step:   8%|â–Š         | 5/64 [00:02<00:30,  1.91it/s][A[A
-
-validation_step:   9%|â–‰         | 6/64 [00:03<00:30,  1.91it/s][A[A
-
-validation_step:  11%|â–ˆ         | 7/64 [00:03<00:30,  1.88it/s][A[A
-
-validation_step:  12%|â–ˆâ–Ž        | 8/64 [00:04<00:29,  1.90it/s][A[A
-
-validation_step:  14%|â–ˆâ–�        | 9/64 [00:04<00:28,  1.93it/s][A[A
-
-validation_step:  16%|â–ˆâ–Œ        | 10/64 [00:05<00:27,  1.94it/s][A[A
-
-validation_step:  17%|â–ˆâ–‹        | 11/64 [00:05<00:27,  1.96it/s][A[A
-
-validation_step:  19%|â–ˆâ–‰        | 12/64 [00:06<00:26,  1.96it/s][A[A
-
-validation_step:  20%|â–ˆâ–ˆ        | 13/64 [00:06<00:26,  1.92it/s][A[A
-
-validation_step:  22%|â–ˆâ–ˆâ–�       | 14/64 [00:07<00:27,  1.84it/s][A[A
-
-validation_step:  23%|â–ˆâ–ˆâ–Ž       | 15/64 [00:07<00:26,  1.85it/s][A[A
-
-validation_step:  25%|â–ˆâ–ˆâ–Œ       | 16/64 [00:08<00:26,  1.84it/s][A[A
-
-validation_step:  27%|â–ˆâ–ˆâ–‹       | 17/64 [00:09<00:26,  1.78it/s][A[A
-
-validation_step:  28%|â–ˆâ–ˆâ–Š       | 18/64 [00:09<00:26,  1.76it/s][A[A
-
-validation_step:  30%|â–ˆâ–ˆâ–‰       | 19/64 [00:10<00:25,  1.76it/s][A[A
-
-validation_step:  31%|â–ˆâ–ˆâ–ˆâ–�      | 20/64 [00:10<00:24,  1.77it/s][A[A
-
-validation_step:  33%|â–ˆâ–ˆâ–ˆâ–Ž      | 21/64 [00:11<00:25,  1.70it/s][A[A
-
-validation_step:  34%|â–ˆâ–ˆâ–ˆâ–�      | 22/64 [00:12<00:25,  1.66it/s][A[A
-
-validation_step:  36%|â–ˆâ–ˆâ–ˆâ–Œ      | 23/64 [00:12<00:23,  1.72it/s][A[A
-
-validation_step:  38%|â–ˆâ–ˆâ–ˆâ–Š      | 24/64 [00:13<00:23,  1.71it/s][A[A
-
-validation_step:  39%|â–ˆâ–ˆâ–ˆâ–‰      | 25/64 [00:13<00:22,  1.70it/s][A[A
-
-validation_step:  41%|â–ˆâ–ˆâ–ˆâ–ˆ      | 26/64 [00:14<00:22,  1.71it/s][A[A
-
-validation_step:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 27/64 [00:14<00:21,  1.72it/s][A[A
-
-validation_step:  44%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 28/64 [00:15<00:20,  1.73it/s][A[A
-
-validation_step:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 29/64 [00:16<00:20,  1.73it/s][A[A
-
-validation_step:  47%|â–ˆâ–ˆâ–ˆâ–ˆâ–‹     | 30/64 [00:16<00:19,  1.73it/s][A[A
-
-validation_step:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 31/64 [00:17<00:19,  1.71it/s][A[A
-
-validation_step:  50%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     | 32/64 [00:17<00:18,  1.70it/s][A[A
-
-validation_step:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 33/64 [00:18<00:18,  1.72it/s][A[A
-
-validation_step:  53%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž    | 34/64 [00:18<00:17,  1.71it/s][A[A
-
-validation_step:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 35/64 [00:19<00:16,  1.77it/s][A[A
-
-validation_step:  56%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹    | 36/64 [00:20<00:15,  1.78it/s][A[A
-
-validation_step:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 37/64 [00:20<00:15,  1.79it/s][A[A
-
-validation_step:  59%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰    | 38/64 [00:21<00:14,  1.81it/s][A[A
-
-validation_step:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    | 39/64 [00:21<00:13,  1.82it/s][A[A
-
-validation_step:  62%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž   | 40/64 [00:22<00:12,  1.86it/s][A[A
-
-validation_step:  64%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 41/64 [00:22<00:12,  1.78it/s][A[A
-
-validation_step:  66%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ   | 42/64 [00:23<00:12,  1.74it/s][A[A
-
-validation_step:  67%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹   | 43/64 [00:23<00:11,  1.81it/s][A[A
-
-validation_step:  69%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰   | 44/64 [00:24<00:10,  1.82it/s][A[A
-
-validation_step:  70%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 45/64 [00:25<00:10,  1.80it/s][A[A
-
-validation_step:  72%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 46/64 [00:25<00:09,  1.87it/s][A[A
-
-validation_step:  73%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž  | 47/64 [00:26<00:09,  1.81it/s][A[A
-
-validation_step:  75%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ  | 48/64 [00:26<00:08,  1.83it/s][A[A
-
-validation_step:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 49/64 [00:27<00:08,  1.82it/s][A[A
-
-validation_step:  78%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š  | 50/64 [00:27<00:07,  1.82it/s][A[A
-
-validation_step:  80%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰  | 51/64 [00:28<00:06,  1.87it/s][A[A
-
-validation_step:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 52/64 [00:28<00:06,  1.88it/s][A[A
-
-validation_step:  83%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž | 53/64 [00:29<00:05,  1.84it/s][A[A
-
-validation_step:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 54/64 [00:29<00:05,  1.90it/s][A[A
-
-validation_step:  86%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ | 55/64 [00:30<00:04,  1.94it/s][A[A
-
-validation_step:  88%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š | 56/64 [00:30<00:04,  1.91it/s][A[A
-
-validation_step:  89%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰ | 57/64 [00:31<00:03,  1.85it/s][A[A
-
-validation_step:  91%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 58/64 [00:31<00:03,  1.89it/s][A[A
-
-validation_step:  92%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 59/64 [00:32<00:02,  1.89it/s][A[A
-
-validation_step:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 60/64 [00:33<00:02,  1.85it/s][A[A
-
-validation_step:  95%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ| 61/64 [00:33<00:01,  1.87it/s][A[A
-
-validation_step:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 62/64 [00:34<00:01,  1.92it/s][A[A
-
-validation_step:  98%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š| 63/64 [00:34<00:00,  1.95it/s][A[A
-
-validation_step: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 64/64 [00:35<00:00,  2.00it/s][A[Avalidation_step: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 64/64 [00:35<00:00,  1.83it/s]
-
-step:   1%|          | 1/95 [03:55<6:09:11, 235.66s/it, loss=0.0802, smooth loss=0.0802][A
-step:   1%|          | 1/95 [04:22<6:09:11, 235.66s/it, loss=0.0934, smooth loss=0.0868][A
-step:   2%|â–�         | 2/95 [04:22<2:54:40, 112.69s/it, loss=0.0934, smooth loss=0.0868][A
-step:   2%|â–�         | 2/95 [04:45<2:54:40, 112.69s/it, loss=0.122, smooth loss=0.0985] [A
-step:   3%|â–Ž         | 3/95 [04:45<1:50:04, 71.79s/it, loss=0.122, smooth loss=0.0985] [A
-step:   3%|â–Ž         | 3/95 [04:49<1:50:04, 71.79s/it, loss=0.107, smooth loss=0.101] [A
-step:   4%|â–�         | 4/95 [04:49<1:08:20, 45.07s/it, loss=0.107, smooth loss=0.101][A
-step:   4%|â–�         | 4/95 [04:53<1:08:20, 45.07s/it, loss=0.114, smooth loss=0.103][A
-step:   5%|â–Œ         | 5/95 [04:53<45:26, 30.29s/it, loss=0.114, smooth loss=0.103]  [A
-step:   5%|â–Œ         | 5/95 [05:00<45:26, 30.29s/it, loss=0.0878, smooth loss=0.101][A
-step:   6%|â–‹         | 6/95 [05:00<33:14, 22.42s/it, loss=0.0878, smooth loss=0.101][A
-step:   6%|â–‹         | 6/95 [05:05<33:14, 22.42s/it, loss=0.0987, smooth loss=0.1]  [A
-step:   7%|â–‹         | 7/95 [05:05<24:13, 16.52s/it, loss=0.0987, smooth loss=0.1][A
-step:   7%|â–‹         | 7/95 [05:09<24:13, 16.52s/it, loss=0.109, smooth loss=0.102][A
-step:   8%|â–Š         | 8/95 [05:09<18:21, 12.66s/it, loss=0.109, smooth loss=0.102][A
-step:   8%|â–Š         | 8/95 [05:35<18:21, 12.66s/it, loss=0.0856, smooth loss=0.0997][A
-step:   9%|â–‰         | 9/95 [05:35<23:59, 16.74s/it, loss=0.0856, smooth loss=0.0997][A
-step:   9%|â–‰         | 9/95 [05:58<23:59, 16.74s/it, loss=0.0849, smooth loss=0.0983][A
-step:  11%|â–ˆ         | 10/95 [05:58<26:43, 18.87s/it, loss=0.0849, smooth loss=0.0983][A
-step:  11%|â–ˆ         | 10/95 [06:22<26:43, 18.87s/it, loss=0.134, smooth loss=0.102]  [A
-step:  12%|â–ˆâ–�        | 11/95 [06:22<28:37, 20.44s/it, loss=0.134, smooth loss=0.102][A
-step:  12%|â–ˆâ–�        | 11/95 [06:46<28:37, 20.44s/it, loss=0.064, smooth loss=0.0984][A
-step:  13%|â–ˆâ–Ž        | 12/95 [06:46<29:44, 21.50s/it, loss=0.064, smooth loss=0.0984][A
-step:  13%|â–ˆâ–Ž        | 12/95 [07:09<29:44, 21.50s/it, loss=0.087, smooth loss=0.0975][A
-step:  14%|â–ˆâ–Ž        | 13/95 [07:09<29:57, 21.92s/it, loss=0.087, smooth loss=0.0975][A
-step:  14%|â–ˆâ–Ž        | 13/95 [07:14<29:57, 21.92s/it, loss=0.141, smooth loss=0.101] [A
-step:  15%|â–ˆâ–�        | 14/95 [07:14<22:36, 16.75s/it, loss=0.141, smooth loss=0.101][A
-step:  15%|â–ˆâ–�        | 14/95 [07:19<22:36, 16.75s/it, loss=0.136, smooth loss=0.103][A
-step:  16%|â–ˆâ–Œ        | 15/95 [07:19<17:30, 13.13s/it, loss=0.136, smooth loss=0.103][A
-step:  16%|â–ˆâ–Œ        | 15/95 [07:23<17:30, 13.13s/it, loss=0.168, smooth loss=0.107][A
-step:  17%|â–ˆâ–‹        | 16/95 [07:23<13:55, 10.58s/it, loss=0.168, smooth loss=0.107][A
-step:  17%|â–ˆâ–‹        | 16/95 [07:27<13:55, 10.58s/it, loss=0.145, smooth loss=0.109][A
-step:  18%|â–ˆâ–Š        | 17/95 [07:27<11:12,  8.63s/it, loss=0.145, smooth loss=0.109][A
-step:  18%|â–ˆâ–Š        | 17/95 [07:32<11:12,  8.63s/it, loss=0.0803, smooth loss=0.108][A
-step:  19%|â–ˆâ–‰        | 18/95 [07:32<09:30,  7.41s/it, loss=0.0803, smooth loss=0.108][A
-step:  19%|â–ˆâ–‰        | 18/95 [07:56<09:30,  7.41s/it, loss=0.111, smooth loss=0.108] [A
-step:  20%|â–ˆâ–ˆ        | 19/95 [07:56<15:34, 12.29s/it, loss=0.111, smooth loss=0.108][A
-step:  20%|â–ˆâ–ˆ        | 19/95 [08:20<15:34, 12.29s/it, loss=0.102, smooth loss=0.108][A
-step:  21%|â–ˆâ–ˆ        | 20/95 [08:20<19:44, 15.79s/it, loss=0.102, smooth loss=0.108][A
-step:  21%|â–ˆâ–ˆ        | 20/95 [08:42<19:44, 15.79s/it, loss=0.084, smooth loss=0.106][A
-step:  22%|â–ˆâ–ˆâ–�       | 21/95 [08:42<22:04, 17.90s/it, loss=0.084, smooth loss=0.106][A
-step:  22%|â–ˆâ–ˆâ–�       | 21/95 [08:46<22:04, 17.90s/it, loss=0.0587, smooth loss=0.104][A
-step:  23%|â–ˆâ–ˆâ–Ž       | 22/95 [08:46<16:40, 13.71s/it, loss=0.0587, smooth loss=0.104][A
-step:  23%|â–ˆâ–ˆâ–Ž       | 22/95 [08:50<16:40, 13.71s/it, loss=0.0873, smooth loss=0.104][A
-step:  24%|â–ˆâ–ˆâ–�       | 23/95 [08:50<12:51, 10.71s/it, loss=0.0873, smooth loss=0.104][A
-step:  24%|â–ˆâ–ˆâ–�       | 23/95 [08:54<12:51, 10.71s/it, loss=0.135, smooth loss=0.105] [A
-step:  25%|â–ˆâ–ˆâ–Œ       | 24/95 [08:54<10:16,  8.69s/it, loss=0.135, smooth loss=0.105][A
-step:  25%|â–ˆâ–ˆâ–Œ       | 24/95 [08:58<10:16,  8.69s/it, loss=0.0901, smooth loss=0.104][A
-step:  26%|â–ˆâ–ˆâ–‹       | 25/95 [08:58<08:31,  7.30s/it, loss=0.0901, smooth loss=0.104][A
-step:  26%|â–ˆâ–ˆâ–‹       | 25/95 [09:02<08:31,  7.30s/it, loss=0.105, smooth loss=0.104] [A
-step:  27%|â–ˆâ–ˆâ–‹       | 26/95 [09:02<07:20,  6.38s/it, loss=0.105, smooth loss=0.104][A
-step:  27%|â–ˆâ–ˆâ–‹       | 26/95 [09:07<07:20,  6.38s/it, loss=0.0888, smooth loss=0.104][A
-step:  28%|â–ˆâ–ˆâ–Š       | 27/95 [09:07<06:33,  5.78s/it, loss=0.0888, smooth loss=0.104][A
-step:  28%|â–ˆâ–ˆâ–Š       | 27/95 [09:11<06:33,  5.78s/it, loss=0.0886, smooth loss=0.103][A
-step:  29%|â–ˆâ–ˆâ–‰       | 28/95 [09:11<06:06,  5.46s/it, loss=0.0886, smooth loss=0.103][A
-step:  29%|â–ˆâ–ˆâ–‰       | 28/95 [09:16<06:06,  5.46s/it, loss=0.075, smooth loss=0.102] [A
-step:  31%|â–ˆâ–ˆâ–ˆ       | 29/95 [09:16<05:39,  5.15s/it, loss=0.075, smooth loss=0.102][A
-step:  31%|â–ˆâ–ˆâ–ˆ       | 29/95 [09:20<05:39,  5.15s/it, loss=0.123, smooth loss=0.103][A
-step:  32%|â–ˆâ–ˆâ–ˆâ–�      | 30/95 [09:20<05:17,  4.89s/it, loss=0.123, smooth loss=0.103][A
-step:  32%|â–ˆâ–ˆâ–ˆâ–�      | 30/95 [09:24<05:17,  4.89s/it, loss=0.0971, smooth loss=0.103][A
-step:  33%|â–ˆâ–ˆâ–ˆâ–Ž      | 31/95 [09:24<04:57,  4.65s/it, loss=0.0971, smooth loss=0.103][A
-step:  33%|â–ˆâ–ˆâ–ˆâ–Ž      | 31/95 [09:29<04:57,  4.65s/it, loss=0.0998, smooth loss=0.103][A
-step:  34%|â–ˆâ–ˆâ–ˆâ–Ž      | 32/95 [09:29<04:45,  4.54s/it, loss=0.0998, smooth loss=0.103][A
-step:  34%|â–ˆâ–ˆâ–ˆâ–Ž      | 32/95 [09:33<04:45,  4.54s/it, loss=0.112, smooth loss=0.103] [A
-
-validation_step:   0%|          | 0/64 [00:00<?, ?it/s][A[A
-
-validation_step:   2%|â–�         | 1/64 [00:00<00:29,  2.15it/s][A[A
-
-validation_step:   3%|â–Ž         | 2/64 [00:00<00:28,  2.16it/s][A[A
-
-validation_step:   5%|â–�         | 3/64 [00:01<00:28,  2.13it/s][A[A
-
-validation_step:   6%|â–‹         | 4/64 [00:01<00:28,  2.09it/s][A[A
-
-validation_step:   8%|â–Š         | 5/64 [00:02<00:28,  2.05it/s][A[A
-
-validation_step:   9%|â–‰         | 6/64 [00:02<00:27,  2.08it/s][A[A
-
-validation_step:  11%|â–ˆ         | 7/64 [00:03<00:28,  1.97it/s][A[A
-
-validation_step:  12%|â–ˆâ–Ž        | 8/64 [00:03<00:28,  1.95it/s][A[A
-
-validation_step:  14%|â–ˆâ–�        | 9/64 [00:04<00:28,  1.93it/s][A[A
-
-validation_step:  16%|â–ˆâ–Œ        | 10/64 [00:05<00:28,  1.92it/s][A[A
-
-validation_step:  17%|â–ˆâ–‹        | 11/64 [00:05<00:27,  1.94it/s][A[A
-
-validation_step:  19%|â–ˆâ–‰        | 12/64 [00:06<00:26,  1.97it/s][A[A
-
-validation_step:  20%|â–ˆâ–ˆ        | 13/64 [00:06<00:25,  1.99it/s][A[A
-
-validation_step:  22%|â–ˆâ–ˆâ–�       | 14/64 [00:07<00:25,  1.94it/s][A[A
-
-validation_step:  23%|â–ˆâ–ˆâ–Ž       | 15/64 [00:07<00:25,  1.91it/s][A[A
-
-validation_step:  25%|â–ˆâ–ˆâ–Œ       | 16/64 [00:08<00:25,  1.92it/s][A[A
-
-validation_step:  27%|â–ˆâ–ˆâ–‹       | 17/64 [00:08<00:24,  1.92it/s][A[A
-
-validation_step:  28%|â–ˆâ–ˆâ–Š       | 18/64 [00:09<00:24,  1.88it/s][A[A
-
-validation_step:  30%|â–ˆâ–ˆâ–‰       | 19/64 [00:09<00:23,  1.92it/s][A[A
-
-validation_step:  31%|â–ˆâ–ˆâ–ˆâ–�      | 20/64 [00:10<00:22,  1.93it/s][A[A
-
-validation_step:  33%|â–ˆâ–ˆâ–ˆâ–Ž      | 21/64 [00:10<00:22,  1.93it/s][A[A
-
-validation_step:  34%|â–ˆâ–ˆâ–ˆâ–�      | 22/64 [00:11<00:21,  1.95it/s][A[A
-
-validation_step:  36%|â–ˆâ–ˆâ–ˆâ–Œ      | 23/64 [00:11<00:21,  1.95it/s][A[A
-
-validation_step:  38%|â–ˆâ–ˆâ–ˆâ–Š      | 24/64 [00:12<00:21,  1.90it/s][A[A
-
-validation_step:  39%|â–ˆâ–ˆâ–ˆâ–‰      | 25/64 [00:12<00:19,  1.98it/s][A[A
-
-validation_step:  41%|â–ˆâ–ˆâ–ˆâ–ˆ      | 26/64 [00:13<00:19,  1.93it/s][A[A
-
-validation_step:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 27/64 [00:13<00:18,  1.95it/s][A[A
-
-validation_step:  44%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 28/64 [00:14<00:18,  1.97it/s][A[A
-
-validation_step:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 29/64 [00:14<00:18,  1.91it/s][A[A
-
-validation_step:  47%|â–ˆâ–ˆâ–ˆâ–ˆâ–‹     | 30/64 [00:15<00:17,  1.95it/s][A[A
-
-validation_step:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 31/64 [00:15<00:16,  1.98it/s][A[A
-
-validation_step:  50%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     | 32/64 [00:16<00:16,  1.92it/s][A[A
-
-validation_step:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 33/64 [00:16<00:16,  1.90it/s][A[A
-
-validation_step:  53%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž    | 34/64 [00:17<00:16,  1.87it/s][A[A
-
-validation_step:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 35/64 [00:17<00:15,  1.91it/s][A[A
-
-validation_step:  56%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹    | 36/64 [00:18<00:14,  1.99it/s][A[A
-
-validation_step:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 37/64 [00:18<00:13,  2.00it/s][A[A
-
-validation_step:  59%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰    | 38/64 [00:19<00:13,  1.99it/s][A[A
-
-validation_step:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    | 39/64 [00:19<00:12,  1.99it/s][A[A
-
-validation_step:  62%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž   | 40/64 [00:20<00:12,  1.98it/s][A[A
-
-validation_step:  64%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 41/64 [00:20<00:11,  1.96it/s][A[A
-
-validation_step:  66%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ   | 42/64 [00:21<00:11,  1.96it/s][A[A
-
-validation_step:  67%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹   | 43/64 [00:21<00:10,  1.99it/s][A[A
-
-validation_step:  69%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰   | 44/64 [00:22<00:10,  1.98it/s][A[A
-
-validation_step:  70%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 45/64 [00:22<00:09,  1.98it/s][A[A
-
-validation_step:  72%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 46/64 [00:23<00:08,  2.00it/s][A[A
-
-validation_step:  73%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž  | 47/64 [00:23<00:08,  1.98it/s][A[A
-
-validation_step:  75%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ  | 48/64 [00:24<00:08,  1.96it/s][A[A
-
-validation_step:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 49/64 [00:24<00:07,  1.97it/s][A[A
-
-validation_step:  78%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š  | 50/64 [00:25<00:07,  2.00it/s][A[A
-
-validation_step:  80%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰  | 51/64 [00:25<00:06,  1.99it/s][A[A
-
-validation_step:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 52/64 [00:26<00:06,  1.98it/s][A[A
-
-validation_step:  83%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž | 53/64 [00:26<00:05,  1.98it/s][A[A
-
-validation_step:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 54/64 [00:27<00:04,  2.03it/s][A[A
-
-validation_step:  86%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ | 55/64 [00:28<00:04,  1.92it/s][A[A
-
-validation_step:  88%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š | 56/64 [00:28<00:04,  1.96it/s][A[A
-
-validation_step:  89%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰ | 57/64 [00:29<00:03,  1.95it/s][A[A
-
-validation_step:  91%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 58/64 [00:29<00:03,  1.91it/s][A[A
-
-validation_step:  92%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 59/64 [00:30<00:02,  1.94it/s][A[A
-
-validation_step:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 60/64 [00:30<00:02,  1.96it/s][A[A
-
-validation_step:  95%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ| 61/64 [00:31<00:01,  2.02it/s][A[A
-
-validation_step:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 62/64 [00:31<00:00,  2.03it/s][A[A
-
-validation_step:  98%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š| 63/64 [00:32<00:00,  2.01it/s][A[A
-
-validation_step: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 64/64 [00:32<00:00,  2.01it/s][A[Avalidation_step: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 64/64 [00:32<00:00,  1.97it/s]
-
-step:  35%|â–ˆâ–ˆâ–ˆâ–�      | 33/95 [10:06<14:45, 14.29s/it, loss=0.112, smooth loss=0.103][A
-step:  35%|â–ˆâ–ˆâ–ˆâ–�      | 33/95 [10:30<14:45, 14.29s/it, loss=0.119, smooth loss=0.103][A
-step:  36%|â–ˆâ–ˆâ–ˆâ–Œ      | 34/95 [10:30<17:33, 17.27s/it, loss=0.119, smooth loss=0.103][A
-step:  36%|â–ˆâ–ˆâ–ˆâ–Œ      | 34/95 [10:34<17:33, 17.27s/it, loss=0.0852, smooth loss=0.103][A
-step:  37%|â–ˆâ–ˆâ–ˆâ–‹      | 35/95 [10:34<13:20, 13.33s/it, loss=0.0852, smooth loss=0.103][A
-step:  37%|â–ˆâ–ˆâ–ˆâ–‹      | 35/95 [10:38<13:20, 13.33s/it, loss=0.084, smooth loss=0.102] [A
-step:  38%|â–ˆâ–ˆâ–ˆâ–Š      | 36/95 [10:38<10:23, 10.57s/it, loss=0.084, smooth loss=0.102][A
-step:  38%|â–ˆâ–ˆâ–ˆâ–Š      | 36/95 [10:42<10:23, 10.57s/it, loss=0.0813, smooth loss=0.102][A
-step:  39%|â–ˆâ–ˆâ–ˆâ–‰      | 37/95 [10:42<08:13,  8.51s/it, loss=0.0813, smooth loss=0.102][A
-step:  39%|â–ˆâ–ˆâ–ˆâ–‰      | 37/95 [10:46<08:13,  8.51s/it, loss=0.105, smooth loss=0.102] [A
-step:  40%|â–ˆâ–ˆâ–ˆâ–ˆ      | 38/95 [10:46<06:45,  7.11s/it, loss=0.105, smooth loss=0.102][A
-step:  40%|â–ˆâ–ˆâ–ˆâ–ˆ      | 38/95 [10:49<06:45,  7.11s/it, loss=0.114, smooth loss=0.102][A
-step:  41%|â–ˆâ–ˆâ–ˆâ–ˆ      | 39/95 [10:49<05:41,  6.10s/it, loss=0.114, smooth loss=0.102][A
-step:  41%|â–ˆâ–ˆâ–ˆâ–ˆ      | 39/95 [10:53<05:41,  6.10s/it, loss=0.0848, smooth loss=0.102][A
-step:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 40/95 [10:53<04:56,  5.39s/it, loss=0.0848, smooth loss=0.102][A
-step:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 40/95 [10:57<04:56,  5.39s/it, loss=0.0599, smooth loss=0.101][A
-step:  43%|â–ˆâ–ˆâ–ˆâ–ˆâ–Ž     | 41/95 [10:57<04:28,  4.98s/it, loss=0.0599, smooth loss=0.101][A
-step:  43%|â–ˆâ–ˆâ–ˆâ–ˆâ–Ž     | 41/95 [11:02<04:28,  4.98s/it, loss=0.0889, smooth loss=0.1]  [A
-step:  44%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 42/95 [11:02<04:17,  4.86s/it, loss=0.0889, smooth loss=0.1][A
-step:  44%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 42/95 [11:06<04:17,  4.86s/it, loss=0.105, smooth loss=0.101][A
-step:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 43/95 [11:06<04:07,  4.76s/it, loss=0.105, smooth loss=0.101][A
-step:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 43/95 [11:11<04:07,  4.76s/it, loss=0.102, smooth loss=0.101][A
-step:  46%|â–ˆâ–ˆâ–ˆâ–ˆâ–‹     | 44/95 [11:11<03:59,  4.70s/it, loss=0.102, smooth loss=0.101][A
-step:  46%|â–ˆâ–ˆâ–ˆâ–ˆâ–‹     | 44/95 [11:15<03:59,  4.70s/it, loss=0.107, smooth loss=0.101][A
-step:  47%|â–ˆâ–ˆâ–ˆâ–ˆâ–‹     | 45/95 [11:15<03:51,  4.63s/it, loss=0.107, smooth loss=0.101][A
-step:  47%|â–ˆâ–ˆâ–ˆâ–ˆâ–‹     | 45/95 [11:19<03:51,  4.63s/it, loss=0.113, smooth loss=0.101][A
-step:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 46/95 [11:19<03:38,  4.45s/it, loss=0.113, smooth loss=0.101][A
-step:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 46/95 [11:23<03:38,  4.45s/it, loss=0.0747, smooth loss=0.1] [A
-step:  49%|â–ˆâ–ˆâ–ˆâ–ˆâ–‰     | 47/95 [11:23<03:28,  4.34s/it, loss=0.0747, smooth loss=0.1][A
-step:  49%|â–ˆâ–ˆâ–ˆâ–ˆâ–‰     | 47/95 [11:27<03:28,  4.34s/it, loss=0.0735, smooth loss=0.0999][A
-step:  51%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     | 48/95 [11:27<03:15,  4.16s/it, loss=0.0735, smooth loss=0.0999][A
-step:  51%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     | 48/95 [11:31<03:15,  4.16s/it, loss=0.0731, smooth loss=0.0993][A
-step:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 49/95 [11:31<03:05,  4.04s/it, loss=0.0731, smooth loss=0.0993][A
-step:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 49/95 [11:35<03:05,  4.04s/it, loss=0.122, smooth loss=0.0998] [A
-step:  53%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž    | 50/95 [11:35<03:04,  4.10s/it, loss=0.122, smooth loss=0.0998][A
-step:  53%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž    | 50/95 [11:39<03:04,  4.10s/it, loss=0.109, smooth loss=0.1]   [A
-step:  54%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž    | 51/95 [11:39<03:01,  4.13s/it, loss=0.109, smooth loss=0.1][A
-step:  54%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž    | 51/95 [11:44<03:01,  4.13s/it, loss=0.131, smooth loss=0.101][A
-step:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 52/95 [11:44<02:58,  4.16s/it, loss=0.131, smooth loss=0.101][A
-step:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 52/95 [11:47<02:58,  4.16s/it, loss=0.109, smooth loss=0.101][A
-step:  56%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ    | 53/95 [11:47<02:50,  4.07s/it, loss=0.109, smooth loss=0.101][A
-step:  56%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ    | 53/95 [11:51<02:50,  4.07s/it, loss=0.0942, smooth loss=0.101][A
-step:  57%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹    | 54/95 [11:51<02:43,  4.00s/it, loss=0.0942, smooth loss=0.101][A
-step:  57%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹    | 54/95 [11:55<02:43,  4.00s/it, loss=0.0974, smooth loss=0.101][A
-step:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 55/95 [11:55<02:40,  4.01s/it, loss=0.0974, smooth loss=0.101][A
-step:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 55/95 [12:02<02:40,  4.01s/it, loss=0.0794, smooth loss=0.1]  [A
-step:  59%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰    | 56/95 [12:02<03:12,  4.93s/it, loss=0.0794, smooth loss=0.1][A
-step:  59%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰    | 56/95 [12:06<03:12,  4.93s/it, loss=0.0802, smooth loss=0.0998][A
-step:  60%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    | 57/95 [12:06<02:55,  4.62s/it, loss=0.0802, smooth loss=0.0998][A
-step:  60%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    | 57/95 [12:10<02:55,  4.62s/it, loss=0.0954, smooth loss=0.0997][A
-step:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    | 58/95 [12:10<02:46,  4.49s/it, loss=0.0954, smooth loss=0.0997][A
-step:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    | 58/95 [12:14<02:46,  4.49s/it, loss=0.0826, smooth loss=0.0995][A
-step:  62%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 59/95 [12:14<02:35,  4.31s/it, loss=0.0826, smooth loss=0.0995][A
-step:  62%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 59/95 [12:38<02:35,  4.31s/it, loss=0.108, smooth loss=0.0996] [A
-step:  63%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž   | 60/95 [12:38<05:57, 10.22s/it, loss=0.108, smooth loss=0.0996][A
-step:  63%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž   | 60/95 [12:42<05:57, 10.22s/it, loss=0.0932, smooth loss=0.0995][A
-step:  64%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 61/95 [12:42<04:42,  8.31s/it, loss=0.0932, smooth loss=0.0995][A
-step:  64%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 61/95 [12:46<04:42,  8.31s/it, loss=0.096, smooth loss=0.0994] [A
-step:  65%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ   | 62/95 [12:46<03:52,  7.03s/it, loss=0.096, smooth loss=0.0994][A
-step:  65%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ   | 62/95 [12:50<03:52,  7.03s/it, loss=0.0727, smooth loss=0.099][A
-step:  66%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹   | 63/95 [12:50<03:16,  6.13s/it, loss=0.0727, smooth loss=0.099][A
-step:  66%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹   | 63/95 [12:55<03:16,  6.13s/it, loss=0.1, smooth loss=0.099]   [A
-step:  67%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹   | 64/95 [12:55<02:52,  5.56s/it, loss=0.1, smooth loss=0.099][A
-step:  67%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹   | 64/95 [12:58<02:52,  5.56s/it, loss=0.0682, smooth loss=0.0985][A
-
-validation_step:   0%|          | 0/64 [00:00<?, ?it/s][A[A
-
-validation_step:   2%|â–�         | 1/64 [00:00<00:25,  2.45it/s][A[A
-
-validation_step:   3%|â–Ž         | 2/64 [00:00<00:29,  2.11it/s][A[A
-
-validation_step:   5%|â–�         | 3/64 [00:01<00:30,  1.97it/s][A[A
-
-validation_step:   6%|â–‹         | 4/64 [00:01<00:29,  2.00it/s][A[A
-
-validation_step:   8%|â–Š         | 5/64 [00:02<00:29,  2.01it/s][A[A
-
-validation_step:   9%|â–‰         | 6/64 [00:02<00:29,  1.99it/s][A[A
-
-validation_step:  11%|â–ˆ         | 7/64 [00:03<00:28,  2.01it/s][A[A
-
-validation_step:  12%|â–ˆâ–Ž        | 8/64 [00:04<00:28,  1.93it/s][A[A
-
-validation_step:  14%|â–ˆâ–�        | 9/64 [00:04<00:28,  1.96it/s][A[A
-
-validation_step:  16%|â–ˆâ–Œ        | 10/64 [00:04<00:26,  2.02it/s][A[A
-
-validation_step:  17%|â–ˆâ–‹        | 11/64 [00:05<00:26,  1.99it/s][A[A
-
-validation_step:  19%|â–ˆâ–‰        | 12/64 [00:06<00:26,  1.96it/s][A[A
-
-validation_step:  20%|â–ˆâ–ˆ        | 13/64 [00:06<00:26,  1.91it/s][A[A
-
-validation_step:  22%|â–ˆâ–ˆâ–�       | 14/64 [00:07<00:25,  1.96it/s][A[A
-
-validation_step:  23%|â–ˆâ–ˆâ–Ž       | 15/64 [00:07<00:25,  1.90it/s][A[A
-
-validation_step:  25%|â–ˆâ–ˆâ–Œ       | 16/64 [00:08<00:24,  1.93it/s][A[A
-
-validation_step:  27%|â–ˆâ–ˆâ–‹       | 17/64 [00:08<00:24,  1.93it/s][A[A
-
-validation_step:  28%|â–ˆâ–ˆâ–Š       | 18/64 [00:09<00:22,  2.01it/s][A[A
-
-validation_step:  30%|â–ˆâ–ˆâ–‰       | 19/64 [00:09<00:22,  2.01it/s][A[A
-
-validation_step:  31%|â–ˆâ–ˆâ–ˆâ–�      | 20/64 [00:10<00:21,  2.00it/s][A[A
-
-validation_step:  33%|â–ˆâ–ˆâ–ˆâ–Ž      | 21/64 [00:10<00:21,  2.01it/s][A[A
-
-validation_step:  34%|â–ˆâ–ˆâ–ˆâ–�      | 22/64 [00:11<00:21,  1.99it/s][A[A
-
-validation_step:  36%|â–ˆâ–ˆâ–ˆâ–Œ      | 23/64 [00:11<00:20,  1.98it/s][A[A
-
-validation_step:  38%|â–ˆâ–ˆâ–ˆâ–Š      | 24/64 [00:12<00:20,  1.98it/s][A[A
-
-validation_step:  39%|â–ˆâ–ˆâ–ˆâ–‰      | 25/64 [00:12<00:19,  1.99it/s][A[A
-
-validation_step:  41%|â–ˆâ–ˆâ–ˆâ–ˆ      | 26/64 [00:13<00:19,  1.93it/s][A[A
-
-validation_step:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 27/64 [00:13<00:18,  1.96it/s][A[A
-
-validation_step:  44%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 28/64 [00:14<00:18,  1.95it/s][A[A
-
-validation_step:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 29/64 [00:14<00:17,  1.95it/s][A[A
-
-validation_step:  47%|â–ˆâ–ˆâ–ˆâ–ˆâ–‹     | 30/64 [00:15<00:16,  2.01it/s][A[A
-
-validation_step:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 31/64 [00:15<00:16,  1.99it/s][A[A
-
-validation_step:  50%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     | 32/64 [00:16<00:16,  2.00it/s][A[A
-
-validation_step:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 33/64 [00:16<00:15,  2.04it/s][A[A
-
-validation_step:  53%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž    | 34/64 [00:17<00:15,  1.97it/s][A[A
-
-validation_step:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 35/64 [00:17<00:14,  1.97it/s][A[A
-
-validation_step:  56%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹    | 36/64 [00:18<00:14,  1.98it/s][A[A
-
-validation_step:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 37/64 [00:18<00:13,  2.02it/s][A[A
-
-validation_step:  59%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰    | 38/64 [00:19<00:12,  2.03it/s][A[A
-
-validation_step:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    | 39/64 [00:19<00:12,  2.02it/s][A[A
-
-validation_step:  62%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž   | 40/64 [00:20<00:11,  2.02it/s][A[A
-
-validation_step:  64%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 41/64 [00:20<00:11,  2.02it/s][A[A
-
-validation_step:  66%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ   | 42/64 [00:21<00:10,  2.03it/s][A[A
-
-validation_step:  67%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹   | 43/64 [00:21<00:10,  2.07it/s][A[A
-
-validation_step:  69%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰   | 44/64 [00:22<00:09,  2.03it/s][A[A
-
-validation_step:  70%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 45/64 [00:22<00:09,  1.94it/s][A[A
-
-validation_step:  72%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 46/64 [00:23<00:09,  1.94it/s][A[A
-
-validation_step:  73%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž  | 47/64 [00:23<00:08,  1.93it/s][A[A
-
-validation_step:  75%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ  | 48/64 [00:24<00:08,  1.90it/s][A[A
-
-validation_step:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 49/64 [00:24<00:08,  1.83it/s][A[A
-
-validation_step:  78%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š  | 50/64 [00:25<00:07,  1.84it/s][A[A
-
-validation_step:  80%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰  | 51/64 [00:25<00:07,  1.83it/s][A[A
-
-validation_step:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 52/64 [00:26<00:06,  1.83it/s][A[A
-
-validation_step:  83%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž | 53/64 [00:27<00:05,  1.85it/s][A[A
-
-validation_step:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 54/64 [00:27<00:05,  1.83it/s][A[A
-
-validation_step:  86%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ | 55/64 [00:28<00:04,  1.85it/s][A[A
-
-validation_step:  88%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š | 56/64 [00:28<00:04,  1.81it/s][A[A
-
-validation_step:  89%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰ | 57/64 [00:29<00:03,  1.86it/s][A[A
-
-validation_step:  91%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 58/64 [00:29<00:03,  1.81it/s][A[A
-
-validation_step:  92%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 59/64 [00:30<00:02,  1.83it/s][A[A
-
-validation_step:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 60/64 [00:30<00:02,  1.79it/s][A[A
-
-validation_step:  95%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ| 61/64 [00:31<00:01,  1.79it/s][A[A
-
-validation_step:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 62/64 [00:31<00:01,  1.81it/s][A[A
-
-validation_step:  98%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š| 63/64 [00:32<00:00,  1.85it/s][A[A
-
-validation_step: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 64/64 [00:32<00:00,  1.89it/s][A[Avalidation_step: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 64/64 [00:32<00:00,  1.94it/s]
-
-step:  68%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š   | 65/95 [13:32<07:30, 15.02s/it, loss=0.0682, smooth loss=0.0985][A
-step:  68%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š   | 65/95 [13:36<07:30, 15.02s/it, loss=0.0847, smooth loss=0.0983][A
-step:  69%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰   | 66/95 [13:36<05:40, 11.74s/it, loss=0.0847, smooth loss=0.0983][A
-step:  69%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰   | 66/95 [13:40<05:40, 11.74s/it, loss=0.116, smooth loss=0.0986] [A
-step:  71%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 67/95 [13:40<04:25,  9.49s/it, loss=0.116, smooth loss=0.0986][A
-step:  71%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 67/95 [13:44<04:25,  9.49s/it, loss=0.0954, smooth loss=0.0986][A
-step:  72%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 68/95 [13:44<03:30,  7.80s/it, loss=0.0954, smooth loss=0.0986][A
-step:  72%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 68/95 [13:48<03:30,  7.80s/it, loss=0.124, smooth loss=0.0989] [A
-step:  73%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž  | 69/95 [13:48<02:57,  6.82s/it, loss=0.124, smooth loss=0.0989][A
-step:  73%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž  | 69/95 [13:53<02:57,  6.82s/it, loss=0.0818, smooth loss=0.0987][A
-step:  74%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž  | 70/95 [13:53<02:31,  6.04s/it, loss=0.0818, smooth loss=0.0987][A
-step:  74%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž  | 70/95 [13:57<02:31,  6.04s/it, loss=0.0618, smooth loss=0.0982][A
-step:  75%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 71/95 [13:57<02:10,  5.46s/it, loss=0.0618, smooth loss=0.0982][A
-step:  75%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 71/95 [14:01<02:10,  5.46s/it, loss=0.14, smooth loss=0.0987]  [A
-step:  76%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ  | 72/95 [14:01<01:55,  5.02s/it, loss=0.14, smooth loss=0.0987][A
-step:  76%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ  | 72/95 [14:05<01:55,  5.02s/it, loss=0.121, smooth loss=0.0991][A
-step:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 73/95 [14:05<01:44,  4.73s/it, loss=0.121, smooth loss=0.0991][A
-step:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 73/95 [14:08<01:44,  4.73s/it, loss=0.0595, smooth loss=0.0985][A
-step:  78%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š  | 74/95 [14:08<01:33,  4.44s/it, loss=0.0595, smooth loss=0.0985][A
-step:  78%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š  | 74/95 [14:12<01:33,  4.44s/it, loss=0.0662, smooth loss=0.0981][A
-step:  79%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰  | 75/95 [14:12<01:25,  4.25s/it, loss=0.0662, smooth loss=0.0981][A
-step:  79%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰  | 75/95 [14:16<01:25,  4.25s/it, loss=0.0838, smooth loss=0.0979][A
-step:  80%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 76/95 [14:16<01:19,  4.16s/it, loss=0.0838, smooth loss=0.0979][A
-step:  80%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 76/95 [14:20<01:19,  4.16s/it, loss=0.0768, smooth loss=0.0976][A
-step:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 77/95 [14:20<01:14,  4.12s/it, loss=0.0768, smooth loss=0.0976][A
-step:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 77/95 [14:24<01:14,  4.12s/it, loss=0.0731, smooth loss=0.0973][A
-step:  82%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 78/95 [14:24<01:09,  4.08s/it, loss=0.0731, smooth loss=0.0973][A
-step:  82%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 78/95 [14:28<01:09,  4.08s/it, loss=0.115, smooth loss=0.0975] [A
-step:  83%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž | 79/95 [14:28<01:04,  4.05s/it, loss=0.115, smooth loss=0.0975][A
-step:  83%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž | 79/95 [14:32<01:04,  4.05s/it, loss=0.161, smooth loss=0.0983][A
-step:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 80/95 [14:32<01:01,  4.09s/it, loss=0.161, smooth loss=0.0983][A
-step:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 80/95 [14:36<01:01,  4.09s/it, loss=0.125, smooth loss=0.0987][A
-step:  85%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ | 81/95 [14:36<00:56,  4.02s/it, loss=0.125, smooth loss=0.0987][A
-step:  85%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ | 81/95 [14:40<00:56,  4.02s/it, loss=0.115, smooth loss=0.0989][A
-step:  86%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 82/95 [14:40<00:52,  4.04s/it, loss=0.115, smooth loss=0.0989][A
-step:  86%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 82/95 [14:44<00:52,  4.04s/it, loss=0.106, smooth loss=0.099] [A
-step:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 83/95 [14:44<00:47,  3.99s/it, loss=0.106, smooth loss=0.099][A
-step:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 83/95 [14:48<00:47,  3.99s/it, loss=0.0673, smooth loss=0.0986][A
-step:  88%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š | 84/95 [14:48<00:44,  4.00s/it, loss=0.0673, smooth loss=0.0986][A
-step:  88%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š | 84/95 [14:52<00:44,  4.00s/it, loss=0.113, smooth loss=0.0988] [A
-step:  89%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰ | 85/95 [14:52<00:39,  3.93s/it, loss=0.113, smooth loss=0.0988][A
-step:  89%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰ | 85/95 [14:56<00:39,  3.93s/it, loss=0.11, smooth loss=0.0989] [A
-step:  91%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 86/95 [14:56<00:35,  3.93s/it, loss=0.11, smooth loss=0.0989][A
-step:  91%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 86/95 [15:00<00:35,  3.93s/it, loss=0.118, smooth loss=0.0991][A
-step:  92%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 87/95 [15:00<00:31,  3.91s/it, loss=0.118, smooth loss=0.0991][A
-step:  92%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 87/95 [15:04<00:31,  3.91s/it, loss=0.112, smooth loss=0.0993][A
-step:  93%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 88/95 [15:04<00:27,  3.95s/it, loss=0.112, smooth loss=0.0993][A
-step:  93%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 88/95 [15:08<00:27,  3.95s/it, loss=0.11, smooth loss=0.0994] [A
-step:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 89/95 [15:08<00:24,  4.12s/it, loss=0.11, smooth loss=0.0994][A
-step:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 89/95 [15:13<00:24,  4.12s/it, loss=0.071, smooth loss=0.0991][A
-step:  95%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 90/95 [15:13<00:20,  4.14s/it, loss=0.071, smooth loss=0.0991][A
-step:  95%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 90/95 [15:36<00:20,  4.14s/it, loss=0.0955, smooth loss=0.099][A
-step:  96%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ| 91/95 [15:36<00:39,  9.81s/it, loss=0.0955, smooth loss=0.099][A
-step:  96%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ| 91/95 [15:40<00:39,  9.81s/it, loss=0.104, smooth loss=0.0991][A
-step:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 92/95 [15:40<00:24,  8.06s/it, loss=0.104, smooth loss=0.0991][A
-step:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 92/95 [15:43<00:24,  8.06s/it, loss=0.0825, smooth loss=0.0989][A
-step:  98%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š| 93/95 [15:43<00:13,  6.81s/it, loss=0.0825, smooth loss=0.0989][A
-step:  98%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š| 93/95 [15:47<00:13,  6.81s/it, loss=0.0859, smooth loss=0.0988][A
-step:  99%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰| 94/95 [15:47<00:05,  5.94s/it, loss=0.0859, smooth loss=0.0988][A
-step:  99%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰| 94/95 [15:51<00:05,  5.94s/it, loss=0.0874, smooth loss=0.0986][A
-step: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 95/95 [15:51<00:00,  5.31s/it, loss=0.0874, smooth loss=0.0986][Astep: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 95/95 [15:51<00:00, 10.02s/it, loss=0.0874, smooth loss=0.0986]
-epoch:  50%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     | 1/2 [15:53<15:53, 953.73s/it]
-step:   0%|          | 0/95 [00:00<?, ?it/s][A
-step:   0%|          | 0/95 [00:03<?, ?it/s, loss=0.0614, smooth loss=0.0983][A
-step:   1%|          | 1/95 [00:03<06:07,  3.90s/it, loss=0.0614, smooth loss=0.0983][A
-step:   1%|          | 1/95 [00:08<06:07,  3.90s/it, loss=0.0891, smooth loss=0.0982][A
-
-validation_step:   0%|          | 0/64 [00:00<?, ?it/s][A[A
-
-validation_step:   2%|â–�         | 1/64 [00:00<00:27,  2.30it/s][A[A
-
-validation_step:   3%|â–Ž         | 2/64 [00:00<00:29,  2.11it/s][A[A
-
-validation_step:   5%|â–�         | 3/64 [00:01<00:29,  2.07it/s][A[A
-
-validation_step:   6%|â–‹         | 4/64 [00:01<00:29,  2.01it/s][A[A
-
-validation_step:   8%|â–Š         | 5/64 [00:02<00:29,  2.00it/s][A[A
-
-validation_step:   9%|â–‰         | 6/64 [00:02<00:29,  1.99it/s][A[A
-
-validation_step:  11%|â–ˆ         | 7/64 [00:03<00:29,  1.96it/s][A[A
-
-validation_step:  12%|â–ˆâ–Ž        | 8/64 [00:04<00:29,  1.90it/s][A[A
-
-validation_step:  14%|â–ˆâ–�        | 9/64 [00:04<00:28,  1.91it/s][A[A
-
-validation_step:  16%|â–ˆâ–Œ        | 10/64 [00:05<00:27,  1.95it/s][A[A
-
-validation_step:  17%|â–ˆâ–‹        | 11/64 [00:05<00:27,  1.95it/s][A[A
-
-validation_step:  19%|â–ˆâ–‰        | 12/64 [00:06<00:27,  1.91it/s][A[A
-
-validation_step:  20%|â–ˆâ–ˆ        | 13/64 [00:06<00:26,  1.94it/s][A[A
-
-validation_step:  22%|â–ˆâ–ˆâ–�       | 14/64 [00:07<00:25,  1.95it/s][A[A
-
-validation_step:  23%|â–ˆâ–ˆâ–Ž       | 15/64 [00:07<00:24,  1.97it/s][A[A
-
-validation_step:  25%|â–ˆâ–ˆâ–Œ       | 16/64 [00:08<00:24,  1.96it/s][A[A
-
-validation_step:  27%|â–ˆâ–ˆâ–‹       | 17/64 [00:08<00:23,  1.98it/s][A[A
-
-validation_step:  28%|â–ˆâ–ˆâ–Š       | 18/64 [00:09<00:22,  2.00it/s][A[A
-
-validation_step:  30%|â–ˆâ–ˆâ–‰       | 19/64 [00:09<00:22,  2.04it/s][A[A
-
-validation_step:  31%|â–ˆâ–ˆâ–ˆâ–�      | 20/64 [00:10<00:21,  2.02it/s][A[A
-
-validation_step:  33%|â–ˆâ–ˆâ–ˆâ–Ž      | 21/64 [00:10<00:21,  2.03it/s][A[A
-
-validation_step:  34%|â–ˆâ–ˆâ–ˆâ–�      | 22/64 [00:11<00:21,  1.99it/s][A[A
-
-validation_step:  36%|â–ˆâ–ˆâ–ˆâ–Œ      | 23/64 [00:11<00:20,  2.01it/s][A[A
-
-validation_step:  38%|â–ˆâ–ˆâ–ˆâ–Š      | 24/64 [00:12<00:19,  2.05it/s][A[A
-
-validation_step:  39%|â–ˆâ–ˆâ–ˆâ–‰      | 25/64 [00:12<00:19,  2.05it/s][A[A
-
-validation_step:  41%|â–ˆâ–ˆâ–ˆâ–ˆ      | 26/64 [00:13<00:19,  1.97it/s][A[A
-
-validation_step:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 27/64 [00:13<00:19,  1.92it/s][A[A
-
-validation_step:  44%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 28/64 [00:14<00:18,  1.93it/s][A[A
-
-validation_step:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 29/64 [00:14<00:17,  1.95it/s][A[A
-
-validation_step:  47%|â–ˆâ–ˆâ–ˆâ–ˆâ–‹     | 30/64 [00:15<00:17,  1.98it/s][A[A
-
-validation_step:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 31/64 [00:15<00:17,  1.90it/s][A[A
-
-validation_step:  50%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     | 32/64 [00:16<00:16,  1.95it/s][A[A
-
-validation_step:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 33/64 [00:16<00:16,  1.87it/s][A[A
-
-validation_step:  53%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž    | 34/64 [00:17<00:16,  1.82it/s][A[A
-
-validation_step:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 35/64 [00:17<00:16,  1.77it/s][A[A
-
-validation_step:  56%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹    | 36/64 [00:18<00:16,  1.74it/s][A[A
-
-validation_step:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 37/64 [00:19<00:15,  1.78it/s][A[A
-
-validation_step:  59%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰    | 38/64 [00:19<00:14,  1.80it/s][A[A
-
-validation_step:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    | 39/64 [00:20<00:14,  1.74it/s][A[A
-
-validation_step:  62%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž   | 40/64 [00:20<00:13,  1.78it/s][A[A
-
-validation_step:  64%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 41/64 [00:21<00:12,  1.77it/s][A[A
-
-validation_step:  66%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ   | 42/64 [00:21<00:12,  1.74it/s][A[A
-
-validation_step:  67%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹   | 43/64 [00:22<00:12,  1.74it/s][A[A
-
-validation_step:  69%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰   | 44/64 [00:23<00:11,  1.78it/s][A[A
-
-validation_step:  70%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 45/64 [00:23<00:10,  1.77it/s][A[A
-
-validation_step:  72%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 46/64 [00:24<00:10,  1.76it/s][A[A
-
-validation_step:  73%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž  | 47/64 [00:24<00:09,  1.73it/s][A[A
-
-validation_step:  75%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ  | 48/64 [00:25<00:08,  1.78it/s][A[A
-
-validation_step:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 49/64 [00:25<00:08,  1.78it/s][A[A
-
-validation_step:  78%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š  | 50/64 [00:26<00:08,  1.74it/s][A[A
-
-validation_step:  80%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰  | 51/64 [00:27<00:07,  1.76it/s][A[A
-
-validation_step:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 52/64 [00:27<00:06,  1.81it/s][A[A
-
-validation_step:  83%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž | 53/64 [00:28<00:06,  1.79it/s][A[A
-
-validation_step:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 54/64 [00:28<00:05,  1.79it/s][A[A
-
-validation_step:  86%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ | 55/64 [00:29<00:05,  1.78it/s][A[A
-
-validation_step:  88%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š | 56/64 [00:29<00:04,  1.77it/s][A[A
-
-validation_step:  89%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰ | 57/64 [00:30<00:03,  1.77it/s][A[A
-
-validation_step:  91%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 58/64 [00:30<00:03,  1.78it/s][A[A
-
-validation_step:  92%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 59/64 [00:31<00:02,  1.78it/s][A[A
-
-validation_step:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 60/64 [00:32<00:02,  1.76it/s][A[A
-
-validation_step:  95%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ| 61/64 [00:32<00:01,  1.73it/s][A[A
-
-validation_step:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 62/64 [00:33<00:01,  1.76it/s][A[A
-
-validation_step:  98%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š| 63/64 [00:33<00:00,  1.82it/s][A[A
-
-validation_step: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 64/64 [00:34<00:00,  1.81it/s][A[Avalidation_step: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 64/64 [00:34<00:00,  1.87it/s]
-
-step:   2%|â–�         | 2/95 [00:42<37:46, 24.37s/it, loss=0.0891, smooth loss=0.0982][A
-step:   2%|â–�         | 2/95 [00:46<37:46, 24.37s/it, loss=0.103, smooth loss=0.0982] [A
-step:   3%|â–Ž         | 3/95 [00:46<23:18, 15.20s/it, loss=0.103, smooth loss=0.0982][A
-
-sampling:   0%|          | 0/31 [00:00<?, ?it/s][A[A
-
-sampling:   3%|â–Ž         | 1/31 [00:00<00:28,  1.07it/s][A[A
-
-sampling:   6%|â–‹         | 2/31 [00:01<00:24,  1.16it/s][A[A
-
-sampling:  10%|â–‰         | 3/31 [00:02<00:25,  1.09it/s][A[A
-
-sampling:  13%|â–ˆâ–Ž        | 4/31 [00:03<00:25,  1.06it/s][A[A
-
-sampling:  16%|â–ˆâ–Œ        | 5/31 [00:04<00:24,  1.05it/s][A[A
-
-sampling:  19%|â–ˆâ–‰        | 6/31 [00:05<00:24,  1.04it/s][A[A
-
-sampling:  23%|â–ˆâ–ˆâ–Ž       | 7/31 [00:06<00:23,  1.03it/s][A[A
-
-sampling:  26%|â–ˆâ–ˆâ–Œ       | 8/31 [00:07<00:22,  1.01it/s][A[A
-
-sampling:  29%|â–ˆâ–ˆâ–‰       | 9/31 [00:08<00:22,  1.01s/it][A[A
-
-sampling:  32%|â–ˆâ–ˆâ–ˆâ–�      | 10/31 [00:09<00:21,  1.02s/it][A[A
-
-sampling:  35%|â–ˆâ–ˆâ–ˆâ–Œ      | 11/31 [00:10<00:20,  1.03s/it][A[A
-
-sampling:  39%|â–ˆâ–ˆâ–ˆâ–Š      | 12/31 [00:11<00:19,  1.04s/it][A[A
-
-sampling:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 13/31 [00:12<00:18,  1.04s/it][A[A
-
-sampling:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 14/31 [00:14<00:17,  1.05s/it][A[A
-
-sampling:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 15/31 [00:15<00:16,  1.05s/it][A[A
-
-sampling:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 16/31 [00:16<00:15,  1.04s/it][A[A
-
-sampling:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 17/31 [00:17<00:14,  1.03s/it][A[A
-
-sampling:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 18/31 [00:18<00:13,  1.03s/it][A[A
-
-sampling:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 19/31 [00:19<00:12,  1.03s/it][A[A
-
-sampling:  65%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 20/31 [00:20<00:11,  1.03s/it][A[A
-
-sampling:  68%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š   | 21/31 [00:21<00:10,  1.03s/it][A[A
-
-sampling:  71%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 22/31 [00:22<00:09,  1.01s/it][A[A
-
-sampling:  74%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 23/31 [00:23<00:08,  1.01s/it][A[A
-
-sampling:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 24/31 [00:24<00:07,  1.00s/it][A[A
-
-sampling:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 25/31 [00:25<00:05,  1.00it/s][A[A
-
-sampling:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 26/31 [00:26<00:04,  1.01it/s][A[A
-
-sampling:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 27/31 [00:27<00:03,  1.02it/s][A[A
-
-sampling:  90%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 28/31 [00:28<00:02,  1.03it/s][A[A
-
-sampling:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 29/31 [00:28<00:01,  1.03it/s][A[A
-
-sampling:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 30/31 [00:29<00:00,  1.04it/s][A[A
-
-sampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [00:30<00:00,  1.04it/s][A[Asampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [00:30<00:00,  1.00it/s]
-
-Downloading G:\Auto\OneTrainer\perf_tests\workspace3\Q04_adafactor\samples\0 - akko brown hair red eyes witch u\2026-07-26_16-23-19-training-sample-98-1-3.jpg...
-
-
-sampling:   0%|          | 0/31 [00:00<?, ?it/s][A[A
-
-sampling:   3%|â–Ž         | 1/31 [00:00<00:26,  1.14it/s][A[A
-
-sampling:   6%|â–‹         | 2/31 [00:01<00:23,  1.22it/s][A[A
-
-sampling:  10%|â–‰         | 3/31 [00:02<00:24,  1.14it/s][A[A
-
-sampling:  13%|â–ˆâ–Ž        | 4/31 [00:03<00:24,  1.11it/s][A[A
-
-sampling:  16%|â–ˆâ–Œ        | 5/31 [00:04<00:23,  1.09it/s][A[A
-
-sampling:  19%|â–ˆâ–‰        | 6/31 [00:05<00:23,  1.08it/s][A[A
-
-sampling:  23%|â–ˆâ–ˆâ–Ž       | 7/31 [00:06<00:22,  1.07it/s][A[A
-
-sampling:  26%|â–ˆâ–ˆâ–Œ       | 8/31 [00:07<00:21,  1.07it/s][A[A
-
-sampling:  29%|â–ˆâ–ˆâ–‰       | 9/31 [00:08<00:20,  1.06it/s][A[A
-
-sampling:  32%|â–ˆâ–ˆâ–ˆâ–�      | 10/31 [00:09<00:19,  1.06it/s][A[A
-
-sampling:  35%|â–ˆâ–ˆâ–ˆâ–Œ      | 11/31 [00:10<00:18,  1.06it/s][A[A
-
-sampling:  39%|â–ˆâ–ˆâ–ˆâ–Š      | 12/31 [00:11<00:17,  1.06it/s][A[A
-
-sampling:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 13/31 [00:12<00:17,  1.06it/s][A[A
-
-sampling:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 14/31 [00:13<00:16,  1.06it/s][A[A
-
-sampling:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 15/31 [00:13<00:15,  1.06it/s][A[A
-
-sampling:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 16/31 [00:14<00:14,  1.05it/s][A[A
-
-sampling:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 17/31 [00:15<00:13,  1.05it/s][A[A
-
-sampling:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 18/31 [00:16<00:12,  1.05it/s][A[A
-
-sampling:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 19/31 [00:17<00:11,  1.05it/s][A[A
-
-sampling:  65%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 20/31 [00:18<00:10,  1.05it/s][A[A
-
-sampling:  68%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š   | 21/31 [00:19<00:09,  1.05it/s][A[A
-
-sampling:  71%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 22/31 [00:20<00:08,  1.05it/s][A[A
-
-sampling:  74%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 23/31 [00:21<00:07,  1.05it/s][A[A
-
-sampling:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 24/31 [00:22<00:06,  1.05it/s][A[A
-
-sampling:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 25/31 [00:23<00:05,  1.05it/s][A[A
-
-sampling:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 26/31 [00:24<00:04,  1.05it/s][A[A
-
-sampling:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 27/31 [00:25<00:03,  1.05it/s][A[A
-
-sampling:  90%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 28/31 [00:26<00:02,  1.05it/s][A[A
-
-sampling:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 29/31 [00:27<00:01,  1.05it/s][A[A
-
-sampling:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 30/31 [00:28<00:00,  1.05it/s][A[A
-
-sampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [00:29<00:00,  1.05it/s][A[Asampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [00:29<00:00,  1.06it/s]
-
-
-sampling:   0%|          | 0/31 [00:00<?, ?it/s][A[A
-
-sampling:   3%|â–Ž         | 1/31 [00:00<00:26,  1.15it/s][A[A
-Downloading G:\Auto\OneTrainer\perf_tests\workspace3\Q04_adafactor\samples\1 - a photograph of a red vintage ca\2026-07-26_16-24-09-training-sample-98-1-3.jpg...
-
-
-sampling:   6%|â–‹         | 2/31 [00:01<00:23,  1.23it/s][A[A
-
-sampling:  10%|â–‰         | 3/31 [00:02<00:24,  1.15it/s][A[A
-
-sampling:  13%|â–ˆâ–Ž        | 4/31 [00:03<00:24,  1.12it/s][A[A
-
-sampling:  16%|â–ˆâ–Œ        | 5/31 [00:04<00:23,  1.09it/s][A[A
-
-sampling:  19%|â–ˆâ–‰        | 6/31 [00:05<00:23,  1.06it/s][A[A
-
-sampling:  23%|â–ˆâ–ˆâ–Ž       | 7/31 [00:06<00:23,  1.03it/s][A[A
-
-sampling:  26%|â–ˆâ–ˆâ–Œ       | 8/31 [00:07<00:22,  1.02it/s][A[A
-
-sampling:  29%|â–ˆâ–ˆâ–‰       | 9/31 [00:08<00:21,  1.01it/s][A[A
-
-sampling:  32%|â–ˆâ–ˆâ–ˆâ–�      | 10/31 [00:09<00:20,  1.01it/s][A[A
-
-sampling:  35%|â–ˆâ–ˆâ–ˆâ–Œ      | 11/31 [00:10<00:19,  1.00it/s][A[A
-
-sampling:  39%|â–ˆâ–ˆâ–ˆâ–Š      | 12/31 [00:11<00:19,  1.00s/it][A[A
-
-sampling:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 13/31 [00:12<00:18,  1.01s/it][A[A
-
-sampling:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 14/31 [00:13<00:17,  1.03s/it][A[A
-
-sampling:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 15/31 [00:14<00:16,  1.05s/it][A[A
-
-sampling:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 16/31 [00:15<00:15,  1.06s/it][A[A
-
-sampling:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 17/31 [00:16<00:14,  1.07s/it][A[A
-
-sampling:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 18/31 [00:17<00:13,  1.07s/it][A[A
-
-sampling:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 19/31 [00:19<00:12,  1.06s/it][A[A
-
-sampling:  65%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 20/31 [00:20<00:11,  1.06s/it][A[A
-
-sampling:  68%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š   | 21/31 [00:21<00:10,  1.05s/it][A[A
-
-sampling:  71%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 22/31 [00:22<00:09,  1.04s/it][A[A
-
-sampling:  74%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 23/31 [00:23<00:08,  1.03s/it][A[A
-
-sampling:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 24/31 [00:24<00:07,  1.03s/it][A[A
-
-sampling:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 25/31 [00:25<00:06,  1.02s/it][A[A
-
-sampling:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 26/31 [00:26<00:05,  1.02s/it][A[A
-
-sampling:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 27/31 [00:27<00:04,  1.01s/it][A[A
-
-sampling:  90%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 28/31 [00:28<00:03,  1.00s/it][A[A
-
-sampling:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 29/31 [00:29<00:01,  1.01it/s][A[A
-
-sampling:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 30/31 [00:30<00:00,  1.01it/s][A[A
-
-sampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [00:31<00:00,  1.02it/s][A[Asampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [00:31<00:00,  1.00s/it]
-
-Downloading G:\Auto\OneTrainer\perf_tests\workspace3\Q04_adafactor\samples\2 - extreme close up of a peacock fe\2026-07-26_16-24-50-training-sample-98-1-3.jpg...
-
-
-sampling:   0%|          | 0/31 [00:00<?, ?it/s][A[A
-
-sampling:   3%|â–Ž         | 1/31 [00:00<00:26,  1.15it/s][A[A
-
-sampling:   6%|â–‹         | 2/31 [00:01<00:23,  1.23it/s][A[A
-
-sampling:  10%|â–‰         | 3/31 [00:02<00:24,  1.15it/s][A[A
-
-sampling:  13%|â–ˆâ–Ž        | 4/31 [00:03<00:24,  1.12it/s][A[A
-
-sampling:  16%|â–ˆâ–Œ        | 5/31 [00:04<00:23,  1.10it/s][A[A
-
-sampling:  19%|â–ˆâ–‰        | 6/31 [00:05<00:23,  1.09it/s][A[A
-
-sampling:  23%|â–ˆâ–ˆâ–Ž       | 7/31 [00:06<00:22,  1.08it/s][A[A
-
-sampling:  26%|â–ˆâ–ˆâ–Œ       | 8/31 [00:07<00:21,  1.08it/s][A[A
-
-sampling:  29%|â–ˆâ–ˆâ–‰       | 9/31 [00:08<00:20,  1.07it/s][A[A
-
-sampling:  32%|â–ˆâ–ˆâ–ˆâ–�      | 10/31 [00:09<00:19,  1.07it/s][A[A
-
-sampling:  35%|â–ˆâ–ˆâ–ˆâ–Œ      | 11/31 [00:10<00:18,  1.07it/s][A[A
-
-sampling:  39%|â–ˆâ–ˆâ–ˆâ–Š      | 12/31 [00:11<00:17,  1.07it/s][A[A
-
-sampling:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 13/31 [00:11<00:16,  1.06it/s][A[A
-
-sampling:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 14/31 [00:12<00:15,  1.06it/s][A[A
-
-sampling:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 15/31 [00:13<00:15,  1.06it/s][A[A
-
-sampling:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 16/31 [00:14<00:14,  1.06it/s][A[A
-
-sampling:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 17/31 [00:15<00:13,  1.06it/s][A[A
-
-sampling:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 18/31 [00:16<00:12,  1.06it/s][A[A
-
-sampling:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 19/31 [00:17<00:11,  1.06it/s][A[A
-
-sampling:  65%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 20/31 [00:18<00:10,  1.06it/s][A[A
-
-sampling:  68%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š   | 21/31 [00:19<00:09,  1.06it/s][A[A
-
-sampling:  71%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 22/31 [00:20<00:08,  1.06it/s][A[A
-
-sampling:  74%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 23/31 [00:21<00:07,  1.06it/s][A[A
-
-sampling:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 24/31 [00:22<00:06,  1.06it/s][A[A
-
-sampling:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 25/31 [00:23<00:05,  1.06it/s][A[A
-
-sampling:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 26/31 [00:24<00:04,  1.06it/s][A[A
-
-sampling:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 27/31 [00:25<00:03,  1.06it/s][A[A
-
-sampling:  90%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 28/31 [00:26<00:02,  1.06it/s][A[A
-
-sampling:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 29/31 [00:27<00:01,  1.06it/s][A[A
-
-sampling:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 30/31 [00:28<00:00,  1.06it/s][A[A
-
-sampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [00:28<00:00,  1.06it/s][A[Asampling: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 31/31 [00:28<00:00,  1.07it/s]
-
-Downloading G:\Auto\OneTrainer\perf_tests\workspace3\Q04_adafactor\samples\3 - three ceramic mugs in a row on a\2026-07-26_16-25-32-training-sample-98-1-3.jpg...
-
-step:   3%|â–Ž         | 3/95 [03:46<23:18, 15.20s/it, loss=0.0676, smooth loss=0.0979][A
-step:   4%|â–�         | 4/95 [03:46<2:01:25, 80.06s/it, loss=0.0676, smooth loss=0.0979][A
-step:   4%|â–�         | 4/95 [03:50<2:01:25, 80.06s/it, loss=0.0931, smooth loss=0.0979][A
-step:   5%|â–Œ         | 5/95 [03:50<1:19:01, 52.69s/it, loss=0.0931, smooth loss=0.0979][A
-step:   5%|â–Œ         | 5/95 [03:54<1:19:01, 52.69s/it, loss=0.0754, smooth loss=0.0976][A
-step:   6%|â–‹         | 6/95 [03:54<53:33, 36.11s/it, loss=0.0754, smooth loss=0.0976]  [A
-step:   6%|â–‹         | 6/95 [03:58<53:33, 36.11s/it, loss=0.0869, smooth loss=0.0975][A
-step:   7%|â–‹         | 7/95 [03:58<37:30, 25.57s/it, loss=0.0869, smooth loss=0.0975][A
-step:   7%|â–‹         | 7/95 [04:02<37:30, 25.57s/it, loss=0.123, smooth loss=0.0978] [A
-step:   8%|â–Š         | 8/95 [04:02<27:09, 18.73s/it, loss=0.123, smooth loss=0.0978][A
-step:   8%|â–Š         | 8/95 [04:06<27:09, 18.73s/it, loss=0.123, smooth loss=0.098] [A
-step:   9%|â–‰         | 9/95 [04:06<20:07, 14.04s/it, loss=0.123, smooth loss=0.098][A
-step:   9%|â–‰         | 9/95 [04:10<20:07, 14.04s/it, loss=0.0954, smooth loss=0.098][A
-step:  11%|â–ˆ         | 10/95 [04:10<15:34, 10.99s/it, loss=0.0954, smooth loss=0.098][A
-step:  11%|â–ˆ         | 10/95 [04:14<15:34, 10.99s/it, loss=0.0899, smooth loss=0.0979][A
-step:  12%|â–ˆâ–�        | 11/95 [04:14<12:22,  8.83s/it, loss=0.0899, smooth loss=0.0979][A
-step:  12%|â–ˆâ–�        | 11/95 [04:18<12:22,  8.83s/it, loss=0.102, smooth loss=0.098]  [A
-step:  13%|â–ˆâ–Ž        | 12/95 [04:18<10:23,  7.51s/it, loss=0.102, smooth loss=0.098][A
-step:  13%|â–ˆâ–Ž        | 12/95 [04:22<10:23,  7.51s/it, loss=0.0687, smooth loss=0.0977][A
-step:  14%|â–ˆâ–Ž        | 13/95 [04:22<08:48,  6.44s/it, loss=0.0687, smooth loss=0.0977][A
-step:  14%|â–ˆâ–Ž        | 13/95 [04:26<08:48,  6.44s/it, loss=0.125, smooth loss=0.0979] [A
-step:  15%|â–ˆâ–�        | 14/95 [04:26<07:45,  5.75s/it, loss=0.125, smooth loss=0.0979][A
-step:  15%|â–ˆâ–�        | 14/95 [04:30<07:45,  5.75s/it, loss=0.107, smooth loss=0.098] [A
-step:  16%|â–ˆâ–Œ        | 15/95 [04:30<06:55,  5.19s/it, loss=0.107, smooth loss=0.098][A
-step:  16%|â–ˆâ–Œ        | 15/95 [04:34<06:55,  5.19s/it, loss=0.0892, smooth loss=0.0979][A
-step:  17%|â–ˆâ–‹        | 16/95 [04:34<06:15,  4.75s/it, loss=0.0892, smooth loss=0.0979][A
-step:  17%|â–ˆâ–‹        | 16/95 [04:38<06:15,  4.75s/it, loss=0.086, smooth loss=0.0978] [A
-step:  18%|â–ˆâ–Š        | 17/95 [04:38<05:57,  4.59s/it, loss=0.086, smooth loss=0.0978][A
-step:  18%|â–ˆâ–Š        | 17/95 [04:42<05:57,  4.59s/it, loss=0.107, smooth loss=0.0979][A
-step:  19%|â–ˆâ–‰        | 18/95 [04:42<05:33,  4.33s/it, loss=0.107, smooth loss=0.0979][A
-step:  19%|â–ˆâ–‰        | 18/95 [04:46<05:33,  4.33s/it, loss=0.085, smooth loss=0.0978][A
-step:  20%|â–ˆâ–ˆ        | 19/95 [04:46<05:24,  4.27s/it, loss=0.085, smooth loss=0.0978][A
-step:  20%|â–ˆâ–ˆ        | 19/95 [04:50<05:24,  4.27s/it, loss=0.128, smooth loss=0.0981][A
-step:  21%|â–ˆâ–ˆ        | 20/95 [04:50<05:17,  4.23s/it, loss=0.128, smooth loss=0.0981][A
-step:  21%|â–ˆâ–ˆ        | 20/95 [04:54<05:17,  4.23s/it, loss=0.0901, smooth loss=0.098][A
-step:  22%|â–ˆâ–ˆâ–�       | 21/95 [04:54<05:03,  4.11s/it, loss=0.0901, smooth loss=0.098][A
-step:  22%|â–ˆâ–ˆâ–�       | 21/95 [04:58<05:03,  4.11s/it, loss=0.0841, smooth loss=0.0979][A
-step:  23%|â–ˆâ–ˆâ–Ž       | 22/95 [04:58<04:57,  4.08s/it, loss=0.0841, smooth loss=0.0979][A
-step:  23%|â–ˆâ–ˆâ–Ž       | 22/95 [05:02<04:57,  4.08s/it, loss=0.0895, smooth loss=0.0978][A
-step:  24%|â–ˆâ–ˆâ–�       | 23/95 [05:02<04:46,  3.97s/it, loss=0.0895, smooth loss=0.0978][A
-step:  24%|â–ˆâ–ˆâ–�       | 23/95 [05:06<04:46,  3.97s/it, loss=0.112, smooth loss=0.0979] [A
-step:  25%|â–ˆâ–ˆâ–Œ       | 24/95 [05:06<04:39,  3.93s/it, loss=0.112, smooth loss=0.0979][A
-step:  25%|â–ˆâ–ˆâ–Œ       | 24/95 [05:09<04:39,  3.93s/it, loss=0.138, smooth loss=0.0983][A
-step:  26%|â–ˆâ–ˆâ–‹       | 25/95 [05:09<04:31,  3.87s/it, loss=0.138, smooth loss=0.0983][A
-step:  26%|â–ˆâ–ˆâ–‹       | 25/95 [05:13<04:31,  3.87s/it, loss=0.1, smooth loss=0.0983]  [A
-step:  27%|â–ˆâ–ˆâ–‹       | 26/95 [05:13<04:31,  3.93s/it, loss=0.1, smooth loss=0.0983][A
-step:  27%|â–ˆâ–ˆâ–‹       | 26/95 [05:18<04:31,  3.93s/it, loss=0.118, smooth loss=0.0985][A
-step:  28%|â–ˆâ–ˆâ–Š       | 27/95 [05:18<04:37,  4.08s/it, loss=0.118, smooth loss=0.0985][A
-step:  28%|â–ˆâ–ˆâ–Š       | 27/95 [05:22<04:37,  4.08s/it, loss=0.116, smooth loss=0.0987][A
-step:  29%|â–ˆâ–ˆâ–‰       | 28/95 [05:22<04:33,  4.09s/it, loss=0.116, smooth loss=0.0987][A
-step:  29%|â–ˆâ–ˆâ–‰       | 28/95 [05:26<04:33,  4.09s/it, loss=0.116, smooth loss=0.0989][A
-step:  31%|â–ˆâ–ˆâ–ˆ       | 29/95 [05:26<04:29,  4.08s/it, loss=0.116, smooth loss=0.0989][A
-step:  31%|â–ˆâ–ˆâ–ˆ       | 29/95 [05:31<04:29,  4.08s/it, loss=0.11, smooth loss=0.099]  [A
-step:  32%|â–ˆâ–ˆâ–ˆâ–�      | 30/95 [05:31<04:33,  4.21s/it, loss=0.11, smooth loss=0.099][A
-step:  32%|â–ˆâ–ˆâ–ˆâ–�      | 30/95 [05:34<04:33,  4.21s/it, loss=0.0819, smooth loss=0.0988][A
-step:  33%|â–ˆâ–ˆâ–ˆâ–Ž      | 31/95 [05:34<04:24,  4.13s/it, loss=0.0819, smooth loss=0.0988][A
-step:  33%|â–ˆâ–ˆâ–ˆâ–Ž      | 31/95 [05:38<04:24,  4.13s/it, loss=0.107, smooth loss=0.0989] [A
-step:  34%|â–ˆâ–ˆâ–ˆâ–Ž      | 32/95 [05:38<04:18,  4.10s/it, loss=0.107, smooth loss=0.0989][A
-step:  34%|â–ˆâ–ˆâ–ˆâ–Ž      | 32/95 [05:43<04:18,  4.10s/it, loss=0.0932, smooth loss=0.0988][A
-step:  35%|â–ˆâ–ˆâ–ˆâ–�      | 33/95 [05:43<04:13,  4.08s/it, loss=0.0932, smooth loss=0.0988][A
-step:  35%|â–ˆâ–ˆâ–ˆâ–�      | 33/95 [05:46<04:13,  4.08s/it, loss=0.103, smooth loss=0.0989] [A
-
-validation_step:   0%|          | 0/64 [00:00<?, ?it/s][A[A
-
-validation_step:   2%|â–�         | 1/64 [00:00<00:25,  2.49it/s][A[A
-
-validation_step:   3%|â–Ž         | 2/64 [00:00<00:28,  2.14it/s][A[A
-
-validation_step:   5%|â–�         | 3/64 [00:01<00:29,  2.09it/s][A[A
-
-validation_step:   6%|â–‹         | 4/64 [00:01<00:29,  2.02it/s][A[A
-
-validation_step:   8%|â–Š         | 5/64 [00:02<00:29,  2.02it/s][A[A
-
-validation_step:   9%|â–‰         | 6/64 [00:02<00:29,  1.99it/s][A[A
-
-validation_step:  11%|â–ˆ         | 7/64 [00:03<00:28,  1.98it/s][A[A
-
-validation_step:  12%|â–ˆâ–Ž        | 8/64 [00:03<00:28,  1.97it/s][A[A
-
-validation_step:  14%|â–ˆâ–�        | 9/64 [00:04<00:27,  2.03it/s][A[A
-
-validation_step:  16%|â–ˆâ–Œ        | 10/64 [00:04<00:27,  2.00it/s][A[A
-
-validation_step:  17%|â–ˆâ–‹        | 11/64 [00:05<00:26,  2.01it/s][A[A
-
-validation_step:  19%|â–ˆâ–‰        | 12/64 [00:05<00:25,  2.02it/s][A[A
-
-validation_step:  20%|â–ˆâ–ˆ        | 13/64 [00:06<00:25,  2.01it/s][A[A
-
-validation_step:  22%|â–ˆâ–ˆâ–�       | 14/64 [00:06<00:24,  2.01it/s][A[A
-
-validation_step:  23%|â–ˆâ–ˆâ–Ž       | 15/64 [00:07<00:25,  1.94it/s][A[A
-
-validation_step:  25%|â–ˆâ–ˆâ–Œ       | 16/64 [00:07<00:24,  1.97it/s][A[A
-
-validation_step:  27%|â–ˆâ–ˆâ–‹       | 17/64 [00:08<00:23,  2.01it/s][A[A
-
-validation_step:  28%|â–ˆâ–ˆâ–Š       | 18/64 [00:08<00:23,  2.00it/s][A[A
-
-validation_step:  30%|â–ˆâ–ˆâ–‰       | 19/64 [00:09<00:22,  1.98it/s][A[A
-
-validation_step:  31%|â–ˆâ–ˆâ–ˆâ–�      | 20/64 [00:09<00:21,  2.03it/s][A[A
-
-validation_step:  33%|â–ˆâ–ˆâ–ˆâ–Ž      | 21/64 [00:10<00:21,  2.03it/s][A[A
-
-validation_step:  34%|â–ˆâ–ˆâ–ˆâ–�      | 22/64 [00:10<00:21,  1.96it/s][A[A
-
-validation_step:  36%|â–ˆâ–ˆâ–ˆâ–Œ      | 23/64 [00:11<00:21,  1.91it/s][A[A
-
-validation_step:  38%|â–ˆâ–ˆâ–ˆâ–Š      | 24/64 [00:12<00:20,  1.93it/s][A[A
-
-validation_step:  39%|â–ˆâ–ˆâ–ˆâ–‰      | 25/64 [00:12<00:20,  1.92it/s][A[A
-
-validation_step:  41%|â–ˆâ–ˆâ–ˆâ–ˆ      | 26/64 [00:13<00:19,  1.94it/s][A[A
-
-validation_step:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 27/64 [00:13<00:18,  2.00it/s][A[A
-
-validation_step:  44%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 28/64 [00:14<00:18,  1.95it/s][A[A
-
-validation_step:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 29/64 [00:14<00:18,  1.91it/s][A[A
-
-validation_step:  47%|â–ˆâ–ˆâ–ˆâ–ˆâ–‹     | 30/64 [00:15<00:17,  1.95it/s][A[A
-
-validation_step:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 31/64 [00:15<00:16,  2.01it/s][A[A
-
-validation_step:  50%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     | 32/64 [00:16<00:16,  1.94it/s][A[A
-
-validation_step:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 33/64 [00:16<00:15,  1.97it/s][A[A
-
-validation_step:  53%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž    | 34/64 [00:17<00:15,  1.95it/s][A[A
-
-validation_step:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 35/64 [00:17<00:14,  1.94it/s][A[A
-
-validation_step:  56%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹    | 36/64 [00:18<00:14,  1.92it/s][A[A
-
-validation_step:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 37/64 [00:18<00:14,  1.92it/s][A[A
-
-validation_step:  59%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰    | 38/64 [00:19<00:13,  1.89it/s][A[A
-
-validation_step:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    | 39/64 [00:19<00:13,  1.87it/s][A[A
-
-validation_step:  62%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž   | 40/64 [00:20<00:13,  1.81it/s][A[A
-
-validation_step:  64%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 41/64 [00:20<00:12,  1.82it/s][A[A
-
-validation_step:  66%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ   | 42/64 [00:21<00:11,  1.84it/s][A[A
-
-validation_step:  67%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹   | 43/64 [00:22<00:11,  1.83it/s][A[A
-
-validation_step:  69%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰   | 44/64 [00:22<00:10,  1.85it/s][A[A
-
-validation_step:  70%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 45/64 [00:23<00:10,  1.87it/s][A[A
-
-validation_step:  72%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 46/64 [00:23<00:09,  1.88it/s][A[A
-
-validation_step:  73%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž  | 47/64 [00:24<00:09,  1.88it/s][A[A
-
-validation_step:  75%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ  | 48/64 [00:24<00:08,  1.79it/s][A[A
-
-validation_step:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 49/64 [00:25<00:08,  1.83it/s][A[A
-
-validation_step:  78%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š  | 50/64 [00:25<00:07,  1.78it/s][A[A
-
-validation_step:  80%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰  | 51/64 [00:26<00:07,  1.78it/s][A[A
-
-validation_step:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 52/64 [00:27<00:06,  1.76it/s][A[A
-
-validation_step:  83%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž | 53/64 [00:27<00:06,  1.74it/s][A[A
-
-validation_step:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 54/64 [00:28<00:05,  1.69it/s][A[A
-
-validation_step:  86%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ | 55/64 [00:28<00:05,  1.71it/s][A[A
-
-validation_step:  88%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š | 56/64 [00:29<00:04,  1.76it/s][A[A
-
-validation_step:  89%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰ | 57/64 [00:29<00:03,  1.80it/s][A[A
-
-validation_step:  91%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 58/64 [00:30<00:03,  1.74it/s][A[A
-
-validation_step:  92%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 59/64 [00:31<00:02,  1.76it/s][A[A
-
-validation_step:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 60/64 [00:31<00:02,  1.74it/s][A[A
-
-validation_step:  95%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ| 61/64 [00:32<00:01,  1.75it/s][A[A
-
-validation_step:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 62/64 [00:32<00:01,  1.74it/s][A[A
-
-validation_step:  98%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š| 63/64 [00:33<00:00,  1.75it/s][A[A
-
-validation_step: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 64/64 [00:33<00:00,  1.71it/s][A[Avalidation_step: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 64/64 [00:33<00:00,  1.89it/s]
-
-step:  36%|â–ˆâ–ˆâ–ˆâ–Œ      | 34/95 [06:20<14:25, 14.19s/it, loss=0.103, smooth loss=0.0989][A
-step:  36%|â–ˆâ–ˆâ–ˆâ–Œ      | 34/95 [06:25<14:25, 14.19s/it, loss=0.0914, smooth loss=0.0988][A
-step:  37%|â–ˆâ–ˆâ–ˆâ–‹      | 35/95 [06:25<11:25, 11.42s/it, loss=0.0914, smooth loss=0.0988][A
-step:  37%|â–ˆâ–ˆâ–ˆâ–‹      | 35/95 [06:30<11:25, 11.42s/it, loss=0.0815, smooth loss=0.0986][A
-step:  38%|â–ˆâ–ˆâ–ˆâ–Š      | 36/95 [06:30<09:12,  9.37s/it, loss=0.0815, smooth loss=0.0986][A
-step:  38%|â–ˆâ–ˆâ–ˆâ–Š      | 36/95 [06:35<09:12,  9.37s/it, loss=0.0834, smooth loss=0.0985][A
-step:  39%|â–ˆâ–ˆâ–ˆâ–‰      | 37/95 [06:35<07:43,  7.99s/it, loss=0.0834, smooth loss=0.0985][A
-step:  39%|â–ˆâ–ˆâ–ˆâ–‰      | 37/95 [06:40<07:43,  7.99s/it, loss=0.159, smooth loss=0.0991] [A
-step:  40%|â–ˆâ–ˆâ–ˆâ–ˆ      | 38/95 [06:40<06:42,  7.07s/it, loss=0.159, smooth loss=0.0991][A
-step:  40%|â–ˆâ–ˆâ–ˆâ–ˆ      | 38/95 [06:44<06:42,  7.07s/it, loss=0.0993, smooth loss=0.0991][A
-step:  41%|â–ˆâ–ˆâ–ˆâ–ˆ      | 39/95 [06:44<05:56,  6.36s/it, loss=0.0993, smooth loss=0.0991][A
-step:  41%|â–ˆâ–ˆâ–ˆâ–ˆ      | 39/95 [06:49<05:56,  6.36s/it, loss=0.0884, smooth loss=0.099] [A
-step:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 40/95 [06:49<05:18,  5.79s/it, loss=0.0884, smooth loss=0.099][A
-step:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 40/95 [06:53<05:18,  5.79s/it, loss=0.0982, smooth loss=0.099][A
-step:  43%|â–ˆâ–ˆâ–ˆâ–ˆâ–Ž     | 41/95 [06:53<04:53,  5.44s/it, loss=0.0982, smooth loss=0.099][A
-step:  43%|â–ˆâ–ˆâ–ˆâ–ˆâ–Ž     | 41/95 [06:58<04:53,  5.44s/it, loss=0.0863, smooth loss=0.0988][A
-step:  44%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 42/95 [06:58<04:29,  5.08s/it, loss=0.0863, smooth loss=0.0988][A
-step:  44%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 42/95 [07:02<04:29,  5.08s/it, loss=0.101, smooth loss=0.0989] [A
-step:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 43/95 [07:02<04:11,  4.84s/it, loss=0.101, smooth loss=0.0989][A
-step:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 43/95 [07:06<04:11,  4.84s/it, loss=0.0969, smooth loss=0.0988][A
-step:  46%|â–ˆâ–ˆâ–ˆâ–ˆâ–‹     | 44/95 [07:06<03:58,  4.68s/it, loss=0.0969, smooth loss=0.0988][A
-step:  46%|â–ˆâ–ˆâ–ˆâ–ˆâ–‹     | 44/95 [07:11<03:58,  4.68s/it, loss=0.0752, smooth loss=0.0986][A
-step:  47%|â–ˆâ–ˆâ–ˆâ–ˆâ–‹     | 45/95 [07:11<03:49,  4.59s/it, loss=0.0752, smooth loss=0.0986][A
-step:  47%|â–ˆâ–ˆâ–ˆâ–ˆâ–‹     | 45/95 [07:15<03:49,  4.59s/it, loss=0.0825, smooth loss=0.0985][A
-step:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 46/95 [07:15<03:49,  4.69s/it, loss=0.0825, smooth loss=0.0985][A
-step:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 46/95 [07:20<03:49,  4.69s/it, loss=0.0897, smooth loss=0.0984][A
-step:  49%|â–ˆâ–ˆâ–ˆâ–ˆâ–‰     | 47/95 [07:20<03:41,  4.61s/it, loss=0.0897, smooth loss=0.0984][A
-step:  49%|â–ˆâ–ˆâ–ˆâ–ˆâ–‰     | 47/95 [07:24<03:41,  4.61s/it, loss=0.122, smooth loss=0.0986] [A
-step:  51%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     | 48/95 [07:24<03:31,  4.49s/it, loss=0.122, smooth loss=0.0986][A
-step:  51%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     | 48/95 [07:29<03:31,  4.49s/it, loss=0.0894, smooth loss=0.0985][A
-step:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 49/95 [07:29<03:26,  4.48s/it, loss=0.0894, smooth loss=0.0985][A
-step:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 49/95 [07:33<03:26,  4.48s/it, loss=0.0674, smooth loss=0.0982][A
-step:  53%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž    | 50/95 [07:33<03:18,  4.40s/it, loss=0.0674, smooth loss=0.0982][A
-step:  53%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž    | 50/95 [07:37<03:18,  4.40s/it, loss=0.13, smooth loss=0.0985]  [A
-step:  54%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž    | 51/95 [07:37<03:08,  4.29s/it, loss=0.13, smooth loss=0.0985][A
-step:  54%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž    | 51/95 [07:41<03:08,  4.29s/it, loss=0.137, smooth loss=0.0989][A
-step:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 52/95 [07:41<03:06,  4.34s/it, loss=0.137, smooth loss=0.0989][A
-step:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 52/95 [07:46<03:06,  4.34s/it, loss=0.0949, smooth loss=0.0989][A
-step:  56%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ    | 53/95 [07:46<03:02,  4.34s/it, loss=0.0949, smooth loss=0.0989][A
-step:  56%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ    | 53/95 [07:50<03:02,  4.34s/it, loss=0.125, smooth loss=0.0991] [A
-step:  57%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹    | 54/95 [07:50<02:57,  4.33s/it, loss=0.125, smooth loss=0.0991][A
-step:  57%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹    | 54/95 [07:54<02:57,  4.33s/it, loss=0.0791, smooth loss=0.0989][A
-step:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 55/95 [07:54<02:51,  4.28s/it, loss=0.0791, smooth loss=0.0989][A
-step:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 55/95 [07:58<02:51,  4.28s/it, loss=0.103, smooth loss=0.099]  [A
-step:  59%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰    | 56/95 [07:58<02:43,  4.20s/it, loss=0.103, smooth loss=0.099][A
-step:  59%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰    | 56/95 [08:02<02:43,  4.20s/it, loss=0.0631, smooth loss=0.0986][A
-step:  60%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    | 57/95 [08:02<02:39,  4.19s/it, loss=0.0631, smooth loss=0.0986][A
-step:  60%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    | 57/95 [08:07<02:39,  4.19s/it, loss=0.104, smooth loss=0.0987] [A
-step:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    | 58/95 [08:07<02:40,  4.34s/it, loss=0.104, smooth loss=0.0987][A
-step:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    | 58/95 [08:11<02:40,  4.34s/it, loss=0.0822, smooth loss=0.0985][A
-step:  62%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 59/95 [08:11<02:35,  4.33s/it, loss=0.0822, smooth loss=0.0985][A
-step:  62%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 59/95 [08:16<02:35,  4.33s/it, loss=0.0687, smooth loss=0.0982][A
-step:  63%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž   | 60/95 [08:16<02:32,  4.35s/it, loss=0.0687, smooth loss=0.0982][A
-step:  63%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž   | 60/95 [08:20<02:32,  4.35s/it, loss=0.0866, smooth loss=0.0981][A
-step:  64%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 61/95 [08:20<02:29,  4.39s/it, loss=0.0866, smooth loss=0.0981][A
-step:  64%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 61/95 [08:25<02:29,  4.39s/it, loss=0.112, smooth loss=0.0982] [A
-step:  65%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ   | 62/95 [08:25<02:27,  4.46s/it, loss=0.112, smooth loss=0.0982][A
-step:  65%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ   | 62/95 [08:30<02:27,  4.46s/it, loss=0.116, smooth loss=0.0984][A
-step:  66%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹   | 63/95 [08:30<02:27,  4.62s/it, loss=0.116, smooth loss=0.0984][A
-step:  66%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹   | 63/95 [08:35<02:27,  4.62s/it, loss=0.114, smooth loss=0.0986][A
-step:  67%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹   | 64/95 [08:35<02:24,  4.67s/it, loss=0.114, smooth loss=0.0986][A
-step:  67%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹   | 64/95 [08:39<02:24,  4.67s/it, loss=0.0977, smooth loss=0.0986][A
-step:  68%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š   | 65/95 [08:39<02:19,  4.64s/it, loss=0.0977, smooth loss=0.0986][A
-step:  68%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š   | 65/95 [08:44<02:19,  4.64s/it, loss=0.0859, smooth loss=0.0984][A
-
-validation_step:   0%|          | 0/64 [00:00<?, ?it/s][A[A
-
-validation_step:   2%|â–�         | 1/64 [00:00<00:31,  2.01it/s][A[A
-
-validation_step:   3%|â–Ž         | 2/64 [00:01<00:35,  1.75it/s][A[A
-
-validation_step:   5%|â–�         | 3/64 [00:01<00:33,  1.82it/s][A[A
-
-validation_step:   6%|â–‹         | 4/64 [00:02<00:34,  1.74it/s][A[A
-
-validation_step:   8%|â–Š         | 5/64 [00:02<00:33,  1.74it/s][A[A
-
-validation_step:   9%|â–‰         | 6/64 [00:03<00:32,  1.81it/s][A[A
-
-validation_step:  11%|â–ˆ         | 7/64 [00:03<00:31,  1.80it/s][A[A
-
-validation_step:  12%|â–ˆâ–Ž        | 8/64 [00:04<00:32,  1.73it/s][A[A
-
-validation_step:  14%|â–ˆâ–�        | 9/64 [00:05<00:31,  1.72it/s][A[A
-
-validation_step:  16%|â–ˆâ–Œ        | 10/64 [00:05<00:32,  1.67it/s][A[A
-
-validation_step:  17%|â–ˆâ–‹        | 11/64 [00:06<00:31,  1.68it/s][A[A
-
-validation_step:  19%|â–ˆâ–‰        | 12/64 [00:06<00:30,  1.69it/s][A[A
-
-validation_step:  20%|â–ˆâ–ˆ        | 13/64 [00:07<00:29,  1.72it/s][A[A
-
-validation_step:  22%|â–ˆâ–ˆâ–�       | 14/64 [00:08<00:29,  1.69it/s][A[A
-
-validation_step:  23%|â–ˆâ–ˆâ–Ž       | 15/64 [00:08<00:28,  1.72it/s][A[A
-
-validation_step:  25%|â–ˆâ–ˆâ–Œ       | 16/64 [00:09<00:28,  1.68it/s][A[A
-
-validation_step:  27%|â–ˆâ–ˆâ–‹       | 17/64 [00:09<00:27,  1.69it/s][A[A
-
-validation_step:  28%|â–ˆâ–ˆâ–Š       | 18/64 [00:10<00:26,  1.73it/s][A[A
-
-validation_step:  30%|â–ˆâ–ˆâ–‰       | 19/64 [00:10<00:25,  1.75it/s][A[A
-
-validation_step:  31%|â–ˆâ–ˆâ–ˆâ–�      | 20/64 [00:11<00:25,  1.76it/s][A[A
-
-validation_step:  33%|â–ˆâ–ˆâ–ˆâ–Ž      | 21/64 [00:12<00:24,  1.78it/s][A[A
-
-validation_step:  34%|â–ˆâ–ˆâ–ˆâ–�      | 22/64 [00:12<00:23,  1.80it/s][A[A
-
-validation_step:  36%|â–ˆâ–ˆâ–ˆâ–Œ      | 23/64 [00:13<00:22,  1.82it/s][A[A
-
-validation_step:  38%|â–ˆâ–ˆâ–ˆâ–Š      | 24/64 [00:13<00:22,  1.77it/s][A[A
-
-validation_step:  39%|â–ˆâ–ˆâ–ˆâ–‰      | 25/64 [00:14<00:22,  1.76it/s][A[A
-
-validation_step:  41%|â–ˆâ–ˆâ–ˆâ–ˆ      | 26/64 [00:14<00:21,  1.77it/s][A[A
-
-validation_step:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 27/64 [00:15<00:20,  1.80it/s][A[A
-
-validation_step:  44%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 28/64 [00:16<00:20,  1.76it/s][A[A
-
-validation_step:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 29/64 [00:16<00:19,  1.77it/s][A[A
-
-validation_step:  47%|â–ˆâ–ˆâ–ˆâ–ˆâ–‹     | 30/64 [00:17<00:19,  1.78it/s][A[A
-
-validation_step:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 31/64 [00:17<00:17,  1.86it/s][A[A
-
-validation_step:  50%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     | 32/64 [00:18<00:17,  1.85it/s][A[A
-
-validation_step:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 33/64 [00:18<00:16,  1.87it/s][A[A
-
-validation_step:  53%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž    | 34/64 [00:19<00:16,  1.86it/s][A[A
-
-validation_step:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 35/64 [00:19<00:15,  1.86it/s][A[A
-
-validation_step:  56%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹    | 36/64 [00:20<00:14,  1.91it/s][A[A
-
-validation_step:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 37/64 [00:20<00:14,  1.90it/s][A[A
-
-validation_step:  59%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰    | 38/64 [00:21<00:13,  1.96it/s][A[A
-
-validation_step:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    | 39/64 [00:21<00:12,  1.94it/s][A[A
-
-validation_step:  62%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž   | 40/64 [00:22<00:12,  1.95it/s][A[A
-
-validation_step:  64%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 41/64 [00:22<00:11,  1.92it/s][A[A
-
-validation_step:  66%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ   | 42/64 [00:23<00:11,  1.93it/s][A[A
-
-validation_step:  67%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹   | 43/64 [00:23<00:11,  1.90it/s][A[A
-
-validation_step:  69%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰   | 44/64 [00:24<00:10,  1.85it/s][A[A
-
-validation_step:  70%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 45/64 [00:24<00:10,  1.87it/s][A[A
-
-validation_step:  72%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 46/64 [00:25<00:09,  1.84it/s][A[A
-
-validation_step:  73%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž  | 47/64 [00:26<00:09,  1.87it/s][A[A
-
-validation_step:  75%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ  | 48/64 [00:26<00:08,  1.87it/s][A[A
-
-validation_step:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 49/64 [00:27<00:08,  1.79it/s][A[A
-
-validation_step:  78%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š  | 50/64 [00:27<00:07,  1.78it/s][A[A
-
-validation_step:  80%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰  | 51/64 [00:28<00:07,  1.74it/s][A[A
-
-validation_step:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 52/64 [00:28<00:06,  1.74it/s][A[A
-
-validation_step:  83%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž | 53/64 [00:29<00:06,  1.77it/s][A[A
-
-validation_step:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 54/64 [00:30<00:05,  1.79it/s][A[A
-
-validation_step:  86%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ | 55/64 [00:30<00:05,  1.60it/s][A[A
-
-validation_step:  88%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š | 56/64 [00:31<00:05,  1.57it/s][A[A
-
-validation_step:  89%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰ | 57/64 [00:32<00:04,  1.62it/s][A[A
-
-validation_step:  91%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 58/64 [00:32<00:03,  1.63it/s][A[A
-
-validation_step:  92%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 59/64 [00:33<00:03,  1.66it/s][A[A
-
-validation_step:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 60/64 [00:33<00:02,  1.69it/s][A[A
-
-validation_step:  95%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ| 61/64 [00:34<00:01,  1.69it/s][A[A
-
-validation_step:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 62/64 [00:34<00:01,  1.70it/s][A[A
-
-validation_step:  98%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š| 63/64 [00:35<00:00,  1.68it/s][A[A
-
-validation_step: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 64/64 [00:36<00:00,  1.69it/s][A[Avalidation_step: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 64/64 [00:36<00:00,  1.77it/s]
-
-step:  69%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰   | 66/95 [09:20<07:32, 15.61s/it, loss=0.0859, smooth loss=0.0984][A
-step:  69%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰   | 66/95 [09:24<07:32, 15.61s/it, loss=0.0837, smooth loss=0.0983][A
-step:  71%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 67/95 [09:25<05:41, 12.18s/it, loss=0.0837, smooth loss=0.0983][A
-step:  71%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 67/95 [09:29<05:41, 12.18s/it, loss=0.101, smooth loss=0.0983] [A
-step:  72%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 68/95 [09:29<04:25,  9.82s/it, loss=0.101, smooth loss=0.0983][A
-step:  72%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 68/95 [09:33<04:25,  9.82s/it, loss=0.0718, smooth loss=0.098][A
-step:  73%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž  | 69/95 [09:33<03:34,  8.23s/it, loss=0.0718, smooth loss=0.098][A
-step:  73%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž  | 69/95 [09:38<03:34,  8.23s/it, loss=0.0897, smooth loss=0.098][A
-step:  74%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž  | 70/95 [09:38<02:57,  7.12s/it, loss=0.0897, smooth loss=0.098][A
-step:  74%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž  | 70/95 [09:42<02:57,  7.12s/it, loss=0.0973, smooth loss=0.098][A
-step:  75%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 71/95 [09:42<02:32,  6.36s/it, loss=0.0973, smooth loss=0.098][A
-step:  75%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 71/95 [09:47<02:32,  6.36s/it, loss=0.0783, smooth loss=0.0978][A
-step:  76%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ  | 72/95 [09:47<02:10,  5.68s/it, loss=0.0783, smooth loss=0.0978][A
-step:  76%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ  | 72/95 [09:51<02:10,  5.68s/it, loss=0.102, smooth loss=0.0978] [A
-step:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 73/95 [09:51<01:55,  5.23s/it, loss=0.102, smooth loss=0.0978][A
-step:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 73/95 [09:55<01:55,  5.23s/it, loss=0.132, smooth loss=0.0981][A
-step:  78%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š  | 74/95 [09:55<01:43,  4.92s/it, loss=0.132, smooth loss=0.0981][A
-step:  78%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š  | 74/95 [09:59<01:43,  4.92s/it, loss=0.072, smooth loss=0.0979][A
-step:  79%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰  | 75/95 [09:59<01:35,  4.76s/it, loss=0.072, smooth loss=0.0979][A
-step:  79%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰  | 75/95 [10:04<01:35,  4.76s/it, loss=0.0821, smooth loss=0.0977][A
-step:  80%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 76/95 [10:04<01:29,  4.69s/it, loss=0.0821, smooth loss=0.0977][A
-step:  80%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 76/95 [10:08<01:29,  4.69s/it, loss=0.0785, smooth loss=0.0975][A
-step:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 77/95 [10:08<01:24,  4.67s/it, loss=0.0785, smooth loss=0.0975][A
-step:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 77/95 [10:13<01:24,  4.67s/it, loss=0.0945, smooth loss=0.0975][A
-step:  82%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 78/95 [10:13<01:19,  4.65s/it, loss=0.0945, smooth loss=0.0975][A
-step:  82%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 78/95 [10:18<01:19,  4.65s/it, loss=0.11, smooth loss=0.0976]  [A
-step:  83%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž | 79/95 [10:18<01:13,  4.60s/it, loss=0.11, smooth loss=0.0976][A
-step:  83%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž | 79/95 [10:22<01:13,  4.60s/it, loss=0.122, smooth loss=0.0979][A
-step:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 80/95 [10:22<01:06,  4.45s/it, loss=0.122, smooth loss=0.0979][A
-step:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 80/95 [10:26<01:06,  4.45s/it, loss=0.0866, smooth loss=0.0978][A
-step:  85%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ | 81/95 [10:26<01:00,  4.32s/it, loss=0.0866, smooth loss=0.0978][A
-step:  85%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ | 81/95 [10:30<01:00,  4.32s/it, loss=0.0886, smooth loss=0.0977][A
-step:  86%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 82/95 [10:30<00:55,  4.25s/it, loss=0.0886, smooth loss=0.0977][A
-step:  86%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 82/95 [10:34<00:55,  4.25s/it, loss=0.101, smooth loss=0.0977] [A
-step:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 83/95 [10:34<00:50,  4.21s/it, loss=0.101, smooth loss=0.0977][A
-step:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 83/95 [10:38<00:50,  4.21s/it, loss=0.0913, smooth loss=0.0976][A
-step:  88%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š | 84/95 [10:38<00:45,  4.10s/it, loss=0.0913, smooth loss=0.0976][A
-step:  88%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š | 84/95 [10:41<00:45,  4.10s/it, loss=0.117, smooth loss=0.0978] [A
-step:  89%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰ | 85/95 [10:41<00:39,  3.99s/it, loss=0.117, smooth loss=0.0978][A
-step:  89%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰ | 85/95 [10:46<00:39,  3.99s/it, loss=0.0947, smooth loss=0.0978][A
-step:  91%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 86/95 [10:46<00:36,  4.06s/it, loss=0.0947, smooth loss=0.0978][A
-step:  91%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 86/95 [10:49<00:36,  4.06s/it, loss=0.104, smooth loss=0.0979] [A
-step:  92%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 87/95 [10:49<00:31,  3.96s/it, loss=0.104, smooth loss=0.0979][A
-step:  92%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 87/95 [10:53<00:31,  3.96s/it, loss=0.0699, smooth loss=0.0976][A
-step:  93%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 88/95 [10:53<00:27,  3.92s/it, loss=0.0699, smooth loss=0.0976][A
-step:  93%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 88/95 [10:57<00:27,  3.92s/it, loss=0.106, smooth loss=0.0977] [A
-step:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 89/95 [10:57<00:23,  3.99s/it, loss=0.106, smooth loss=0.0977][A
-step:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 89/95 [11:01<00:23,  3.99s/it, loss=0.129, smooth loss=0.098] [A
-step:  95%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 90/95 [11:01<00:19,  3.94s/it, loss=0.129, smooth loss=0.098][A
-step:  95%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 90/95 [11:05<00:19,  3.94s/it, loss=0.0801, smooth loss=0.0978][A
-step:  96%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ| 91/95 [11:05<00:15,  3.88s/it, loss=0.0801, smooth loss=0.0978][A
-step:  96%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ| 91/95 [11:09<00:15,  3.88s/it, loss=0.13, smooth loss=0.0981]  [A
-step:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 92/95 [11:09<00:12,  4.02s/it, loss=0.13, smooth loss=0.0981][A
-step:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 92/95 [11:14<00:12,  4.02s/it, loss=0.0648, smooth loss=0.0978][A
-step:  98%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š| 93/95 [11:14<00:08,  4.12s/it, loss=0.0648, smooth loss=0.0978][A
-step:  98%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š| 93/95 [11:18<00:08,  4.12s/it, loss=0.0964, smooth loss=0.0978][A
-step:  99%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰| 94/95 [11:18<00:04,  4.30s/it, loss=0.0964, smooth loss=0.0978][A
-step:  99%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰| 94/95 [11:23<00:04,  4.30s/it, loss=0.0945, smooth loss=0.0978][A
-step: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 95/95 [11:23<00:00,  4.28s/it, loss=0.0945, smooth loss=0.0978][Astep: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 95/95 [11:23<00:00,  7.19s/it, loss=0.0945, smooth loss=0.0978]
-epoch: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 2/2 [27:17<00:00, 794.68s/it]epoch: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 2/2 [27:17<00:00, 818.54s/it]
-Saving /workspace/remote/Auto/OneTrainer/perf_tests/out3/Q04_adafactor.safetensors
