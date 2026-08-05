@@ -33,6 +33,8 @@ class InternalModelLoaderMixin(metaclass=ABCMeta):
             with contextlib.suppress(FileNotFoundError):
                 model.optimizer_state_dict = torch.load(os.path.join(model_name, "optimizer", "optimizer.pt"),
                                                         weights_only=True)
+                model.quantized_weight_training_state_dict = \
+                    model.optimizer_state_dict.pop("quantized_weight_training", None)
 
             # ema
             with contextlib.suppress(FileNotFoundError):

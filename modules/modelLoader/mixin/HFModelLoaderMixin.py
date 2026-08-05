@@ -4,6 +4,7 @@ import os
 from abc import ABCMeta
 from itertools import repeat
 
+from modules.module.quantized.mixin.QuantizedModuleMixin import QuantizedModuleMixin
 from modules.util.config.TrainConfig import QuantizationConfig
 from modules.util.enum.DataType import DataType
 from modules.util.quantization_util import (
@@ -24,6 +25,14 @@ from safetensors.torch import load_file
 
 # huggingface_hub 1.16+ uses httpx, which logs every HTTP request/response at INFO level.
 logging.getLogger("httpx").setLevel(logging.WARNING)
+
+
+def _parameter_from_loaded_tensor(parameter: nn.Parameter, value: torch.Tensor) -> nn.Parameter:
+    # A quantized checkpoint can replace the floating meta placeholder with an int8
+    # tensor. Parameter defaults requires_grad=True, which is illegal for integer
+    # tensors, so preserve requires_grad only when the loaded dtype supports it.
+    requires_grad = parameter.requires_grad and (value.is_floating_point() or value.is_complex())
+    return type(parameter)(value, requires_grad=requires_grad)
 
 
 class HFModelLoaderMixin(metaclass=ABCMeta):
@@ -156,17 +165,23 @@ class HFModelLoaderMixin(metaclass=ABCMeta):
 
             if torch.is_floating_point(old_value):
                 old_type = type(old_value)
-                if not is_quantized_parameter(module, tensor_name):
+                if is_buffer and isinstance(module, QuantizedModuleMixin):
+                    # Quantization metadata (for example LinearW8A8.scale) has a
+                    # storage dtype declared by the quantized module. Casting it to
+                    # train_dtype loses checkpoint fidelity and used to turn fp32
+                    # QWT scales into bf16 on resume.
+                    value = value.to(dtype=old_value.dtype)
+                elif not is_quantized_parameter(module, tensor_name):
                     if dtype.is_quantized() or module_name in keep_in_fp32_modules:
                         value = value.to(dtype=train_dtype.torch_dtype())
                     else:
                         value = value.to(dtype=dtype.torch_dtype())
 
-                new_value = old_type(value)
-
                 if is_buffer:
+                    new_value = old_type(value)
                     module._buffers[tensor_name].data = new_value
                 else:
+                    new_value = _parameter_from_loaded_tensor(old_value, value)
                     module._parameters[tensor_name] = new_value
 
         del state_dict
@@ -282,7 +297,9 @@ class HFModelLoaderMixin(metaclass=ABCMeta):
             for is_buffer, tensor_name, value in param_iter + buffer_iter:
                 if value is not None and torch.is_floating_point(value):
                     old_type = type(value)
-                    if not is_quantized_parameter(module, tensor_name):
+                    if is_buffer and isinstance(module, QuantizedModuleMixin):
+                        value = value.to(dtype=value.dtype)
+                    elif not is_quantized_parameter(module, tensor_name):
                         if dtype.is_quantized() or module_name in keep_in_fp32_modules:
                             value = value.to(dtype=train_dtype.torch_dtype())
                         else:

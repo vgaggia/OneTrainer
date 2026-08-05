@@ -78,6 +78,8 @@ class FusedQuantizedAdafactor:
             eps2: float = 1e-3,
             clip_threshold: float = 1.0,
             decay_rate: float = -0.8,
+            initial_step: int = 0,
+            state_dict: dict | None = None,
     ):
         self.module = module
         self.lr = lr
@@ -86,26 +88,73 @@ class FusedQuantizedAdafactor:
         self.eps2 = eps2
         self.clip_threshold = clip_threshold
         self.decay_rate = decay_rate
-        self.step_count = 0
+        self.step_count = initial_step
         self.row: torch.Tensor | None = None  # fp32 [out]
         self.col: torch.Tensor | None = None  # fp32 [in]
+        self._beta2t: torch.Tensor | None = None
+        self._clip_norm: torch.Tensor | None = None
+        self._clip_threshold: torch.Tensor | None = None
+        self._lr: torch.Tensor | None = None
 
-    @torch.no_grad()
-    def step(self, grad: torch.Tensor):
-        """grad: fp32 [out, in], consumed (may be mutated)."""
-        self.step_count += 1
+        if state_dict is not None:
+            self.load_state_dict(state_dict)
 
+    def state_dict(self) -> dict:
+        state = {"step_count": self.step_count}
+        if self.row is not None:
+            state["row"] = self.row.detach().to(device="cpu", dtype=torch.float32)
+            state["col"] = self.col.detach().to(device="cpu", dtype=torch.float32)
+        return state
+
+    def load_state_dict(self, state_dict: dict):
+        self.step_count = int(state_dict["step_count"])
+
+        row = state_dict.get("row")
+        col = state_dict.get("col")
+        if (row is None) != (col is None):
+            raise ValueError("Invalid QWT state: row and col moments must either both be present or both be absent")
+        if row is None:
+            return
+
+        expected_row_shape = (self.module.out_features,)
+        expected_col_shape = (self.module.in_features,)
+        if tuple(row.shape) != expected_row_shape or tuple(col.shape) != expected_col_shape:
+            raise ValueError(
+                "Invalid QWT state shape: "
+                f"expected row={expected_row_shape}, col={expected_col_shape}; "
+                f"got row={tuple(row.shape)}, col={tuple(col.shape)}"
+            )
+        if not torch.isfinite(row).all() or not torch.isfinite(col).all():
+            raise ValueError("Invalid QWT state: optimizer moments contain non-finite values")
+
+        device = self.module.weight.device
+        self.row = row.to(device=device, dtype=torch.float32)
+        self.col = col.to(device=device, dtype=torch.float32)
+
+    def _initialize_step_tensors(self, grad: torch.Tensor):
+        dev = grad.device
         if self.row is None:
-            dev = grad.device
             self.row = torch.zeros(grad.shape[0], dtype=torch.float32, device=dev)
             self.col = torch.zeros(grad.shape[1], dtype=torch.float32, device=dev)
-            # scalar staging tensors: passing python floats would recompile every step
+        elif self.row.device != dev:
+            self.row = self.row.to(dev)
+            self.col = self.col.to(dev)
+
+        if self._beta2t is None or self._beta2t.device != dev:
+            # Scalar staging tensors: passing Python floats would recompile every step.
             self._beta2t = torch.zeros((), dtype=torch.float32, device=dev)
             self._clip_norm = torch.tensor(
                 self.clip_grad_norm if self.clip_grad_norm is not None else float("inf"),
                 dtype=torch.float32, device=dev)
             self._clip_threshold = torch.tensor(self.clip_threshold, dtype=torch.float32, device=dev)
             self._lr = torch.tensor(self.lr, dtype=torch.float32, device=dev)
+
+    @torch.no_grad()
+    def step(self, grad: torch.Tensor):
+        """grad: fp32 [out, in], consumed (may be mutated)."""
+        self.step_count += 1
+
+        self._initialize_step_tensors(grad)
 
         self._beta2t.fill_(1.0 - self.step_count ** self.decay_rate)
 
@@ -117,7 +166,21 @@ class FusedQuantizedAdafactor:
         )
 
 
-def enable_quantized_weight_training(root: nn.Module, config) -> int:
+def quantized_weight_training_state_dict(root: nn.Module) -> dict:
+    """Return CPU QWT optimizer state keyed by module path."""
+    return {
+        name: module.qwt_updater.state_dict()
+        for name, module in root.named_modules()
+        if getattr(module, "qwt_updater", None) is not None
+    }
+
+
+def enable_quantized_weight_training(
+        root: nn.Module,
+        config,
+        state_dict: dict | None = None,
+        initial_step: int = 0,
+) -> int:
     """Attach fused updaters to every trainable-eligible LinearW8A8 under root.
     Returns the number of layers enabled."""
     from modules.module.quantized.LinearW8A8 import LinearW8A8
@@ -136,17 +199,29 @@ def enable_quantized_weight_training(root: nn.Module, config) -> int:
             "cannot handle. Disable compile for quantized-weight training runs.")
 
     count = 0
-    for module in root.modules():
+    restored_count = 0
+    for name, module in root.named_modules():
         if isinstance(module, LinearW8A8):
             if module._dtype != torch.int8:
                 raise ValueError(
                     "quantized_weight_training supports INT_W8A8 only; fp8 e4m3's relative "
                     "ULP is too coarse for stochastic-rounding weight updates")
+            module_state_dict = None if state_dict is None else state_dict.get(name)
             module.qwt_updater = FusedQuantizedAdafactor(
                 module,
                 lr=config.learning_rate,
                 clip_grad_norm=config.clip_grad_norm,
+                initial_step=initial_step,
+                state_dict=module_state_dict,
             )
+            restored_count += module_state_dict is not None
             count += 1
     print(f"quantized_weight_training: {count} int8 Linear layers now receive fused SR updates")
+    if restored_count:
+        print(f"quantized_weight_training: restored optimizer state for {restored_count}/{count} layers")
+    elif initial_step > 0:
+        print(
+            "WARNING: this backup predates QWT optimizer-state saving; resuming the saved "
+            f"weights at step {initial_step} with fresh QWT moments"
+        )
     return count

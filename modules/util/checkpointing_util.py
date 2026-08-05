@@ -386,8 +386,9 @@ def enable_checkpointing_for_flux_transformer(
         model: nn.Module,
         config: TrainConfig,
         part: TrainModelPartConfig,
+        compile: bool | None = None,
 ) -> LayerOffloadConductor | None:
-    return enable_checkpointing(model, config, part, config.compile, [
+    return enable_checkpointing(model, config, part, config.compile if compile is None else compile, [
         (model.transformer_blocks,        ["hidden_states", "encoder_hidden_states"]),
         (model.single_transformer_blocks, ["hidden_states"                         ]),
     ])

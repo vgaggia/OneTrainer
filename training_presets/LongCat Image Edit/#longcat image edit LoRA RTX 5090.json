@@ -1,0 +1,49 @@
+{
+    "base_model_name": "meituan-longcat/LongCat-Image-Edit",
+    "batch_size": 2,
+    "gradient_accumulation_steps": 2,
+    "learning_rate": 1e-4,
+    "learning_rate_warmup_steps": 100.0,
+    "model_type": "LONGCAT_IMAGE_EDIT",
+    "output_model_format": "COMFY_LORA",
+    "resolution": "1024",
+    "attention_mechanism": "CUDNN",
+    "compile": true,
+    "latent_caching": true,
+    "custom_conditioning_image": false,
+    "text_encoder_sequence_length": 512,
+    "transformer": {
+        "train": true,
+        "weight_dtype": "BFLOAT_16",
+        "gradient_checkpointing": true,
+        "activation_offloading": false,
+        "offload_fraction": 0.0
+    },
+    "text_encoder": {
+        "train": false,
+        "weight_dtype": "FLOAT_8"
+    },
+    "training_method": "LORA",
+    "vae": {
+        "train": false,
+        "weight_dtype": "FLOAT_32"
+    },
+    "train_dtype": "BFLOAT_16",
+    "fallback_train_dtype": "BFLOAT_16",
+    "output_dtype": "BFLOAT_16",
+    "timestep_distribution": "LOGIT_NORMAL",
+    "dynamic_timestep_shifting": true,
+    "lora_rank": 32,
+    "lora_alpha": 8.0,
+    "lora_weight_dtype": "BFLOAT_16",
+    "layer_filter": "attn,ff,proj_mlp",
+    "layer_filter_preset": "attn-mlp",
+    "quantization": {
+        "layer_filter": "attn,ff,proj_mlp",
+        "layer_filter_preset": "attn-mlp"
+    },
+    "optimizer": {
+        "optimizer": "ADAMW",
+        "weight_decay": 0.01
+    }
+}

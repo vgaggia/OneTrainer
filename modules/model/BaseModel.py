@@ -69,6 +69,7 @@ class BaseModel(metaclass=ABCMeta):
     parameters: NamedParameterGroupCollection | None
     optimizer: Optimizer | None
     optimizer_state_dict: dict | None
+    quantized_weight_training_state_dict: dict | None
     param_group_mapping: list[str] | None
     ema: EMAModuleWrapper
     ema_state_dict: dict | None
@@ -87,6 +88,7 @@ class BaseModel(metaclass=ABCMeta):
         self.parameters = None
         self.optimizer = None
         self.optimizer_state_dict = None
+        self.quantized_weight_training_state_dict = None
         self.param_group_mapping = None
         self.ema_state_dict = None
         self.train_progress = TrainProgress()
@@ -95,6 +97,10 @@ class BaseModel(metaclass=ABCMeta):
         self.embedding_state_dicts = {}
         self.autocast_context = nullcontext()
         self.train_dtype = DataType.FLOAT_32
+
+    def quantized_weight_training_components(self) -> dict[str, torch.nn.Module]:
+        """Model components whose fused QWT optimizer state belongs in backups."""
+        return {}
 
     @abstractmethod
     def to(self, device: torch.device):

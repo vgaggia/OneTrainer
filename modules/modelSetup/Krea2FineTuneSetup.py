@@ -67,7 +67,16 @@ class Krea2FineTuneSetup(
 
         if config.quantized_weight_training:
             from modules.util.quantized_weight_training import enable_quantized_weight_training
-            enable_quantized_weight_training(model.transformer, config)
+            state_dict = None
+            if model.quantized_weight_training_state_dict is not None:
+                state_dict = model.quantized_weight_training_state_dict.get("transformer")
+            enable_quantized_weight_training(
+                model.transformer,
+                config,
+                state_dict=state_dict,
+                initial_step=model.train_progress.global_step,
+            )
+            model.quantized_weight_training_state_dict = None
 
     def setup_train_device(
             self,

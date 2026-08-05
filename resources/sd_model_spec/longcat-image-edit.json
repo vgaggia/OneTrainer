@@ -1,0 +1,6 @@
+{
+    "modelspec.sai_model_spec": "1.0.0",
+    "modelspec.architecture": "LongCat-Image-Edit",
+    "modelspec.implementation": "https://github.com/huggingface/diffusers",
+    "modelspec.title": "LongCat Image Edit"
+}

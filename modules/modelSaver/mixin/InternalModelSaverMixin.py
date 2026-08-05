@@ -23,6 +23,18 @@ class InternalModelSaverMixin(metaclass=ABCMeta):
         optimizer_state_dict["param_group_optimizer_mapping"] = \
             [str(model.train_config.optimizer.optimizer) for _ in model.param_group_mapping]
 
+        qwt_components = model.quantized_weight_training_components()
+        if qwt_components:
+            from modules.util.quantized_weight_training import quantized_weight_training_state_dict
+
+            qwt_state_dict = {
+                name: state
+                for name, component in qwt_components.items()
+                if (state := quantized_weight_training_state_dict(component))
+            }
+            if qwt_state_dict:
+                optimizer_state_dict["quantized_weight_training"] = qwt_state_dict
+
         torch.save(optimizer_state_dict, os.path.join(destination, "optimizer", "optimizer.pt"))
 
         # ema

@@ -291,6 +291,55 @@ def qkv_fusion(fusion_groups: list) -> list:
     return [(group_pattern, group_pattern, rules) for group_pattern, rules in by_group_pattern.items()]
 
 
+def split_fused_state_dict(
+        state_dict: dict[str, torch.Tensor],
+        target_state_dict: dict[str, torch.Tensor],
+        fusion_groups: list,
+) -> dict[str, torch.Tensor]:
+    """Split native fused projections back into a model's canonical parameter layout.
+
+    ``qkv_fusion`` handles the save direction.  Some upstream model classes do not
+    implement ``from_single_file`` though, so their native/Comfy transformer files
+    need the inverse operation before ``load_state_dict``.  The target model's
+    parameter shapes are the source of truth; this also supports mixed QKV and
+    QKV+MLP groups without hard-coding model dimensions.
+    """
+    output = state_dict.copy()
+
+    for group_pattern, leaves, fused, _original in fusion_groups:
+        fused_suffix = "." + fused
+        group_names = {
+            key[:-(len(fused_suffix) + len(parameter_suffix))]
+            for key in list(output)
+            for parameter_suffix in (".weight", ".bias")
+            if key.endswith(fused_suffix + parameter_suffix)
+            and parse.parse(group_pattern, key[:-(len(fused_suffix) + len(parameter_suffix))]) is not None
+        }
+
+        for group_name in group_names:
+            for parameter_suffix in (".weight", ".bias"):
+                fused_key = group_name + fused_suffix + parameter_suffix
+                if fused_key not in output:
+                    continue
+
+                split_keys = [group_name + "." + leaf + parameter_suffix for leaf in leaves]
+                if not all(key in target_state_dict for key in split_keys):
+                    missing = [key for key in split_keys if key not in target_state_dict]
+                    raise RuntimeError(f"Cannot split {fused_key}; target keys are missing: {missing}")
+
+                split_sizes = [target_state_dict[key].shape[0] for key in split_keys]
+                if sum(split_sizes) != output[fused_key].shape[0]:
+                    raise RuntimeError(
+                        f"Cannot split {fused_key}: fused dimension {output[fused_key].shape[0]} "
+                        f"does not match target dimensions {split_sizes}"
+                    )
+
+                values = torch.split(output.pop(fused_key), split_sizes, dim=0)
+                output.update(zip(split_keys, values, strict=True))
+
+    return output
+
+
 def remove_prefix(prefix: str | None = None, separator: str='.'):
     if prefix is None:
         prefix = "{prefix__}"

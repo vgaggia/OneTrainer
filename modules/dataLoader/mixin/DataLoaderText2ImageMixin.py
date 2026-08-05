@@ -4,6 +4,7 @@ from abc import ABCMeta, abstractmethod
 from collections.abc import Callable
 
 import modules.util.multi_gpu_util as multi
+from modules.dataLoader.pipelineModules.DownloadHuggingfaceDatasets import DownloadHuggingfaceDatasets
 from modules.model.BaseModel import BaseModel
 from modules.modelSetup.BaseModelSetup import BaseModelSetup
 from modules.modelSetup.mixin.ModelSetupText2ImageMixin import ModelSetupText2ImageMixin
@@ -21,7 +22,6 @@ from mgds.pipelineModules.CapitalizeTags import CapitalizeTags
 from mgds.pipelineModules.CollectPaths import CollectPaths
 from mgds.pipelineModules.DiskCache import DiskCache
 from mgds.pipelineModules.DistributedSampler import DistributedSampler
-from modules.dataLoader.pipelineModules.DownloadHuggingfaceDatasets import DownloadHuggingfaceDatasets
 from mgds.pipelineModules.DropTags import DropTags
 from mgds.pipelineModules.GenerateImageLike import GenerateImageLike
 from mgds.pipelineModules.GenerateMaskedConditioningImage import GenerateMaskedConditioningImage
@@ -334,6 +334,8 @@ class DataLoaderText2ImageMixin(metaclass=ABCMeta):
             config: TrainConfig,
             text_caching: bool,
             before_cache_image_fun: Callable[[], None] | None = None,
+            text_variations_in_name: str = "concept.text_variations",
+            text_variations_group_in_names: list[str] | None = None,
     ):
         image_cache_dir = os.path.join(config.cache_dir, "image")
         text_cache_dir = os.path.join(config.cache_dir, "text")
@@ -353,8 +355,12 @@ class DataLoaderText2ImageMixin(metaclass=ABCMeta):
                                      balancing_in_name='concept.balancing', balancing_strategy_in_name='concept.balancing_strategy', variations_group_in_name=['concept.path', 'concept.seed', 'concept.include_subdirectories', 'concept.image'],
                                      group_enabled_in_name='concept.enabled', before_cache_fun=before_cache_image_fun)
 
-        text_disk_cache = DiskCache(cache_dir=text_cache_dir, split_names=text_split_names, aggregate_names=[], variations_in_name='concept.text_variations', balancing_in_name='concept.balancing', balancing_strategy_in_name='concept.balancing_strategy',
-                                    variations_group_in_name=['concept.path', 'concept.seed', 'concept.include_subdirectories', 'concept.text'], group_enabled_in_name='concept.enabled', before_cache_fun=before_cache_text_fun)
+        if text_variations_group_in_names is None:
+            text_variations_group_in_names = [
+                'concept.path', 'concept.seed', 'concept.include_subdirectories', 'concept.text',
+            ]
+        text_disk_cache = DiskCache(cache_dir=text_cache_dir, split_names=text_split_names, aggregate_names=[], variations_in_name=text_variations_in_name, balancing_in_name='concept.balancing', balancing_strategy_in_name='concept.balancing_strategy',
+                                    variations_group_in_name=text_variations_group_in_names, group_enabled_in_name='concept.enabled', before_cache_fun=before_cache_text_fun)
 
         modules = []
 

@@ -1,5 +1,6 @@
 import torch
 import torch._dynamo.callback
+import torch._inductor.config
 import torch.utils._sympy.functions
 
 from sympy import S
@@ -70,6 +71,16 @@ def init_compile():
     # trigger a compilation - including the autograd worker threads, which recompute checkpointed
     # modules during the backward pass.
     torch._dynamo.config.cache_size_limit = 8192
+
+
+def disable_inductor_mixed_order_reduction():
+    """Work around PyTorch's symbolic CantSplit bug without disabling torch.compile."""
+    # PyTorch 2.12's mixed-order reduction code cannot prove that simple symbolic
+    # expressions such as 24 * (image_tokens + text_tokens) are divisible by the
+    # combined sequence length. This is pytorch/pytorch#186426, fixed upstream by
+    # pytorch/pytorch#184566. Keep the rest of Inductor enabled while avoiding only
+    # the affected reduction scheduler.
+    torch._inductor.config.triton.mix_order_reduction = False
 
 
 def _on_compile_start(args: "torch._dynamo.callback.CallbackArgs") -> None:

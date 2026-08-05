@@ -8,6 +8,7 @@ class BaseSampleFrameView:
     def build_content(self, top_frame, bottom_frame, ui_state, controller, include_prompt, include_settings):
         is_flow_matching = controller.is_flow_matching()
         is_inpainting_model = controller.is_inpainting_model()
+        is_image_editing_model = controller.is_image_editing_model()
         is_video_model = controller.is_video_model()
         if include_prompt:
             # prompt
@@ -73,13 +74,27 @@ class BaseSampleFrameView:
 
             # inpainting
             if is_inpainting_model:
-                self.components.label(bottom_frame, 5, 0, "inpainting:",
-                                      tooltip="Enables inpainting sampling. Only available when sampling from an inpainting model.")
+                self.components.label(
+                    bottom_frame, 5, 0,
+                    "image editing:" if is_image_editing_model else "inpainting:",
+                    tooltip=(
+                        "Uses the base image as LongCat's editing reference."
+                        if is_image_editing_model
+                        else "Enables inpainting sampling. Only available when sampling from an inpainting model."
+                    ),
+                )
                 self.components.switch(bottom_frame, 5, 1, ui_state, "sample_inpainting")
 
                 # base image path
-                self.components.label(bottom_frame, 6, 0, "base image path:",
-                                      tooltip="The base image used when inpainting.")
+                self.components.label(
+                    bottom_frame, 6, 0,
+                    "source image path:" if is_image_editing_model else "base image path:",
+                    tooltip=(
+                        "The source/reference image to edit."
+                        if is_image_editing_model
+                        else "The base image used when inpainting."
+                    ),
+                )
                 self.components.path_entry(bottom_frame, 6, 1, ui_state, "base_image_path",
                                            mode="file",
                                            allow_model_files=False,
@@ -87,10 +102,11 @@ class BaseSampleFrameView:
                                            )
 
                 # mask image path
-                self.components.label(bottom_frame, 6, 2, "mask image path:",
-                                      tooltip="The mask used when inpainting.")
-                self.components.path_entry(bottom_frame, 6, 3, ui_state, "mask_image_path",
-                                           mode="file",
-                                           allow_model_files=False,
-                                           allow_image_files=True,
-                                           )
+                if not is_image_editing_model:
+                    self.components.label(bottom_frame, 6, 2, "mask image path:",
+                                          tooltip="The mask used when inpainting.")
+                    self.components.path_entry(bottom_frame, 6, 3, ui_state, "mask_image_path",
+                                               mode="file",
+                                               allow_model_files=False,
+                                               allow_image_files=True,
+                                               )

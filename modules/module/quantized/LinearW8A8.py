@@ -180,6 +180,20 @@ class LinearW8A8(
         self.__is_quantized = True
 
         weight = self.weight.detach()
+
+        # Internal backups store LinearW8A8 exactly as an already-quantized weight plus
+        # its scale sidecar. The loader reconstructs this class before assigning those
+        # tensors, so dtype is the reliable indication that no quantization is needed.
+        # Re-quantizing the int8 codes would replace the saved (typically ~1e-3) scales
+        # with scales near 1.0 and catastrophically inflate the restored weights.
+        if weight.dtype == self._dtype:
+            self.requires_grad_(False)
+            # Scale is optimizer state as well as quantization metadata during QWT.
+            # Keep it in fp32 even when a legacy backup serialized it in the model's
+            # bf16 train dtype.
+            self.scale.data = self.scale.data.to(dtype=torch.float32)
+            return
+
         orig_device = weight.device
         if device is not None:
             weight = weight.to(device=device)
@@ -200,7 +214,7 @@ class LinearW8A8(
         self.requires_grad_(False)
         self.weight.data = weight
 
-        self.scale.copy_(scale)
+        self.scale.data = scale.to(device=self.scale.device, dtype=torch.float32)
 
     def forward(self, x_orig: torch.Tensor) -> torch.Tensor:
         assert not self.weight.requires_grad

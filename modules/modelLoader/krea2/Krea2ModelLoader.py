@@ -39,7 +39,10 @@ class Krea2ModelLoader(
     ):
         if os.path.isfile(os.path.join(base_model_name, "meta.json")):
             self.__load_diffusers(
-                model, model_type, weight_dtypes, base_model_name, transformer_model_name, vae_model_name, quantization,
+                # A fine-tune backup contains the trained transformer. Keeping the
+                # config's original transformer override here silently discarded all
+                # backed-up training progress on resume.
+                model, model_type, weight_dtypes, base_model_name, "", vae_model_name, quantization,
             )
         else:
             raise Exception("not an internal model")

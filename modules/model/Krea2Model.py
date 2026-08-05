@@ -85,6 +85,9 @@ class Krea2Model(BaseModel):
             self.transformer_lora,
         ] if a is not None]
 
+    def quantized_weight_training_components(self) -> dict[str, torch.nn.Module]:
+        return {"transformer": self.transformer} if self.transformer is not None else {}
+
     def diffusers_to_original(self) -> list | None:
         # Krea 2's native checkpoint (krea/Krea-2-Raw's raw.safetensors) is a pure rename of the diffusers
         # Krea2Transformer2DModel state dict -- q/k/v are already split in both namespaces, so no qkv fusion

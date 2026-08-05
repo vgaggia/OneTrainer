@@ -13,6 +13,9 @@ class SampleFrameController:
     def is_inpainting_model(self) -> bool:
         return self.model_type.has_conditioning_image_input()
 
+    def is_image_editing_model(self) -> bool:
+        return self.model_type.is_longcat_image()
+
     def is_video_model(self) -> bool:
         return self.model_type.is_video_model()
 
