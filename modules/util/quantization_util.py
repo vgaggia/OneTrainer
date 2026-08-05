@@ -73,6 +73,11 @@ def quantize_fp8_axiswise(x: Tensor, dim: int) -> tuple[Tensor, Tensor]:
     return q, scale
 
 def dequantize(q: Tensor, scale: float | Tensor) -> Tensor:
+    # Saving happens after training, when layer offloading may have left the weight on
+    # CPU while its scale is still on the training device (or vice versa). Without this the whole
+    # run trains fine and then dies in the final save - align to the weight's device.
+    if isinstance(scale, Tensor) and scale.device != q.device:
+        scale = scale.to(q.device)
     return q.float() * scale
 
 
