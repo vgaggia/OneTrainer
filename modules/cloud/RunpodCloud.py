@@ -13,7 +13,7 @@ class RunpodCloud(LinuxCloud):
     def __init__(self, config: TrainConfig):
         super().__init__(config)
 
-        runpod.api_key=config.secrets.cloud.api_key
+        runpod.api_key=config.secrets.cloud.runpod_api_key
 
     def __get_host_port(self):
         secrets=self.config.secrets.cloud
@@ -76,7 +76,7 @@ class RunpodCloud(LinuxCloud):
         try:
             response = requests.get(
                 f"https://rest.runpod.io/v1/templates/{template_id}",
-                headers={"Authorization": f"Bearer {self.config.secrets.cloud.api_key}"},
+                headers={"Authorization": f"Bearer {self.config.secrets.cloud.runpod_api_key}"},
                 params={
                     "includePublicTemplates": "true",
                     "includeRunpodTemplates": "true",

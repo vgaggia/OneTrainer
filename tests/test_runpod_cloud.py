@@ -11,7 +11,7 @@ def make_cloud() -> RunpodCloud:
     cloud = object.__new__(RunpodCloud)
     cloud.config = SimpleNamespace(
         secrets=SimpleNamespace(
-            cloud=SimpleNamespace(api_key="test-api-key"),
+            cloud=SimpleNamespace(runpod_api_key="test-api-key"),
         ),
     )
     return cloud

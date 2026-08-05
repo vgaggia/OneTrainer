@@ -24,17 +24,24 @@ class BaseCloudTabView(ABC):
     @abstractmethod
     def _on_set_gpu_types(self): pass
 
+    @abstractmethod
+    def _set_visible(self, widget, visible: bool): pass
+
+    @abstractmethod
+    def _mask_secret(self, widget): pass
+
     def build_content(self, frame, controller, ui_state):
         self.components.label(frame, 0, 0, "Enabled",
                          tooltip="Enable cloud training")
         self.components.switch(frame, 0, 1, ui_state, "cloud.enabled")
 
         self.components.label(frame, 1, 0, "Type",
-                         tooltip="Choose LINUX to connect to a linux machine via SSH. Choose RUNPOD for additional functionality such as automatically creating and deleting pods.")
+                         tooltip="Choose LINUX to connect via SSH. Choose RUNPOD or VAST for provider API features such as creating, stopping, and deleting instances.")
         self.components.options_kv(frame, 1, 1, [
             ("RUNPOD", CloudType.RUNPOD),
+            ("Vast.ai", CloudType.VAST),
             ("LINUX", CloudType.LINUX),
-        ], ui_state, "cloud.type")
+        ], ui_state, "cloud.type", command=self._on_cloud_type_changed)
 
         self.components.label(frame, 2, 0, "File sync method",
                          tooltip="Choose NATIVE_SCP to use scp.exe to transfer files. FABRIC_SFTP uses the Paramiko/Fabric SFTP implementation for file transfers instead.")
@@ -43,9 +50,23 @@ class BaseCloudTabView(ABC):
             ("FABRIC_SFTP", CloudFileSync.FABRIC_SFTP),
         ], ui_state, "cloud.file_sync")
 
-        self.components.label(frame, 3, 0, "API key",
-                         tooltip="Cloud service API key for RUNPOD. Leave empty for LINUX. This value is stored separately, not saved to your configuration file. ")
-        self.components.entry(frame, 3, 1, ui_state, "secrets.cloud.api_key")
+        self.runpod_api_label = self.components.label(
+            frame, 3, 0, "RunPod API key",
+            tooltip="RunPod API key. Stored separately in secrets.json, not in training configuration files.",
+        )
+        self.runpod_api_entry = self.components.entry(
+            frame, 3, 1, ui_state, "secrets.cloud.runpod_api_key"
+        )
+        self._mask_secret(self.runpod_api_entry)
+
+        self.vast_api_label = self.components.label(
+            frame, 3, 0, "Vast.ai API key",
+            tooltip="Vast.ai API key. Stored separately in secrets.json, not in training configuration files.",
+        )
+        self.vast_api_entry = self.components.entry(
+            frame, 3, 1, ui_state, "secrets.cloud.vast_api_key"
+        )
+        self._mask_secret(self.vast_api_entry)
 
         self.components.label(frame, 4, 0, "Hostname",
                          tooltip="SSH server hostname or IP. Leave empty if you have a Cloud ID or want to automatically create a new cloud.")
@@ -56,7 +77,7 @@ class BaseCloudTabView(ABC):
         self.components.entry(frame, 5, 1, ui_state, "secrets.cloud.port")
 
         self.components.label(frame, 6, 0, "User",
-                         tooltip='SSH username. Use "root" for RUNPOD. Your SSH client must be set up to connect to the cloud using a public key, without a password. For RUNPOD, create an ed25519 key locally, and copy the contents of the public keyfile to your "SSH Public Keys" on the RunPod website.')
+                         tooltip='SSH username. Use "root" for RUNPOD and VAST. Configure public-key authentication unless an SSH password is supplied below.')
         self.components.entry(frame, 6, 1, ui_state, "secrets.cloud.user")
 
         self.components.label(frame, 7, 0, "SSH keyfile path",
@@ -68,7 +89,7 @@ class BaseCloudTabView(ABC):
         self.components.entry(frame, 8, 1, ui_state, "secrets.cloud.password")
 
         self.components.label(frame, 9, 0, "Cloud id",
-                         tooltip="RUNPOD Cloud ID. The cloud service must have a public IP and SSH service. Leave empty if you want to automatically create a new RUNPOD cloud, or if you're connecting to another cloud provider via SSH Hostname and Port.")
+                         tooltip="RunPod pod ID or Vast.ai instance ID. Leave empty to create a new instance, or when connecting directly by SSH hostname and port.")
         self.components.entry(frame, 9, 1, ui_state, "secrets.cloud.id")
 
         self.components.label(frame, 10, 0, "Tensorboard TCP tunnel",
@@ -123,7 +144,7 @@ class BaseCloudTabView(ABC):
         self.components.switch(frame, 16, 3, ui_state, "cloud.delete_workspace")
 
         self.components.label(frame, 1, 4, "Create cloud via API",
-                         tooltip="Automatically creates a new cloud instance if both Host:Port and Cloud ID are empty. Currently supported for RUNPOD.")
+                         tooltip="Automatically creates a new instance if both Host:Port and Cloud ID are empty. Supported for RUNPOD and VAST.")
         create_frame = self._make_create_frame(frame)
         self.components.switch(create_frame, 0, 0, ui_state, "cloud.create")
         self.components.button(create_frame, 0, 1, "Create cloud via website", controller.open_create_cloud_url)
@@ -131,13 +152,25 @@ class BaseCloudTabView(ABC):
         self.components.label(frame, 2, 4, "Cloud name",
                          tooltip="The name of the new cloud instance.")
         self.components.entry(frame, 2, 5, ui_state, "cloud.name")
-        self.components.label(frame, 3, 4, "Type",
-                         tooltip="Select the RunPod cloud type. See RunPod's website for details.")
-        self.components.options_kv(frame, 3, 5, [
+        self.runpod_type_label = self.components.label(
+            frame, 3, 4, "RunPod type",
+            tooltip="Select the RunPod cloud type. See RunPod's website for details.",
+        )
+        self.runpod_type_menu = self.components.options_kv(frame, 3, 5, [
             ("", ""),
             ("Community", "COMMUNITY"),
             ("Secure", "SECURE"),
         ], ui_state, "cloud.sub_type")
+
+        self.vast_type_label = self.components.label(
+            frame, 3, 4, "Vast.ai type",
+            tooltip="Choose on-demand, interruptible bid, or reserved Vast.ai offers.",
+        )
+        self.vast_type_menu = self.components.options_kv(frame, 3, 5, [
+            ("On-demand", "ondemand"),
+            ("Bid (interruptible)", "bid"),
+            ("Reserved", "reserved"),
+        ], ui_state, "cloud.vast_instance_type")
 
         self.components.label(frame, 4, 4, "GPU",
                          tooltip="Select the GPU type. Enter an API key before pressing the button.")
@@ -209,3 +242,17 @@ class BaseCloudTabView(ABC):
             ("Stop", CloudAction.STOP),
             ("Delete", CloudAction.DELETE),
         ], ui_state, "cloud.on_detached_error")
+
+        self._on_cloud_type_changed(controller.config.cloud.type)
+
+    def _on_cloud_type_changed(self, cloud_type):
+        if not hasattr(self, "runpod_api_label") or not hasattr(self, "runpod_type_label"):
+            return
+
+        is_runpod = cloud_type == CloudType.RUNPOD or str(cloud_type) == str(CloudType.RUNPOD)
+        is_vast = cloud_type == CloudType.VAST or str(cloud_type) == str(CloudType.VAST)
+
+        for widget in (self.runpod_api_label, self.runpod_api_entry, self.runpod_type_label, self.runpod_type_menu):
+            self._set_visible(widget, is_runpod)
+        for widget in (self.vast_api_label, self.vast_api_entry, self.vast_type_label, self.vast_type_menu):
+            self._set_visible(widget, is_vast)

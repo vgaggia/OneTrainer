@@ -29,6 +29,15 @@ class CtkCloudTabView(BaseCloudTabView):
     def _on_set_gpu_types(self):
         self.gpu_types_menu.configure(values=self.controller.get_gpu_types())
 
+    def _set_visible(self, widget, visible: bool):
+        if visible:
+            widget.grid()
+        else:
+            widget.grid_remove()
+
+    def _mask_secret(self, widget):
+        widget.configure(show="*")
+
     def _make_reattach_frame(self, frame):
         reattach_frame = ctk.CTkFrame(frame, fg_color="transparent")
         reattach_frame.grid(row=9, column=3, padx=0, pady=0, sticky="new")

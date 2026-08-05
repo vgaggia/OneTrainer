@@ -7,6 +7,7 @@ from pathlib import Path
 
 from modules.cloud.LinuxCloud import LinuxCloud
 from modules.cloud.RunpodCloud import RunpodCloud
+from modules.cloud.VastCloud import VastCloud
 from modules.trainer.BaseTrainer import BaseTrainer
 from modules.util.callbacks.TrainCallbacks import TrainCallbacks
 from modules.util.commands.TrainCommands import TrainCommands
@@ -36,6 +37,8 @@ class CloudTrainer(BaseTrainer):
         match config.cloud.type:
             case CloudType.RUNPOD:
                 self.cloud=RunpodCloud(self.remote_config)
+            case CloudType.VAST:
+                self.cloud=VastCloud(self.remote_config)
             case CloudType.LINUX:
                 self.cloud=LinuxCloud(self.remote_config)
 
@@ -46,7 +49,8 @@ class CloudTrainer(BaseTrainer):
         # it is also completely silent: the run just starts caching again and looks healthy.
         # clear_cache_before_training defaults to True, so anything that resets the config to
         # defaults re-arms it. Refuse rather than warn.
-        if (config.cloud.network_volume_id
+        if (config.cloud.type == CloudType.RUNPOD
+                and config.cloud.network_volume_id
                 and config.clear_cache_before_training
                 and config.latent_caching):
             raise ValueError(

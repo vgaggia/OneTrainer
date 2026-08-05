@@ -3,7 +3,36 @@ from modules.ui.CloudTabController import CloudTabController
 from modules.util.ui import pyside6_components
 from modules.util.ui.pyside6_util import QtABCMeta
 
-from PySide6.QtWidgets import QWidget
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QColor
+from PySide6.QtWidgets import QLineEdit, QStyledItemDelegate, QWidget
+
+_STOCK_COLORS = {
+    "High": "#66bb6a",
+    "Medium": "#ffb300",
+    "Low": "#ff7043",
+    "Available": "#66bb6a",
+    "Out of stock": "#9e9e9e",
+}
+
+
+class _GpuStockDelegate(QStyledItemDelegate):
+    """Paint availability and price right-aligned beside the GPU type."""
+
+    def paint(self, painter, option, index):
+        super().paint(painter, option, index)
+        marker = index.data(Qt.ItemDataRole.UserRole)
+        if not marker:
+            return
+        color_key = index.data(Qt.ItemDataRole.UserRole + 1)
+        painter.save()
+        painter.setPen(QColor(_STOCK_COLORS.get(color_key, "#9e9e9e")))
+        painter.drawText(
+            option.rect.adjusted(0, 0, -6, 0),
+            Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter,
+            marker,
+        )
+        painter.restore()
 
 
 class PySide6CloudTabView(BaseCloudTabView, QWidget, metaclass=QtABCMeta):
@@ -24,9 +53,50 @@ class PySide6CloudTabView(BaseCloudTabView, QWidget, metaclass=QtABCMeta):
 
         self.build_content(frame, controller, ui_state)
 
+        self.gpu_types_menu.setItemDelegate(_GpuStockDelegate(self.gpu_types_menu))
+        self.gpu_types_menu.view().setMinimumWidth(520)
+
     def _on_set_gpu_types(self):
-        self.gpu_types_menu.clear()
-        self.gpu_types_menu.addItems(self.controller.get_gpu_types())
+        combo = self.gpu_types_menu
+        previous = combo.currentText()
+        infos = self.controller.get_gpu_availability()
+
+        # Keep the visible item text as the plain GPU id because the UI-state
+        # binding saves currentText() into cloud.gpu_type.
+        combo.blockSignals(True)
+        combo.clear()
+        for index, info in enumerate(infos):
+            combo.addItem(info["id"])
+            marker = None
+            color_key = None
+            if "available" in info:
+                available = int(info["available"])
+                marker = f"{available} offer{'s' if available != 1 else ''}"
+                color_key = "Available" if available else "Out of stock"
+            elif "stock_status" in info:
+                marker = info["stock_status"] or "Out of stock"
+                color_key = marker
+
+            price = info.get("price")
+            if price is not None:
+                marker = f"{marker}  ${float(price):.2f}/h" if marker else f"${float(price):.2f}/h"
+            if marker:
+                combo.setItemData(index, marker, Qt.ItemDataRole.UserRole)
+                combo.setItemData(index, color_key, Qt.ItemDataRole.UserRole + 1)
+                combo.setItemData(index, marker, Qt.ItemDataRole.ToolTipRole)
+
+        selected_index = combo.findText(previous)
+        combo.setCurrentIndex(selected_index)
+        combo.blockSignals(False)
+
+        if selected_index < 0 and combo.count() > 0:
+            combo.setCurrentIndex(0)
+
+    def _set_visible(self, widget, visible: bool):
+        widget.setVisible(visible)
+
+    def _mask_secret(self, widget):
+        widget.setEchoMode(QLineEdit.EchoMode.Password)
 
     def _make_reattach_frame(self, frame):
         reattach_frame = QWidget(frame)

@@ -8,7 +8,8 @@ from modules.util.enum.CloudType import CloudType
 
 
 class CloudSecretsConfig(BaseConfig):
-    api_key: str
+    runpod_api_key: str
+    vast_api_key: str
     host: str
     port: int
     user: str
@@ -16,21 +17,34 @@ class CloudSecretsConfig(BaseConfig):
     key_file: str
     password: str
 
-    def __init__(self, data: list[(str, Any, type, bool)]):
-        super().__init__(data)
+    def __init__(
+            self,
+            data: list[(str, Any, type, bool)],
+            config_version: int = 0,
+            config_migrations: dict | None = None,
+    ):
+        super().__init__(data, config_version, config_migrations)
 
     @staticmethod
     def default_values():
+        def migrate_0(data: dict) -> dict:
+            data = data.copy()
+            data["runpod_api_key"] = data.get("runpod_api_key", data.get("api_key", ""))
+            data.setdefault("vast_api_key", "")
+            data.pop("api_key", None)
+            return data
+
         data = []
 
-        data.append(("api_key", "", str, False))
+        data.append(("runpod_api_key", "", str, False))
+        data.append(("vast_api_key", "", str, False))
         data.append(("id", "", str, False))
         data.append(("host", "", str, False))
         data.append(("port", 0, str, False))
         data.append(("user", "root", str, False))
         data.append(("key_file", "", str, False)) # whilst not a secret, makes more semantic sense here
         data.append(("password", "", str, False))
-        return CloudSecretsConfig(data)
+        return CloudSecretsConfig(data, config_version=1, config_migrations={0: migrate_0})
 
     def expanded_key_file(self) -> str:
         key_file = getattr(self, "key_file", "").strip()
@@ -59,6 +73,7 @@ class CloudConfig(BaseConfig):
     name: str
     tensorboard_tunnel: bool
     sub_type: str
+    vast_instance_type: str
     gpu_type: str
     gpu_count: int
     cuda_version: str
@@ -99,6 +114,7 @@ class CloudConfig(BaseConfig):
         data.append(("name", "OneTrainer", str, False))
         data.append(("tensorboard_tunnel", True, bool, False))
         data.append(("sub_type", "", str, False))
+        data.append(("vast_instance_type", "ondemand", str, False))
         data.append(("gpu_type", "", str, False))
         data.append(("gpu_count", 1, int, False))
         data.append(("cuda_version", "", str, False))
